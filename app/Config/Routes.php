@@ -69,6 +69,8 @@ $routes->get('login', 'Auth::index');                // vista login
 $routes->post('login/acceder', 'Auth::acceder');     // procesar login
 $routes->get('logout', 'Auth::salir');               // cerrar sesión
 
-// Crear usuario
-$routes->get('pagina/create_l', 'Auth::crear_usuario');
-$routes->post('pagina/guardar', 'Auth::guardar');
+// Mostrar el formulario de registro
+$routes->get('pagina/registrar', 'Auth::crear_usuario');
+
+// Procesar el formulario y guardar el usuario
+$routes->post('pagina/registrar', 'Auth::registrar');

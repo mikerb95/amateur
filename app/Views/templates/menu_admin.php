@@ -15,6 +15,8 @@
             <li><a href="<?= base_url('admin/usuarios') ?>">Usuarios</a></li>
             <li><a href="<?= base_url('admin/clases') ?>">Clases</a></li>
             <li><a href="<?= base_url('admin/reservas') ?>">Reservas</a></li>
+            <li><a href="<?= base_url('logout') ?>" class="logout-btn">Cerrar sesión</a></li>
+
         </ul>
     </nav>
 </header>

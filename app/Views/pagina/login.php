@@ -27,7 +27,7 @@
       <a href="#">¿Olvidaste tu contraseña?</a>
       <p class="divider">_____________________________________</p>
 
-      <a href="<?= site_url('pagina/create_l') ?>" class="btn">Crear cuenta nueva</a>
+      <a href="<?= site_url('pagina/registrar') ?>" class="btn">Crear cuenta nueva</a>
     </form>
   </div>
 </div>

@@ -15,13 +15,26 @@ class PerfilModel extends Model
         'id_usuario'
     ];
 
-    /**
-     * Valida el login por usuario y contraseña
-     */
-    public function login($usuario, $password)
-    {
-        return $this->where('nombre_usuario', $usuario)
-                    ->where('contraseña', $password)
-                    ->first();
+
+ public function login($usuario, $password)
+{
+    $data = $this->where('nombre_usuario', $usuario)->first();
+
+    if (!$data) {
+        return false;
     }
+
+    // Si la contraseña está en texto plano
+    if ($data['contraseña'] === $password) {
+        return $data;
+    }
+
+    // Si está en hash (usuarios normales)
+    if (password_verify($password, $data['contraseña'])) {
+        return $data;
+    }
+
+    return false;
+}
+
 }

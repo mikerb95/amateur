@@ -15,6 +15,7 @@
             <li><a href="<?= base_url('mis_clases') ?>">Mis Clases</a></li>
             <li><a href="<?= base_url('reservar') ?>">Reservar</a></li>
             <li><a href="<?= base_url('perfil') ?>">Perfil</a></li>
+            <li><a href="<?= base_url('logout') ?>" class="logout-btn">Cerrar sesión</a></li>
         </ul>
     </nav>
 </header>
