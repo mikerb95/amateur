@@ -87,4 +87,11 @@ class Auth extends BaseController
     {
         return view('pagina/registrar');
     }
+
+     public function editar($idUsuario)
+    {
+        $model = new DatosUsuarioModel();
+        $data['usuario'] = $model->find($idUsuario);
+        return view('adminCrud/editar', $data);
+}
 }
