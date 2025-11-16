@@ -1,11 +1,15 @@
 /* ======== ESTILOS GENERALES ======== */
 body {
     margin: 0;
+    padding: 0  ;
     font-family: 'Poppins', sans-serif;
     background-color: #000;
     color: #fff;
     overflow-x: hidden;
+
 }
+
+
 
 /* Animación global de entrada */
 body, .main-content, .card, .menu-usuario {
@@ -66,6 +70,51 @@ body, .main-content, .card, .menu-usuario {
     width: 50%;
 }
 
+/* ======== BARRA LATERAL ======== */
+.menu-principal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;   /* Toda la altura de la pantalla */
+    background: #000; /* O el color que tú quieras */
+    padding-top: 20px; /* Ajusta si quieres un pequeño espacio */
+}
+
+
+.menu-principal li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 20px;
+    display: block;             /* ✔ habilita transform */
+    transition: all 0.3s ease;
+}
+
+.menu-principal li a:hover {
+    color: #7c0bd9;
+    transform: translateY(-3px); /* ✔ efecto de elevación */
+}
+
+
+/* Para que el contenido no quede debajo */
+.contenido {
+    margin-left: 230px;
+    padding: 20px;
+} 
+
+
+
+/* ======== LOGO ======== */
+  .log img {
+    width: 10%;
+    height: auto;
+    margin-bottom: 20px;
+}
+  
+
+
 /* ======== DASHBOARD ======== */
 .dashboard {
     margin-top: 100px;
@@ -115,6 +164,8 @@ body, .main-content, .card, .menu-usuario {
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(166, 77, 255, 0.6);
 }
+
+/*Logo en el menú*/
 
 /* ======== TABLAS ======== */
 .main-content {
@@ -192,6 +243,7 @@ body, .main-content, .card, .menu-usuario {
     color: #d2a8ff;
     transition: color 0.3s ease;
 }
+
 .action-buttons {
     display: flex;
     justify-content: center;
@@ -228,195 +280,79 @@ body, .main-content, .card, .menu-usuario {
     transform: scale(1.05);
 }
 
-/* --- Animación general --- */
-.fade-in {
-  animation: fadeIn 0.6s ease-in-out;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
 
-/* --- Contenedor del formulario --- */
+/* ======== FORMULARIOS ======== */
+/* ======== FORMULARIO DE EDICIÓN ======== */
+
 .form-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  background: #111;
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(128, 0, 128, 0.4);
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
 }
 
-/* --- Campos del formulario --- */
-.styled-form label {
-  color: #fff;
-  font-weight: 600;
-  display: block;
-  margin-bottom: 0.5rem;
+.form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
 }
 
-.styled-form input,
-.styled-form select {
-  width: 100%;
-  padding: 0.7rem;
-  border: 1px solid #555;
-  border-radius: 8px;
-  background: #1c1c1c;
-  color: #fff;
-  transition: all 0.3s ease;
+.form-row label {
+    font-weight: 600;
+    color: #3b006a;
+    margin-bottom: 6px;
 }
 
-.styled-form input:focus,
-.styled-form select:focus {
-  border-color: #a020f0;
-  box-shadow: 0 0 8px #a020f0;
-  outline: none;
+.form-row input {
+    padding: 12px;
+    border: 2px solid #dcd2ff;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
 }
 
-.form-group {
-  margin-bottom: 1.2rem;
+.form-row input:focus {
+    border-color: #7a1fc5;
+    box-shadow: 0 0 6px rgba(122, 31, 197, 0.4);
 }
 
-/* --- Botones --- */
-.button-group {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1.5rem;
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
 }
 
-.btn-primary,
-.btn-secondary {
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  text-align: center;
+.btn-save {
+    padding: 10px 20px;
+    background-color: #3b006a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.btn-primary {
-  background: linear-gradient(135deg, #800080, #a020f0);
-  color: #fff;
+.btn-save:hover {
+    background-color: #5a00a3;
+    transform: scale(1.05);
 }
 
-.btn-primary:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(160, 32, 240, 0.6);
+.btn-cancel {
+    padding: 10px 20px;
+    background-color: #b3003b;
+    color: white;
+    border-radius: 8px;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: 0.3s;
 }
 
-.btn-secondary {
-  background: #333;
-  color: #fff;
+.btn-cancel:hover {
+    background-color: #e6005c;
+    transform: scale(1.05);
 }
-
-.btn-secondary:hover {
-  background: #555;
-  transform: scale(1.05);
-}
-
-/* --- Título --- */
-.title {
-  text-align: center;
-  color: #a020f0;
-  font-size: 2rem;
-  margin-top: 1rem;
-}
-
-/* --- Animación general --- */
-.fade-in {
-  animation: fadeIn 0.6s ease-in-out;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* --- Contenedor del formulario --- */
-.form-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  background: #111;
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(128, 0, 128, 0.4);
-}
-
-/* --- Campos del formulario --- */
-.styled-form label {
-  color: #fff;
-  font-weight: 600;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.styled-form input,
-.styled-form select {
-  width: 100%;
-  padding: 0.7rem;
-  border: 1px solid #555;
-  border-radius: 8px;
-  background: #1c1c1c;
-  color: #fff;
-  transition: all 0.3s ease;
-}
-
-.styled-form input:focus,
-.styled-form select:focus {
-  border-color: #a020f0;
-  box-shadow: 0 0 8px #a020f0;
-  outline: none;
-}
-
-.form-group {
-  margin-bottom: 1.2rem;
-}
-
-/* --- Botones --- */
-.button-group {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1.5rem;
-}
-
-.btn-primary,
-.btn-secondary {
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  text-align: center;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, #800080, #a020f0);
-  color: #fff;
-}
-
-.btn-primary:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(160, 32, 240, 0.6);
-}
-
-.btn-secondary {
-  background: #333;
-  color: #fff;
-}
-
-.btn-secondary:hover {
-  background: #555;
-  transform: scale(1.05);
-}
-
-/* --- Título --- */
-.title {
-  text-align: center;
-  color: #a020f0;
-  font-size: 2rem;
-  margin-top: 1rem;
-}
- 
