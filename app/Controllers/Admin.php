@@ -129,6 +129,17 @@ class Admin extends BaseController
         return view('admin/clases', ['clases' => $clases]);
     }
 
+    public function editar_clase($id_clases)
+    {
+        // Lógica para editar una clase
+        $claseModel = new ClaseModel();
+        $clase = $claseModel->find($id_clases);
+        if (!$clase) {
+            throw new PageNotFoundException("Clase no encontrada");
+        }
+        return view('admin/editar_clase', ['clase' => $clase]);
+    }
+
 
     // =========================
     // 🗓️ GESTIÓN DE RESERVAS

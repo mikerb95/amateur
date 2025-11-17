@@ -88,10 +88,50 @@ class Auth extends BaseController
         return view('pagina/registrar');
     }
 
+    public function Crear_usuarioAd()
+    {
+        return view('admin/Crear_usuario');
+    }
+
+    public function guardar_usuario()
+{
+    $model = new DatosUsuarioModel();
+
+    $model->save([
+        'nombre'   => $this->request->getPost('nombre'),
+        'apellido' => $this->request->getPost('apellido'),
+        'cedula'   => $this->request->getPost('cedula'),
+        'correo'   => $this->request->getPost('correo'),
+        'telefono' => $this->request->getPost('telefono'),
+        'direccion'=> $this->request->getPost('direccion'),
+        'genero'   => $this->request->getPost('genero'),
+    ]);
+
+    return redirect()->to(base_url('admin/usuarios'));
+}
+
+
      public function editar($idUsuario)
     {
         $model = new DatosUsuarioModel();
         $data['usuario'] = $model->find($idUsuario);
         return view('adminCrud/editar', $data);
 }
+   public function eliminar($idUsuario)
+{
+    $perfilModel = new PerfilModel();
+    $usuarioModel = new DatosUsuarioModel();
+
+    // 1️⃣ Eliminar el perfil primero
+    $perfilModel->where('id_usuario', $idUsuario)->delete();
+
+    // 2️⃣ Luego eliminar el usuario
+    $usuarioModel->delete($idUsuario);
+
+    return redirect()
+        ->to('/admin/usuarios')
+        ->with('mensaje', 'Usuario eliminado correctamente');
+}
+
+
 }
