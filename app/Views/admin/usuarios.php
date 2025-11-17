@@ -4,6 +4,10 @@
     <h1 class="title">Usuarios Registrados</h1>
 
     <?php if (!empty($usuarios) && is_array($usuarios)): ?>
+        <div>
+           <a href="<?= base_url('admin/Crear_usuario'); ?>" class="btn-crear">Crear usuario</a>
+
+        </div>
         <div class="table-container">
             <table class="styled-table">
                 <thead>
@@ -24,7 +28,7 @@
                             <td><?= esc($usuario['cedula']) ?></td>
                             <td>
                                 <div class="action-buttons">
-                                    <a href="<?= base_url('admin/editar_usuario/'.$usuario['id_usuario']); ?>" class="btn-edit">Editar</a>
+                                    <a href="<?= base_url('admin/editar_usuario/'.$usuario['id_usuario']); ?>" method="POST" class="btn-edit">Editar</a>
                                     <a href="<?= base_url('admin/eliminar_usuario/'.$usuario['id_usuario']); ?>" 
                                        class="btn-delete"
                                        onclick="return confirm('¿Seguro que deseas eliminar este usuario?')">

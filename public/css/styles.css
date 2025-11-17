@@ -250,7 +250,7 @@ body, .main-content, .card, .menu-usuario {
     gap: 10px;
 }
 
-.btn-edit, .btn-delete {
+.btn-edit, .btn-delete, .btn-crear {
     border: none;
     padding: 8px 12px;
     border-radius: 8px;
@@ -259,6 +259,17 @@ body, .main-content, .card, .menu-usuario {
     cursor: pointer;
     transition: transform 0.2s, background-color 0.3s;
 }
+
+.btn-crear {
+    background-color:#00FF00 ;
+    text-decoration: none;
+    margin-bottom: 30px;
+}
+.btn-crear:hover {
+    background-color: #4ef24e;
+    transform: scale(1.05);
+}
+
 
 .btn-edit {
     background-color: #3b006a;
@@ -356,3 +367,20 @@ body, .main-content, .card, .menu-usuario {
     background-color: #e6005c;
     transform: scale(1.05);
 }
+
+
+.form-group select {
+    padding: 12px;
+    border: 2px solid #dcd2ff;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.form-group select:focus {
+    border-color: #7a1fc5;
+    box-shadow: 0 0 6px rgba(122, 31, 197, 0.4);
+}
+

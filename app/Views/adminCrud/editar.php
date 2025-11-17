@@ -4,8 +4,8 @@
     <h1 class="title">Editar Usuario</h1>
 
     <div class="form-container">
-        <form action="<?= base_url('admin/usuarios/' . $usuario['id_usuario']); ?>" method="post">
-            
+      <form action="<?= base_url('admin/actualizar_usuario/' . $usuario['id_usuario']); ?>" method="post">
+
             <div class="form-row">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" 

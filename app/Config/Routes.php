@@ -39,9 +39,12 @@ $routes->group('admin', ['namespace' => 'App\Controllers'], function($routes) {
     $routes->get('reservas', 'Admin::reservas');
 
     // --- Gestión de usuarios ---
+
     $routes->get('editar_usuario/(:num)', 'Auth::editar/$1');
     $routes->post('actualizar_usuario/(:num)', 'Admin::actualizar_usuario/$1');
-    $routes->get('eliminar_usuario/(:num)', 'Admin::eliminar_usuario/$1');
+    $routes->post('guardar_usuario', 'Auth::guardar_usuario');
+    $routes->get('eliminar_usuario/(:num)', 'Auth::eliminar/$1');
+    $routes->get('Crear_usuario', 'Auth::Crear_usuarioAd');
 
     // --- Gestión de clases ---
     $routes->get('editar_clase/(:num)', 'Admin::editar_clase/$1');
