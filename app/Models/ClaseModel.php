@@ -24,9 +24,9 @@ class ClaseModel extends Model
     protected $useTimestamps = false;
 
     // Obtener todas
-    public function getAll()
+    public function getAll($id_clases)
     {
-        return $this->findAll();
+        return $this->findAll($id_clases);
     }
 
     public function getById($id)

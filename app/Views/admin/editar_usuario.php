@@ -1,4 +1,4 @@
-<?= $this->include('templates/menu_admin') ?>
+<?= $this->include('templates/menu_principal') ?>
 
 <div class="main-content fade-in">
     <h1 class="title">Editar Usuario</h1>
