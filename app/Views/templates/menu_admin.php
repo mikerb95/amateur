@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="<?= base_url('css/styles.css') ?>">
 </head>
 <body>
-<header class="menu-usuario"> 
+<header class="menu-admin"> 
     <nav>
         <ul>
             <li><a href="<?= base_url('admin') ?>">Inicio</a></li>

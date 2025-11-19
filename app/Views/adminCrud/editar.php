@@ -4,7 +4,14 @@
     <h1 class="title">Editar Usuario</h1>
 
     <div class="form-container">
-      <form action="<?= base_url('admin/actualizar_usuario/' . $usuario['id_usuario']); ?>" method="post">
+
+        <?php if(session()->getFlashdata('error')): ?>
+            <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+        <?php endif; ?>
+
+        <form action="<?= base_url('admin/actualizar_usuario/' . $usuario['id_usuario']); ?>" method="post">
+
+            <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
 
             <div class="form-row">
                 <label for="nombre">Nombre:</label>
@@ -30,13 +37,8 @@
             </div>
 
         </form>
+
     </div>
 </div>
-
-<?= $this->include('templates/footer') ?>
-
-
-
-
 
 <?= $this->include('templates/footer') ?>

@@ -20,6 +20,8 @@ $routes->group('usuarios', function($routes) {
     $routes->get('dashboard', 'Usuario::dashboard_usuario');
     $routes->get('mis_clases', 'Usuario::mis_clases');
     $routes->get('reservar', 'Usuario::reservar');
+    $routes->post('hacer_reserva/(:num)', 'Usuario::hacer_reserva/$1');
+    $routes->post('cancelar_reserva/(:num)', 'Usuario::cancelar_reserva/$1');
     $routes->get('perfil', 'Usuario::perfil');
 });
 
