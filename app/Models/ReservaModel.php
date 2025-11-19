@@ -37,5 +37,19 @@ class ReservaModel extends Model
                 ->countAllResults() > 0;
     }
 
+    public function getAll()
+{
+    return $this->select('
+            reservas.id_reservas      AS id,
+            datos_usuarios.nombre     AS usuario_nombre,
+            clases.nombre             AS clase_nombre,
+            reservas.fecha_reserva    AS fecha_reserva,
+            "Activa"                  AS estado
+        ')
+        ->join('datos_usuarios', 'datos_usuarios.id_usuario = reservas.id_usuario')
+        ->join('clases', 'clases.id_clases = reservas.id_clases')
+        ->findAll();
+}
+
 
 }
