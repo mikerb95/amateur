@@ -8,14 +8,16 @@
     <link rel="stylesheet" href="<?= base_url('css/styles.css') ?>">
 </head>
 <body>
-<header class="menu-usuario">
-    <nav>
+
+<div class="menu-usuario">
         <ul>
-            <li><a href="<?= base_url('dashboard_usuario') ?>">Inicio</a></li>
-            <li><a href="<?= base_url('mis_clases') ?>">Mis Clases</a></li>
-            <li><a href="<?= base_url('reservar') ?>">Reservar</a></li>
-            <li><a href="<?= base_url('perfil') ?>">Perfil</a></li>
+            <li><a href="<?= base_url('usuarios') ?>">Inicio</a></li>
+            <li><a href="<?= base_url('usuarios/mis_clases') ?>">Mis Clases</a></li>
+            <li><a href="<?= base_url('usuarios/reservar') ?>">Reservar</a></li>
+            <li><a href="<?= base_url('usuarios/perfil') ?>">Perfil</a></li>
             <li><a href="<?= base_url('logout') ?>" class="logout-btn">Cerrar sesión</a></li>
         </ul>
-    </nav>
-</header>
+</div>
+
+</body>
+</html>

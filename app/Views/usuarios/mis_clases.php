@@ -1,35 +1,49 @@
-<?= $this->include('templates/menu_usuario') ?>
+<?= $this->include('templates/menu_principal_u') ?>
+<link rel="stylesheet" href="<?= base_url('css/reservas.css') ?>">
 
 <div class="main-content">
-    <h1 class="title">Mis Clases</h1>
+    <div class="profile-info">
 
-    <?php if (!empty($clases) && is_array($clases)): ?>
-        <div class="table-container">
-            <table class="styled-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Día</th>
-                        <th>Hora</th>
-                        <th>Instructor</th>
-                        <th>Fecha de Reserva</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($clases as $index => $clase): ?>
-                        <tr>
-                            <td><?= $index + 1 ?></td>
-                            <td><?= esc($clase['dia']) ?></td>
-                            <td><?= esc($clase['hora']) ?></td>
-                            <td><?= esc($clase['fecha_reserva']) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    <?php else: ?>
-        <p class="no-data">No tienes clases reservadas.</p>
-    <?php endif; ?>
+        <h1 class="title">Mis Clases Reservadas</h1>
+        <?php if (!empty($clases)) : ?>
+
+            <?php foreach ($clases as $clase) : ?>
+
+                <div class="class-card">
+                    <h3><?= esc($clase['nombre']) ?></h3>
+
+                    <p class="coach">
+                        Entrenador: <?= esc($clase['id_rol']) ?>
+                    </p>
+
+                    <p class="time">
+                        <?= esc($clase['dia_semana']) ?> /
+                        <?= date('h:i A', strtotime($clase['hora_inicio'])) ?> –
+                        <?= date('h:i A', strtotime($clase['hora_fin'])) ?>
+                    </p>
+
+                    <p class="room">
+                        Sala: <?= esc($clase['id_planes']) ?>
+                    </p>
+                    <form action="<?= base_url('usuarios/cancelar_reserva/' . $clase['id_reservas']) ?>" method="post">
+                        <button class="btn-reservar" 
+                            style="background:#b30000; margin-top:10px;">
+                            Cancelar Reserva
+                        </button>
+                    </form>
+                </div>
+
+            <?php endforeach; ?>
+
+                    <?php if (session()->getFlashdata('mensaje')) : ?>
+    <p style="color:#b00; font-weight:bold;">
+        <?= session()->getFlashdata('mensaje') ?>
+    </p>
+<?php endif; ?>
+
+        <?php else : ?>
+            <p>No tienes clases reservadas aún.</p>
+        <?php endif; ?>
+
+    </div>
 </div>
-
-<?= $this->include('templates/footer') ?>
