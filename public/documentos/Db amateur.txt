@@ -57,6 +57,10 @@ CREATE TABLE planes (
   total_clases INT NOT NULL
 );
 
+INSERT INTO planes (nombre, descripcion, precio, total_clases)
+VALUES ('Plan Mensual', 'Acceso general al gimnasio', 120000, 999);
+
+
 -- =============================================
 -- TABLA: clases
 -- =============================================
@@ -74,6 +78,16 @@ CREATE TABLE clases (
   FOREIGN KEY (id_rol) REFERENCES roles(id_rol),
   FOREIGN KEY (id_planes) REFERENCES planes(id_planes)
 );
+
+INSERT INTO clases 
+(nombre, descripcion, dia_semana, hora_inicio, hora_fin, cupo_maximo, cupo_disponible, id_rol, id_planes)
+VALUES
+('POWERFIT', 'Clase POWERFIT para tonificación', 'Martes', '07:00:00', '08:00:00', 20, 20, 1, 1);
+
+SELECT * FROM planes;
+SELECT * FROM roles;
+
+
 
 -- =============================================
 -- TABLA: reservas
@@ -144,3 +158,4 @@ INSERT INTO perfil (
 );
 
 SELECT * FROM datos_usuarios;
+DELETE FROM reservas;
