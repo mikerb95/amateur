@@ -24,9 +24,9 @@ class ClaseModel extends Model
     protected $useTimestamps = false;
 
     // Obtener todas
-    public function getAll($id_clases)
+    public function getAll()
     {
-        return $this->findAll($id_clases);
+        return $this->findAll();
     }
 
     public function getById($id)
@@ -34,7 +34,29 @@ class ClaseModel extends Model
         return $this->find($id);
     }
 
+    // =========================
+    // 🟢 NUEVO: Obtener clases con cupos disponibles
+    // =========================
+    public function getDisponibles()
+    {
+        $clases = $this->where('cupo_disponible >', 0)
+                       ->orderBy('dia_semana', 'ASC')
+                        ->orderBy('hora_inicio', 'ASC') // ordenar por hora
+                       ->findAll();
+
+        // Transformar para la vista
+        foreach ($clases as &$clase) {
+            $clase['dia'] = $clase['dia_semana'];
+            $clase['hora'] = $clase['hora_inicio'];
+            $clase['cupos'] = $clase['cupo_disponible'];
+        }
+
+        return $clases;
+    }
+
+    // =========================
     // Cupos
+    // =========================
     public function reducirCupo($id)
     {
         $clase = $this->find($id);

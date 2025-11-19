@@ -1,32 +1,59 @@
-<?= $this->include('templates/menu_usuario') ?>
+<?= $this->include('templates/menu_principal_u') ?>
+<link rel="stylesheet" href="<?= base_url('css/reservas.css') ?>">
+<script src="<?= base_url('js/reservas.js') ?>"></script>
 
-<section class="dashboard">
-    <h2>Reservar Nueva Clase</h2>
 
-    <?php if (!empty($clases)): ?>
-        <table class="tabla">
-            <thead>
-                <tr>
-                    <th>Día</th>
-                    <th>Hora</th>
-                    <th>Cupos</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($clases as $clase): ?>
-                    <tr>
-                        <td><?= esc($clase['dia']) ?></td>
-                        <td><?= esc($clase['hora']) ?></td>
-                        <td><?= esc($clase['cupos']) ?>/8</td>
-                        <td><a href="#" class="btn">Reservar</a></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p>No hay clases disponibles en este momento.</p>
+
+<div class="main-content">
+    <div class="profile-info">
+    <h1 class="title">Reservar Nueva Clase</h1>
+
+<div class="days-nav">
+    <button class="day active" data-day="lunes">Lunes</button>
+    <button class="day" data-day="martes">Martes</button>
+    <button class="day" data-day="miércoles">Miércoles</button>
+    <button class="day" data-day="jueves">Jueves</button>
+    <button class="day" data-day="viernes">Viernes</button>
+    <button class="day" data-day="sábado">Sábado</button>
+    <button class="day" data-day="domingo">Domingo</button>
+</div>
+<div class="class-cards">
+
+    <?php if (!empty($clases)) : ?>
+        <?php foreach ($clases as $clase) : ?>
+
+            <div class="class-card" data-day="<?= strtolower(esc($clase['dia_semana'])) ?>">
+                <h3><?= esc($clase['nombre']) ?></h3>
+
+                <p class="coach">
+                    Entrenador: <?= esc($clase['id_rol']) ?>
+                </p>
+
+                <p class="time">
+                    <?= date('h:i A', strtotime($clase['hora_inicio'])) ?>
+                    –
+                    <?= date('h:i A', strtotime($clase['hora_fin'])) ?>
+                </p>
+
+                <p class="room">
+                    Sala: <?= esc($clase['id_planes']) ?>
+                </p>
+
+                <form action="<?= base_url('usuarios/hacer_reserva/' . $clase['id_clases']) ?>" method="post">
+                    <button class="btn-reservar">Reservar</button>
+                </form>
+
+            </div>
+
+        <?php endforeach; ?>
+    <?php else : ?>
+
+        <p>No hay clases disponibles actualmente.</p>
+
     <?php endif; ?>
-</section>
 
-<?= $this->include('templates/footer') ?>
+</div>
+</div>
+</div>
+
+

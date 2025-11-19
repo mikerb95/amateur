@@ -1,0 +1,178 @@
+.menu-principal_u {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;   /* Toda la altura de la pantalla */
+    background: #000; /* O el color que tú quieras */
+    padding-top: 20px; /* Ajusta si quieres un pequeño espacio */
+}
+
+
+.menu-principal_u li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 20px;
+    display: block;             /* ✔ habilita transform */
+    transition: all 0.3s ease;
+}
+
+.menu-principal_u li a:hover {
+    color: #7c0bd9;
+    transform: translateY(-3px); /* ✔ efecto de elevación */
+}
+
+/* Para que el contenido no quede debajo */
+.contenido {
+    margin-left: 230px; /* mismo ancho del menú */
+    padding: 20px;
+    min-height: calc(100vh - 80px);
+} 
+
+.main-content {
+    margin-left: 230px;      /* menú lateral */
+    min-height: 100vh;
+    background-color: #f8f8f8;
+    /* quitamos el flex centrado */
+    display: block;
+    padding: 40px 40px 40px 40px;
+}
+
+.profile-info {
+    background: #fff;
+    padding: 25px;
+    width: 100%;          /* ocupa todo el ancho disponible */
+    max-width: 1100px;    /* límite tipo Bodytech */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;       /* centrado dentro del área grande */
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.label {
+    font-weight: bold;
+     color: #333;
+    width: 40%;
+}
+
+.no-data {
+    text-align: center;
+    color: #b00;
+    font-weight: bold;
+}
+
+/*DIAS*/
+
+.days-nav {
+    display: flex;
+    justify-content: center;  /* puedes dejarlo centrado */
+    gap: 12px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.day {
+    padding: 8px 18px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f5f5f5;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+
+.day:hover {
+    background: #e0d7f5;
+    border-color: #9b59b6;
+    transform: translateY(-3px);
+}
+
+.day.active {
+    background: #7b2cbf;
+    color: white;
+    border-color: #7b2cbf;
+}
+
+/* LISTA DE CLASES: columna, full width */
+.class-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+    align-items: flex-start;   /* alineación izquierda */
+}
+
+
+
+/* CADA CARD: ancho casi completo */
+.class-card {
+    width: 100%;
+    max-width: 900px;         /* opcional, para que no sea gigante en pantallas enormes */
+    margin: 0 auto;           /* centrada en el contenedor */
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 16px 18px;
+    border: 1px solid #f1d2b8;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.class-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #7b2cbf;
+    margin: 0 0 4px 0;
+}
+
+.class-card p {
+    margin: 0;
+    font-size: 13px;
+    color: #444;
+}
+
+.class-card .time {
+    font-weight: 600;
+}
+
+.btn-reservar {
+    margin-top: 10px;
+    align-self: flex-start;
+    padding: 6px 14px;
+    border: none;
+    border-radius: 999px;
+    background: #7b2cbf;
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-reservar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+
+
+
+

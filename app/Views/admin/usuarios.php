@@ -6,6 +6,8 @@
     <?php if (!empty($usuarios) && is_array($usuarios)): ?>
         <div>
            <a href="<?= base_url('admin/Crear_usuario'); ?>" class="btn-crear">Crear usuario</a>
+           <br>
+           <br>
 
         </div>
         <div class="table-container">

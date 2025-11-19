@@ -82,41 +82,49 @@ class Admin extends BaseController
     }
 
 
-    // =========================
+   // =========================
     // 💾 ACTUALIZAR USUARIO
     // =========================
     public function actualizar_usuario($id = null)
-    {
-        $usuarioModel = new DatosUsuarioModel();
-        $perfilModel  = new PerfilModel();
+{
+    $usuarioModel = new DatosUsuarioModel();
 
-        // datos personales
-        $dataUsuario = [
-            'nombre'    => $this->request->getPost('nombre'),
-            'apellido'  => $this->request->getPost('apellido'),
-            'cedula'    => $this->request->getPost('cedula'),
-            'correo'    => $this->request->getPost('correo'),
-            'telefono'  => $this->request->getPost('telefono'),
-            'direccion' => $this->request->getPost('direccion'),
-            'genero'    => $this->request->getPost('genero'),
-        ];
-
-        // credenciales
-        $dataPerfil = [
-            'id_rol' => $this->request->getPost('id_rol')
-        ];
-
-        $usuarioModel->update($id, $dataUsuario);
-
-        $perfil = $perfilModel->where('id_usuario', $id)->first();
-        if ($perfil) {
-            $perfilModel->update($perfil['id_perfil'], $dataPerfil);
-        }
-
-        return redirect()->to(base_url('admin/usuarios'))
-                         ->with('mensaje', 'Usuario actualizado correctamente');
+    // 1️⃣ Buscar usuario
+    $usuario = $usuarioModel->find($id);
+    if (!$usuario) {
+        throw new \CodeIgniter\Exceptions\PageNotFoundException("Usuario no encontrado");
     }
 
+    // 2️⃣ Datos personales del formulario
+    $nombre   = $this->request->getPost('nombre');
+    $apellido = $this->request->getPost('apellido');
+    $cedula   = $this->request->getPost('cedula');
+
+    // 3️⃣ Validaciones básicas
+    if (empty($nombre) || empty($apellido) || empty($cedula)) {
+        return redirect()->back()->with('error', 'Todos los campos son obligatorios.');
+    }
+
+    // 4️⃣ Opcional: validar que la cédula no esté repetida
+    $usuarioExistente = $usuarioModel->where('cedula', $cedula)
+                                     ->where('id_usuario !=', $id)
+                                     ->first();
+    if ($usuarioExistente) {
+        return redirect()->back()->with('error', 'La cédula ya está registrada en otro usuario.');
+    }
+
+    // 5️⃣ Preparar datos y actualizar
+    $dataUsuario = [
+        'nombre'   => $nombre,
+        'apellido' => $apellido,
+        'cedula'   => $cedula
+    ];
+    $usuarioModel->update($id, $dataUsuario);
+
+    // 6️⃣ Redirigir con mensaje de éxito
+    return redirect()->to(base_url('admin/usuarios'))
+                     ->with('mensaje', 'Usuario actualizado correctamente.');
+}
 
     // =========================
     // 📚 GESTIÓN DE CLASES
