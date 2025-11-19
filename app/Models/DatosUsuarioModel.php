@@ -17,4 +17,9 @@ class DatosUsuarioModel extends Model
         'telefono',
         'genero'
     ];
+
+        public function getById($id_usuario)
+    {
+        return $this->where($this->primaryKey, $id_usuario)->first();
+    }
 }

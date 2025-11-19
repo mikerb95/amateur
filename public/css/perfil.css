@@ -1,0 +1,86 @@
+.menu-principal_u {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;   /* Toda la altura de la pantalla */
+    background: #000; /* O el color que tú quieras */
+    padding-top: 20px; /* Ajusta si quieres un pequeño espacio */
+}
+
+
+.menu-principal_u li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 20px;
+    display: block;             /* ✔ habilita transform */
+    transition: all 0.3s ease;
+}
+
+.menu-principal_u li a:hover {
+    color: #7c0bd9;
+    transform: translateY(-3px); /* ✔ efecto de elevación */
+}
+
+/* Para que el contenido no quede debajo */
+.contenido {
+    margin-left: 230px; /* mismo ancho del menú */
+    padding: 20px;
+    min-height: calc(100vh - 80px);
+} 
+
+.main-content {
+    margin-left: 230px;      /* el ancho del menú lateral */
+    min-height: 100vh;       /* ocupa todo el alto de la ventana */
+    background-color: #fff;  /* tapa el negro del body solo aquí */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 60px;
+}
+
+.profile-info {
+    background: #fff;
+    padding: 25px;
+    width: 450px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /*transform: translateX(350px);*/
+    margin: 0 auto;   /* que se centre dentro del espacio disponible */
+        
+
+ }
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.label {
+    font-weight: bold;
+     color: #333;
+    width: 40%;
+}
+
+.no-data {
+    text-align: center;
+    color: #b00;
+    font-weight: bold;
+}
+
+
+
+

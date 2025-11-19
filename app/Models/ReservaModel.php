@@ -8,70 +8,34 @@ class ReservaModel extends Model
 {
     protected $table = 'reservas';
     protected $primaryKey = 'id_reservas';
-    protected $allowedFields = ['id_usuario', 'id_clases', 'fecha_reserva'];
-    protected $useTimestamps = false;
 
-    // =========================
-    // 📚 OBTENER RESERVAS
-    // =========================
+    protected $allowedFields = [
+        'id_usuario',
+        'id_clases',
+        'fecha_reserva'
+    ];
 
-    /**
-     * Obtener todas las reservas con info de usuario y clase
-     */
-    public function getAll()
+    // Crear una nueva reserva
+    public function crearReserva($idUsuario, $idClase)
     {
-        return $this->select('reservas.*, 
-                              datos_usuarios.nombre as usuario, 
-                              clases.nombre as clase, 
-                              clases.hora_inicio, 
-                              clases.hora_fin')
-                    ->join('datos_usuarios', 'datos_usuarios.id_usuario = reservas.id_usuario')
-                    ->join('clases', 'clases.id_clases = reservas.id_clases')
-                    ->findAll();
+        return $this->insert([
+            'id_usuario' => $idUsuario,
+            'id_clases'  => $idClase
+        ]);
     }
 
-    /**
-     * Obtener reservas de un usuario específico
-     */
-    public function getByUsuario($id_usuario)
+    // Obtener reservas por usuario
+    public function getByUsuario($idUsuario)
     {
-        return $this->select('reservas.*, 
-                              clases.nombre as clase, 
-                              clases.hora_inicio, 
-                              clases.hora_fin')
-                    ->join('clases', 'clases.id_clases = reservas.id_clases')
-                    ->where('reservas.id_usuario', $id_usuario)
-                    ->findAll();
+        return $this->where('id_usuario', $idUsuario)->findAll();
     }
 
-    /**
-     * Obtener reservas de una clase específica
-     */
-    public function getByClase($id_clases)
+    public function existeReserva($idUsuario, $idClase)
     {
-        return $this->select('reservas.*, datos_usuarios.nombre as usuario')
-                    ->join('datos_usuarios', 'datos_usuarios.id_usuario = reservas.id_usuario')
-                    ->where('reservas.id_clases', $id_clases)
-                    ->findAll();
+        return $this->where('id_usuario', $idUsuario)
+                ->where('id_clases', $idClase)
+                ->countAllResults() > 0;
     }
 
-    // =========================
-    // 🗓️ GESTIÓN DE RESERVAS
-    // =========================
 
-    /**
-     * Crear nueva reserva
-     */
-    public function crearReserva($data)
-    {
-        return $this->insert($data);
-    }
-
-    /**
-     * Cancelar reserva
-     */
-    public function cancelarReserva($id_reservas)
-    {
-        return $this->delete($id_reservas);
-    }
 }
