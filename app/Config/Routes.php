@@ -79,3 +79,6 @@ $routes->get('pagina/registrar', 'Auth::crear_usuario');
 
 // Procesar el formulario y guardar el usuario
 $routes->post('pagina/registrar', 'Auth::registrar');
+$routes->get('pagina/olvidarContr', 'OlvidarContra::index'); // vista olvidar contraseña
+$routes->post('perfil/cambiar_contrasena', 'PerfilController::cambiar_contrasena');
+
