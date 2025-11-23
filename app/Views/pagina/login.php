@@ -24,7 +24,7 @@
 
       <button type="submit" class="btn">Iniciar Sesión</button>
 
-      <a href="#">¿Olvidaste tu contraseña?</a>
+      <a href="<?= base_url('pagina/olvidarContr') ?>">¿Olvidaste tu contraseña?</a>
       <p class="divider">_____________________________________</p>
 
       <a href="<?= site_url('pagina/registrar') ?>" class="btn">Crear cuenta nueva</a>

@@ -17,13 +17,13 @@ body {
   text-align: center;
 }
 
-.logo {
-  color:white;
-  font-size: 60px;
-  font-weight: bold;
-  margin-bottom: 10px; 
-  margin-right: 150px;
+.logo img {
+  display: block !important;
+  margin: 0 auto 20px !important; /* centra horizontalmente + espacio abajo */
+  width: 150px !important;
+  height: auto !important;
 }
+
 
 .form-box {
   background: aliceblue;
@@ -167,4 +167,24 @@ img {
   .logo {
     font-size: 48px;
   }
+}
+
+
+.btn-cancel a {
+  color: rgb(63, 0, 63);
+  text-decoration: none;
+  font-size: 15px;
+  display: block;
+  margin-top: 10px;
+}
+.btn-cancel a:hover {
+  text-decoration: underline;
+  color: #EB00FF;
+}
+
+.footer {
+  background-color: #111;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
 }
