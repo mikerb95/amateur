@@ -11,7 +11,6 @@ use CodeIgniter\Router\RouteCollection;
 // =========================
 $routes->get('/', 'Home::index');
 
-
 // =========================
 // 🧍‍♂️ RUTAS DE USUARIOS
 // =========================
@@ -24,7 +23,6 @@ $routes->group('usuarios', function($routes) {
     $routes->post('cancelar_reserva/(:num)', 'Usuario::cancelar_reserva/$1');
     $routes->get('perfil', 'Usuario::perfil');
 });
-
 
 // =========================
 // 🛠️ RUTAS DE ADMINISTRADOR
@@ -41,7 +39,6 @@ $routes->group('admin', ['namespace' => 'App\Controllers'], function($routes) {
     $routes->get('reservas', 'Admin::reservas');
 
     // --- Gestión de usuarios ---
-
     $routes->get('editar_usuario/(:num)', 'Auth::editar/$1');
     $routes->post('actualizar_usuario/(:num)', 'Admin::actualizar_usuario/$1');
     $routes->post('guardar_usuario', 'Auth::guardar_usuario');
@@ -55,17 +52,11 @@ $routes->group('admin', ['namespace' => 'App\Controllers'], function($routes) {
     // --- Gestión de reservas ---
     $routes->get('editar_reserva/(:num)', 'Admin::editar_reserva/$1');
     $routes->get('eliminar_reserva/(:num)', 'Admin::eliminar_reserva/$1');
-<<<<<<< HEAD
 
     // --- Gestión de pagos ---
-
     $routes->get('pagos', 'Pagos::index');
     $routes->post('pagos/buscar', 'Pagos::buscar');
     $routes->post('pagos/guardar', 'Pagos::guardar');
-
-
-=======
->>>>>>> a7c1e799351753b12fd724bfb3f5dfa116854a64
 });
 
 // =========================
@@ -77,7 +68,6 @@ $routes->get('inicio/servicios', 'Servicios::index');
 $routes->get('inicio/planes', 'Planes::index');
 $routes->get('inicio/contacto', 'Contacto::index');
 
-
 // =========================
 // 🔐 LOGIN
 // =========================
@@ -85,11 +75,12 @@ $routes->get('login', 'Auth::index');                // vista login
 $routes->post('login/acceder', 'Auth::acceder');     // procesar login
 $routes->get('logout', 'Auth::salir');               // cerrar sesión
 
-// Mostrar el formulario de registro
+// Formulario de registro
 $routes->get('pagina/registrar', 'Auth::crear_usuario');
-
-// Procesar el formulario y guardar el usuario
 $routes->post('pagina/registrar', 'Auth::registrar');
-$routes->get('pagina/olvidarContr', 'OlvidarContra::index'); // vista olvidar contraseña
-$routes->post('perfil/cambiar_contrasena', 'PerfilController::cambiar_contrasena');
 
+// Olvidar contraseña
+$routes->get('pagina/olvidarContr', 'OlvidarContra::index');
+
+// Cambiar contraseña
+$routes->post('perfil/cambiar_contrasena', 'PerfilController::cambiar_contrasena');
