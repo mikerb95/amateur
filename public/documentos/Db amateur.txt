@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 CREATE DATABASE AMATEUR;
 USE AMATEUR;
 
@@ -322,4 +321,11 @@ INSERT INTO perfil (
 
 SELECT * FROM datos_usuarios;
 DELETE FROM reservas;
->>>>>>> a7c1e799351753b12fd724bfb3f5dfa116854a64
+
+CREATE TABLE pagos (
+    id_pago INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    estado ENUM('Pago Cancelado','Pago Pendiente') DEFAULT 'Pago Pendiente',
+    fecha_pago DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario) REFERENCES datos_usuarios(id_usuario)
+);
