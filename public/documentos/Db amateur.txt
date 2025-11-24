@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 CREATE DATABASE AMATEUR;
 USE AMATEUR;
 
@@ -159,3 +160,166 @@ INSERT INTO perfil (
 
 SELECT * FROM datos_usuarios;
 DELETE FROM reservas;
+=======
+CREATE DATABASE AMATEUR;
+USE AMATEUR;
+
+-- =============================================
+-- TABLA: roles
+-- =============================================
+CREATE TABLE roles (
+  id_rol INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL
+);
+
+-- ⚠️ Corrección: la columna es id_rol, no id
+INSERT INTO roles (id_rol, nombre) VALUES
+(1, 'Administrador'),
+(2, 'Instructor'),
+(3, 'Usuario');
+
+-- =============================================
+-- TABLA: datos_usuarios (información personal)
+-- =============================================
+CREATE TABLE datos_usuarios (
+  id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+  cedula INT UNIQUE NOT NULL,
+  nombre VARCHAR(100) NOT NULL,
+  apellido VARCHAR(100) NOT NULL,
+  correo VARCHAR(120) NOT NULL,
+  direccion VARCHAR(150),
+  telefono VARCHAR(20),
+  genero VARCHAR (15)
+);
+
+ALTER TABLE datos_usuarios
+ADD fecha_nacimiento DATE;
+
+
+-- =============================================
+-- TABLA: perfil (credenciales de acceso)
+-- =============================================
+CREATE TABLE perfil (
+  id_perfil INT AUTO_INCREMENT PRIMARY KEY,
+  nombre_usuario VARCHAR(100) NOT NULL,
+  contraseña VARCHAR(255) NOT NULL,  -- se recomienda usar hash (bcrypt)
+  id_rol INT NOT NULL DEFAULT 3,
+  id_usuario INT UNIQUE NOT NULL,
+  FOREIGN KEY (id_rol) REFERENCES roles(id_rol),
+  FOREIGN KEY (id_usuario) REFERENCES datos_usuarios(id_usuario)
+);
+
+-- =============================================
+-- TABLA: planes
+-- =============================================
+CREATE TABLE planes (
+  id_planes INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  descripcion TEXT,
+  precio DECIMAL(10,2) NOT NULL,
+  total_clases INT NOT NULL
+);
+
+INSERT INTO planes (nombre, descripcion, precio, total_clases)
+VALUES ('Plan Mensual', 'Acceso general al gimnasio', 120000, 999);
+
+
+-- =============================================
+-- TABLA: clases
+-- =============================================
+CREATE TABLE clases (
+  id_clases INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  descripcion TEXT,
+  dia_semana ENUM('Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'),
+  hora_inicio TIME NOT NULL,
+  hora_fin TIME NOT NULL,
+  cupo_maximo INT DEFAULT 8,
+  cupo_disponible INT DEFAULT 8,
+  id_rol INT NOT NULL,      -- instructor responsable
+  id_planes INT NOT NULL,
+  FOREIGN KEY (id_rol) REFERENCES roles(id_rol),
+  FOREIGN KEY (id_planes) REFERENCES planes(id_planes)
+);
+
+INSERT INTO clases 
+(nombre, descripcion, dia_semana, hora_inicio, hora_fin, cupo_maximo, cupo_disponible, id_rol, id_planes)
+VALUES
+('POWERFIT', 'Clase POWERFIT para tonificación', 'Martes', '07:00:00', '08:00:00', 20, 20, 1, 1);
+
+SELECT * FROM planes;
+SELECT * FROM roles;
+
+
+
+-- =============================================
+-- TABLA: reservas
+-- =============================================
+CREATE TABLE reservas (
+  id_reservas INT AUTO_INCREMENT PRIMARY KEY,
+  id_usuario INT NOT NULL,
+  id_clases INT NOT NULL,
+  fecha_reserva DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_usuario) REFERENCES datos_usuarios(id_usuario),
+  FOREIGN KEY (id_clases) REFERENCES clases(id_clases)
+);
+
+SELECT * FROM datos_usuarios;
+
+INSERT INTO datos_usuarios (
+    cedula, nombre, apellido, correo, direccion, telefono, genero, fecha_nacimiento
+)
+VALUES (
+    1001094766,
+    'Juan',
+    'Cardenas',
+    'jecpecp2002@gmail.com',
+    '',
+    '3124990624',
+    'Masculino',
+    '2002-01-01'
+);
+
+SELECT LAST_INSERT_ID();
+
+
+INSERT INTO perfil (
+  nombre_usuario,
+  contraseña,
+  id_rol,
+  id_usuario
+) VALUES (
+  'juanjuan',
+  '123',
+  1,
+  1   -- este ID debe ser el que devolvió LAST_INSERT_ID()
+);
+
+INSERT INTO datos_usuarios (
+  cedula, nombre, apellido, correo, direccion, telefono, genero, fecha_nacimiento
+) VALUES (
+  1001094666,
+  'Juan',
+  'Cardenas',
+  'jecpecp2002@gmail.com',
+  NULL,
+  '3124990624',
+  'Masculino',
+  '2002-01-01'
+);
+
+INSERT INTO perfil (
+  nombre_usuario,
+  contraseña,
+  id_rol,
+  id_usuario
+) VALUES (
+  'pruebausuario',
+  'pruebausuario',  -- sin hash, como pediste
+  3,
+  2          -- mismo id_usuario generado arriba
+);
+
+SELECT * FROM datos_usuarios;
+DELETE FROM reservas;
+>>>>>>> a7c1e799351753b12fd724bfb3f5dfa116854a64
