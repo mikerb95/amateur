@@ -55,6 +55,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers'], function($routes) {
     // --- Gestión de reservas ---
     $routes->get('editar_reserva/(:num)', 'Admin::editar_reserva/$1');
     $routes->get('eliminar_reserva/(:num)', 'Admin::eliminar_reserva/$1');
+<<<<<<< HEAD
 
     // --- Gestión de pagos ---
 
@@ -63,6 +64,8 @@ $routes->group('admin', ['namespace' => 'App\Controllers'], function($routes) {
     $routes->post('pagos/guardar', 'Pagos::guardar');
 
 
+=======
+>>>>>>> a7c1e799351753b12fd724bfb3f5dfa116854a64
 });
 
 // =========================

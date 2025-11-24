@@ -7,7 +7,10 @@ use App\Models\PerfilModel;
 use App\Models\ClaseModel;
 use App\Models\ReservaModel;
 use App\Models\PlanModel;
+<<<<<<< HEAD
 use App\Models\PagoModel;
+=======
+>>>>>>> a7c1e799351753b12fd724bfb3f5dfa116854a64
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Admin extends BaseController
@@ -34,6 +37,7 @@ class Admin extends BaseController
     // =========================
     // 👥 LISTA DE USUARIOS
     // =========================
+<<<<<<< HEAD
 public function usuarios()
 {
     $usuarioModel = new DatosUsuarioModel();
@@ -65,6 +69,29 @@ public function usuarios()
     return view('admin/usuarios', ['usuarios' => $usuarios]);
 }
 
+=======
+    public function usuarios()
+    {
+        $usuarioModel = new DatosUsuarioModel();
+        $perfilModel  = new PerfilModel();
+        $planModel    = new PlanModel();
+
+        $usuarios = $usuarioModel->findAll();
+
+        foreach ($usuarios as &$u) {
+
+            // obtener usuario en tabla perfil (rol, usuario, contraseña)
+            $perfil = $perfilModel->where('id_usuario', $u['id_usuario'])->first();
+            $u['rol'] = $perfil ? $perfil['id_rol'] : 'Sin perfil';
+
+            // obtener plan
+            $plan = $planModel->where('id_planes', $u['id_usuario'])->first();
+            $u['plan'] = $plan ? $plan['nombre'] : 'Sin plan asignado';
+        }
+
+        return view('admin/usuarios', ['usuarios' => $usuarios]);
+    }
+>>>>>>> a7c1e799351753b12fd724bfb3f5dfa116854a64
 
 
     // =========================
@@ -170,6 +197,7 @@ public function usuarios()
 
         return view('admin/reservas', ['reservas' => $reservas]);
     }
+<<<<<<< HEAD
 
     public function pagos_usuarios()
     {
@@ -199,3 +227,6 @@ public function usuarios()
     }
 
 }
+=======
+}
+>>>>>>> a7c1e799351753b12fd724bfb3f5dfa116854a64

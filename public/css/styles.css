@@ -446,6 +446,7 @@ body, .main-content, .card, .menu-usuario {
 }
 
 
+<<<<<<< HEAD
 /* ============================
    🟣 TABLA — AJUSTE DE COLUMNAS
 ============================ */
@@ -496,3 +497,5 @@ body, .main-content, .card, .menu-usuario {
         display: none; /* oculta acciones si es necesario en pantallas pequeñas */
     }
 }
+=======
+>>>>>>> a7c1e799351753b12fd724bfb3f5dfa116854a64
