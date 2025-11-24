@@ -1,0 +1,180 @@
+body {
+  background-color: black;
+  color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* ✅ Contenedor flexible */
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  flex-wrap: wrap; /* Permite que logo y formulario se acomoden verticalmente en pantallas pequeñas */
+  gap: 40px;
+  padding: 20px;
+}
+
+/* ✅ Logo adaptable */
+#logo {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 10px;
+  margin-right: 100px;
+}
+
+/* ✅ Caja del login */
+.inicio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: aliceblue;
+  border-radius: 20px;
+  border: 2px solid white;
+  color: black;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+#Sesion {
+  margin-top: 10px;
+  padding: 15px 0;
+  color: black;
+  text-align: center;
+}
+
+/* ✅ Formulario */
+.formulario {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0 20px 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.btn {
+  background-color: indigo;
+  color: white;
+  font-weight: bold;
+  padding: 12px 0;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 20px;
+  transition: box-shadow 0.3s, background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: rgb(63, 0, 63);
+  box-shadow: -5PX -2PX 23PX #EB00FF,5PX 2px 23px #00f0FF;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  margin-bottom: 10px;
+}
+
+a:hover {
+  color: blue;
+}
+
+.divider {
+  text-align: center;
+  color: gray;
+}
+
+.footer {
+  background-color: #111;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+#documento {
+  color: white;
+  display: inline-block;
+  margin: 10px auto;
+}
+
+.redes {
+  color: #fff;
+  font-weight: bold;
+}
+
+.redes:hover {
+  color: violet;
+}
+
+/* ✅ Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  #logo {
+    max-width: 250px;
+  }
+
+  .inicio {
+    width: 90%;
+    padding: 20px;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    font-size: 14px;
+  }
+
+  #Boton {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  #logo {
+    max-width: 180px;
+  }
+
+  #Sesion {
+    font-size: 20px;
+  }
+
+  .inicio {
+    padding: 15px;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  #Boton {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
+

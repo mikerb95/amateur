@@ -1,0 +1,498 @@
+/* ======== ESTILOS GENERALES ======== */
+body {
+    margin: 0;
+    padding: 0  ;
+    font-family: 'Poppins', sans-serif;
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden;
+
+}
+
+
+
+/* Animación global de entrada */
+body, .main-content, .card, .menu-usuario {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ======== MENÚ SUPERIOR ADMIN ======== */
+.menu-admin {
+    background: linear-gradient(90deg, #000 0%, #1a001f 100%);
+    padding: 15px 30px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-shadow: 0 3px 15px rgba(59, 0, 106, 0.3);
+    z-index: 1000;
+}
+
+.menu-admin ul {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-admin a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 18px;
+    border-radius: 8px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.menu-admin a::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #a64dff;
+    transition: width 0.3s ease;
+}
+
+.menu-admin a:hover::after {
+    width: 50%;
+}
+
+
+/* ======== MENÚ SUPERIOR USUARIO ======== */
+.menu-usuario {
+    background: linear-gradient(90deg, #000 0%, #1a001f 100%);
+    padding: 15px 30px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-shadow: 0 3px 15px rgba(59, 0, 106, 0.3);
+    z-index: 1000;
+    
+    
+}
+
+.menu-usuario ul {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-usuario a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 18px;
+    border-radius: 8px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.menu-usuario a::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #a64dff;
+    transition: width 0.3s ease;
+}
+
+.menu-usuario a:hover::after {
+    width: 50%;
+}
+
+
+/* ======== BARRA LATERAL ======== */
+.menu-principal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;   /* Toda la altura de la pantalla */
+    background: #000; /* O el color que tú quieras */
+    padding-top: 20px; /* Ajusta si quieres un pequeño espacio */
+}
+
+
+.menu-principal li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 20px;
+    display: block;             /* ✔ habilita transform */
+    transition: all 0.3s ease;
+}
+
+.menu-principal li a:hover {
+    color: #7c0bd9;
+    transform: translateY(-3px); /* ✔ efecto de elevación */
+}
+
+
+/* Para que el contenido no quede debajo */
+.contenido {
+    margin-left: 230px;
+    padding: 20px;
+} 
+
+
+
+/* ======== LOGO ======== */
+  .logo img {
+    width: 10%;
+    height: auto;
+    margin-bottom: 20px;
+    margin-left: 150px;
+}
+  
+
+
+/* ======== DASHBOARD ======== */
+.dashboard {
+    margin-top: 100px;
+    padding: 40px;
+    text-align: center;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.card {
+    background: linear-gradient(145deg, #111, #1a1a1a);
+    border: 1px solid #2d2d2d;
+    padding: 25px;
+    border-radius: 15px;
+    width: 280px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 12px rgba(59, 0, 106, 0.2);
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: #a64dff;
+    box-shadow: 0 0 18px rgba(166, 77, 255, 0.5);
+}
+
+/* ======== BOTONES ======== */
+.btn {
+    display: inline-block;
+    margin-top: 12px;
+    background: linear-gradient(135deg, #3b006a, #7a1fc5);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(122, 31, 197, 0.3);
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #7a1fc5, #3b006a);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(166, 77, 255, 0.6);
+}
+
+/*Logo en el menú*/
+
+/* ======== TABLAS ======== */
+.main-content {
+    margin-left: 260px;
+    padding: 30px;
+    background-color: #fff;
+    min-height: 100vh;
+    color: #111;
+    transition: all 0.3s ease;
+}
+
+.title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #7a1fc5;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.table-container {
+    overflow-x: auto;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    background-color: #fff;
+    font-size: 1rem;
+}
+
+.styled-table thead {
+    background: linear-gradient(90deg, #000, #3b006a);
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.styled-table th, .styled-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.styled-table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #f4ecff;
+    transform: scale(1.01);
+}
+
+.no-data {
+    text-align: center;
+    margin-top: 40px;
+    color: #777;
+    font-style: italic;
+}
+
+/* ======== FOOTER ======== */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #111;
+    border-top: 1px solid #222;
+    margin-top: 50px;
+    color: #aaa;
+    letter-spacing: 0.5px;
+
+ 
+}
+
+.footer:hover {
+    color: #d2a8ff;
+    transition: color 0.3s ease;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-edit, .btn-delete, .btn-crear {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.btn-crear {
+    background-color:#3b006a ;
+    text-decoration: none;
+    margin-bottom: 30px;
+}
+.btn-crear:hover {
+    background-color: #3b006a;
+    transform: scale(1.05);
+}
+
+
+.btn-edit {
+    background-color: #3b006a;
+    text-decoration: none;
+}
+
+.btn-edit:hover {
+    background-color: #5a00a3;
+    transform: scale(1.05);
+}
+
+.btn-delete {
+    background-color: #b3003b;
+    text-decoration: none;
+}
+
+.btn-delete:hover {
+    background-color: #e6005c;
+    transform: scale(1.05);
+}
+
+
+/* ======== FORMULARIOS ======== */
+/* ======== FORMULARIO DE EDICIÓN ======== */
+
+.form-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.form-row label {
+    font-weight: 600;
+    color: #3b006a;
+    margin-bottom: 6px;
+}
+
+.form-row input {
+    padding: 12px;
+    border: 2px solid #dcd2ff;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.form-row input:focus {
+    border-color: #7a1fc5;
+    box-shadow: 0 0 6px rgba(122, 31, 197, 0.4);
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.btn-save {
+    padding: 10px 20px;
+    background-color: #3b006a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-save:hover {
+    background-color: #5a00a3;
+    transform: scale(1.05);
+}
+
+.btn-cancel {
+    padding: 10px 20px;
+    background-color: #b3003b;
+    color: white;
+    border-radius: 8px;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-cancel:hover {
+    background-color: #e6005c;
+    transform: scale(1.05);
+}
+
+
+.form-group select {
+    padding: 12px;
+    border: 2px solid #dcd2ff;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.form-group select:focus {
+    border-color: #7a1fc5;
+    box-shadow: 0 0 6px rgba(122, 31, 197, 0.4);
+}
+
+.icon {
+    width: 150px !important;
+    height: auto !important;
+}
+
+
+/* ============================
+   🟣 TABLA — AJUSTE DE COLUMNAS
+============================ */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    table-layout: fixed; /* MUY IMPORTANTE */
+}
+
+/* Anchos por columna */
+.styled-table th:nth-child(1),
+.styled-table td:nth-child(1) { width: 55px; }
+
+.styled-table th:nth-child(2),
+.styled-table td:nth-child(2) { width: 160px; }
+
+.styled-table th:nth-child(3),
+.styled-table td:nth-child(3) { width: 160px; }
+
+.styled-table th:nth-child(4),
+.styled-table td:nth-child(4) { width: 170px; }
+
+.styled-table th:nth-child(5),
+.styled-table td:nth-child(5) { width: 170px; }
+
+.styled-table th:nth-child(6),
+.styled-table td:nth-child(6) { width: 200px; }
+
+/* ============================
+   🟣 RESPONSIVE
+============================ */
+@media(max-width: 900px){
+    .styled-table th,
+    .styled-table td {
+        font-size: .78rem;
+        padding: 8px;
+    }
+
+    .styled-table {
+        table-layout: auto;
+    }
+}
+
+@media(max-width: 620px){
+    .styled-table th:nth-child(6),
+    .styled-table td:nth-child(6){
+        display: none; /* oculta acciones si es necesario en pantallas pequeñas */
+    }
+}

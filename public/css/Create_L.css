@@ -1,0 +1,190 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: black ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  text-align: center;
+}
+
+.logo img {
+  display: block !important;
+  margin: 0 auto 20px !important; /* centra horizontalmente + espacio abajo */
+  width: 150px !important;
+  height: auto !important;
+}
+
+
+.form-box {
+  background: aliceblue;
+  border-radius: 10px;
+  padding: 20px 30px;
+  width: 400px;
+  max-width: 95%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin: 0 auto;
+}
+
+.form-box h2 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.form-box p {
+  margin-bottom: 15px;
+}
+
+.name-fields {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.name-fields input {
+  flex: 1;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccd0d5;
+  border-radius: 10px;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+
+.label {
+  display: block;
+  text-align: left;
+  font-size: 13px;
+  color: #606770;
+  margin-bottom: 5px;
+}
+
+.birth-fields {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.gender-fields {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  gap: 15px;
+}
+
+.gender-fields label {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  border: 1px solid #ccd0d5;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  background: white;
+  
+}
+
+.gender-fields input {
+  margin-right: 5px;
+}
+
+.footer {
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+img {
+    width: 200px;
+    height: auto;
+    vertical-align: middle;
+   
+}
+
+
+
+.btn-register {
+  background-color: indigo;
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 60%;
+  border-radius: 6px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-register:hover {
+  background-color:  rgb(63, 0, 63);
+  box-shadow: -5PX -2PX 23PX #EB00FF,5PX 2px 23px #00f0FF;
+}
+
+.login-link {
+  margin-top: 15px;
+}
+
+.login-link a {
+  color: #1877f2;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* ✅ Responsividad */
+@media (max-width: 600px) {
+  .form-box {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .name-fields, .birth-fields, .gender-fields {
+    flex-direction: column;
+  }
+
+  .btn-register {
+    width: 100%;
+  }
+
+  .logo {
+    font-size: 48px;
+  }
+}
+
+
+.btn-cancel a {
+  color: rgb(63, 0, 63);
+  text-decoration: none;
+  font-size: 15px;
+  display: block;
+  margin-top: 10px;
+}
+.btn-cancel a:hover {
+  text-decoration: underline;
+  color: #EB00FF;
+}
+
+.footer {
+  background-color: #111;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
