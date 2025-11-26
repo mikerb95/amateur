@@ -9,15 +9,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="<?= base_url('css/estilos.css') ?>">
-
-
-
 </head>
 
 <body>
   <?php echo $this->include('plantilla/header') ?>
-
-  <?php echo $this->include('plantilla/menu') ?>
 
   <main>
     <?php echo $this->renderSection('contenido') ?>
@@ -30,3 +25,4 @@
   <script>AOS.init();</script>
 </body>
 </html>
+

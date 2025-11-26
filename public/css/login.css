@@ -1,9 +1,24 @@
 body {
-  background-color: black;
-  color: white;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+  background: var(--color-fondo-principal);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+#video-fondo {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: 100%;
+    height: auto;
+    z-index: -10; 
+    background-size: cover; 
+    object-fit: contain; 
+    filter: brightness(60%) contrast(110%);
 }
 
 /* ✅ Contenedor flexible */
@@ -83,8 +98,8 @@ input[type="password"] {
 }
 
 .btn:hover {
-  background-color: rgb(63, 0, 63);
-  box-shadow: -5PX -2PX 23PX #EB00FF,5PX 2px 23px #00f0FF;
+  background-color: #EB00FF;
+  box-shadow: -5PX -2PX 23PX #aee3ff;
 }
 
 a {
@@ -97,7 +112,7 @@ a {
 }
 
 a:hover {
-  color: blue;
+  color: rgb(0, 0, 0);
 }
 
 .divider {
@@ -106,10 +121,23 @@ a:hover {
 }
 
 .footer {
-  background-color: #111;
   color: #fff;
   text-align: center;
   padding: 20px;
+  line-height: 1;
+}
+.footer p {
+    margin: 7px 0;
+}
+
+.reglasimg {
+  position: relative;
+  width: 20px;
+}
+
+.instagramimg {
+  position: relative;
+  width: 15px;
 }
 
 #documento {
@@ -124,7 +152,7 @@ a:hover {
 }
 
 .redes:hover {
-  color: violet;
+  color: #FF5005;
 }
 
 /* ✅ Responsividad para pantallas pequeñas */
@@ -135,7 +163,7 @@ a:hover {
   }
 
   #logo {
-    max-width: 250px;
+    width: 50px;
   }
 
   .inicio {
@@ -155,7 +183,7 @@ a:hover {
 
 @media (max-width: 480px) {
   #logo {
-    max-width: 180px;
+    max-width: 80px;
   }
 
   #Sesion {
