@@ -17,13 +17,20 @@ body {
   text-align: center;
 }
 
-.logo img {
+.logo {
   display: block !important;
-  margin: 0 auto 20px !important; /* centra horizontalmente + espacio abajo */
-  width: 150px !important;
+  margin: 0 auto 5px !important;
   height: auto !important;
+  top: 20px;
+  width: 190px !important;
+  filter: drop-shadow(0 2px 8px indigo);
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
+.logo :hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.2));
+}
 
 .form-box {
   background: aliceblue;
@@ -102,7 +109,6 @@ input, select {
 }
 
 .footer {
-  background-color: black;
   color: #fff;
   text-align: center;
   padding: 20px;
@@ -183,8 +189,23 @@ img {
 }
 
 .footer {
-  background-color: #111;
   color: #fff;
   text-align: center;
-  padding: 20px;
+  padding: 60px;
+}
+
+footer a { 
+  color: #026AC2; 
+  text-align: center; 
+  text-decoration: none;
+}
+
+.instagramimg {
+  position: relative;
+  width: 15px;
+}
+
+.reglasimg {
+  position: relative;
+  width: 20px;
 }
