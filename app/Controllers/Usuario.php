@@ -13,20 +13,28 @@ class Usuario extends BaseController
     // =========================
     public function dashboard_usuario()
     {
-        $usuarioModel = new DatosUsuarioModel();
-        $reservaModel = new ReservaModel();
+    if(!session()->has('id_usuario') || session('id_rol') != 3){
+        return redirect()->to('/login');
+    }
 
-        // Usuario temporal (hasta implementar login)
-        $idUsuario = 1;
-        $usuario = $usuarioModel->find($idUsuario);
-        $clases = $reservaModel->getByUsuario($idUsuario);
+    // ⚙️ Obtener ID del usuario desde la sesión
+    $idUsuario = session('id_usuario');
 
-        $data = [
-            'usuario' => $usuario,
-            'clasesActivas' => count($clases)
-        ];
+    // 📊 Cargar modelos
+    $usuarioModel = new DatosUsuarioModel();
+    $reservaModel = new ReservaModel();
 
-        return view('usuarios/dashboard', $data);
+    // 📌 Obtener datos del usuario y sus clases
+    $usuario = $usuarioModel->find($idUsuario);
+    $clases  = $reservaModel->getByUsuario($idUsuario);
+
+    // 📦 Datos para la vista
+    $data = [
+        'usuario'       => $usuario,
+        'clasesActivas' => count($clases),
+    ];
+
+    return view('usuarios/dashboard', $data);
     }
 
 

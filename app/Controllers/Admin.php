@@ -16,17 +16,25 @@ class Admin extends BaseController
     // =========================
     public function dashboard_admin()
     {
-        $usuarioModel = new DatosUsuarioModel();
-        $claseModel = new ClaseModel();
-        $reservaModel = new ReservaModel();
+        
+    if(!session()->has('id_usuario') || session('id_rol') != 1){
+        return redirect()->to('/login');
+    }
 
-        $data = [
-            'usuarios' => $usuarioModel->countAll(),
-            'clases'   => $claseModel->countAll(),
-            'reservas' => $reservaModel->countAll(),
-        ];
+    // 📊 Cargar modelos
+    $usuarioModel = new DatosUsuarioModel();
+    $claseModel = new ClaseModel();
+    $reservaModel = new ReservaModel();
 
-        return view('admin/dashboard_admin', $data);
+    // 📈 Datos para el dashboard
+    $data = [
+        'usuarios' => $usuarioModel->countAll(),
+        'clases'   => $claseModel->countAll(),
+        'reservas' => $reservaModel->countAll(),
+    ];
+
+    return view('admin/dashboard_admin', $data);
+
     }
 
 
