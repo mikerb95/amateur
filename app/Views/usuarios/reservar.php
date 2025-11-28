@@ -15,7 +15,6 @@
     <button class="day" data-day="jueves">Jueves</button>
     <button class="day" data-day="viernes">Viernes</button>
     <button class="day" data-day="sábado">Sábado</button>
-    <button class="day" data-day="domingo">Domingo</button>
 </div>
 <div class="class-cards">
 

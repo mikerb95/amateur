@@ -6,10 +6,13 @@
     <?php if (!empty($usuarios) && is_array($usuarios)): ?>
         <div>
            <a href="<?= base_url('admin/Crear_usuario'); ?>" class="btn-crear">Crear usuario</a>
-           <br>
-           <br>
 
+           <!-- ⭐ BOTÓN GLOBAL PARA MÓDULO DE PAGOS -->
+           <a href="<?= base_url('pagos'); ?>" class="btn-pay">Pagos</a>
+
+           <br><br>
         </div>
+
         <div class="table-container">
             <table class="styled-table">
                 <thead>
@@ -18,9 +21,11 @@
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Cédula</th>
+                        <th>Estado de pago</th> <!-- 📌 COLUMNA AÑADIDA -->
                         <th>Acciones</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <?php foreach ($usuarios as $index => $usuario): ?>
                         <tr>
@@ -28,9 +33,20 @@
                             <td><?= esc($usuario['nombre']) ?></td>
                             <td><?= esc($usuario['apellido']) ?></td>
                             <td><?= esc($usuario['cedula']) ?></td>
+
+                            <!-- 📌 ESTADO DE PAGO MOSTRADO -->
+                            <td>
+                                <?php if (!empty($usuario['estado_pago']) && $usuario['estado_pago'] == 'Pago Cancelado'): ?>
+                                    <span style="color:green;font-weight:bold;">PAGÓ</span>
+                                <?php else: ?>
+                                    <span style="color:red;font-weight:bold;">NO PAGÓ</span>
+                                <?php endif; ?>
+                            </td>
+
                             <td>
                                 <div class="action-buttons">
-                                    <a href="<?= base_url('admin/editar_usuario/'.$usuario['id_usuario']); ?>" method="POST" class="btn-edit">Editar</a>
+                                    <a href="<?= base_url('admin/editar_usuario/'.$usuario['id_usuario']); ?>" class="btn-edit">Editar</a>
+
                                     <a href="<?= base_url('admin/eliminar_usuario/'.$usuario['id_usuario']); ?>" 
                                        class="btn-delete"
                                        onclick="return confirm('¿Seguro que deseas eliminar este usuario?')">
@@ -38,11 +54,13 @@
                                     </a>
                                 </div>
                             </td>
+
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
+
     <?php else: ?>
         <p class="no-data">No hay usuarios registrados.</p>
     <?php endif; ?>

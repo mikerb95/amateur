@@ -82,3 +82,10 @@ $routes->post('pagina/registrar', 'Auth::registrar');
 $routes->get('pagina/olvidarContr', 'OlvidarContra::index'); // vista olvidar contraseña
 $routes->post('perfil/cambiar_contrasena', 'PerfilController::cambiar_contrasena');
 
+// =========================
+// 📌 RUTAS DE PAGOS
+// =========================
+$routes->get('pagos', 'Pagos::index'); 
+$routes->post('pagos/buscar', 'Pagos::buscar');
+$routes->post('pagos/actualizar', 'Pagos::actualizarEstadoPago');
+$routes->post('pagos/guardar', 'Pagos::guardar');

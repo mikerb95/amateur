@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\DatosUsuarioModel;
 use App\Models\PerfilModel;
 use App\Models\ClaseModel;
+use App\Models\PagoModel;
 use App\Models\ReservaModel;
 use App\Models\PlanModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
@@ -42,27 +43,31 @@ class Admin extends BaseController
     // 👥 LISTA DE USUARIOS
     // =========================
     public function usuarios()
-    {
-        $usuarioModel = new DatosUsuarioModel();
-        $perfilModel  = new PerfilModel();
-        $planModel    = new PlanModel();
+{
+    $usuarioModel = new DatosUsuarioModel();
+    $perfilModel  = new PerfilModel();
+    $planModel    = new PlanModel();
+    $pagoModel    = new PagoModel();
 
-        $usuarios = $usuarioModel->findAll();
+    $usuarios = $usuarioModel->findAll();
 
-        foreach ($usuarios as &$u) {
+    foreach ($usuarios as &$u) {
 
-            // obtener usuario en tabla perfil (rol, usuario, contraseña)
-            $perfil = $perfilModel->where('id_usuario', $u['id_usuario'])->first();
-            $u['rol'] = $perfil ? $perfil['id_rol'] : 'Sin perfil';
+        // obtener usuario en tabla perfil (rol, usuario, contraseña)
+        $perfil = $perfilModel->where('id_usuario', $u['id_usuario'])->first();
+        $u['rol'] = $perfil ? $perfil['id_rol'] : 'Sin perfil';
 
-            // obtener plan
-            $plan = $planModel->where('id_planes', $u['id_usuario'])->first();
-            $u['plan'] = $plan ? $plan['nombre'] : 'Sin plan asignado';
-        }
+        // obtener plan asignado
+        $plan = $planModel->where('id_planes', $u['id_usuario'])->first();
+        $u['plan'] = $plan ? $plan['nombre'] : 'Sin plan asignado';
 
-        return view('admin/usuarios', ['usuarios' => $usuarios]);
+        // estado del pago
+        $pago = $pagoModel->where('id_usuario', $u['id_usuario'])->first();
+        $u['estado_pago'] = $pago ? $pago['estado'] : 'pendiente';
     }
 
+    return view('admin/usuarios', ['usuarios' => $usuarios]);
+}
 
     // =========================
     // ✏️ FORMULARIO EDITAR USUARIO
