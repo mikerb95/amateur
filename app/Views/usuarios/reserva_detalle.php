@@ -14,10 +14,12 @@
             </p>
 
             <p class="time">
-                <?= esc($clase['dia_semana']) ?> /
+                <?= esc($clase['dia_semana']) ?> -
+                <?= date('d-m-Y', strtotime($clase['fecha_clase'])) ?> /
                 <?= date('h:i A', strtotime($clase['hora_inicio'])) ?> –
                 <?= date('h:i A', strtotime($clase['hora_fin'])) ?>
-            </p>
+            </p>    
+
 
             <p class="room">
                 Sala: <?= esc($clase['id_planes']) ?>

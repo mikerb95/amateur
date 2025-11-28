@@ -46,7 +46,7 @@ public function mis_clases()
     $reservaModel = new \App\Models\ReservaModel();
     $claseModel   = new \App\Models\ClaseModel();
 
-    $idUsuario = 1; // temporal
+    $idUsuario = session()->get('id_usuario');
 
     // Obtener reservas
     $reservas = $reservaModel->getByUsuario($idUsuario);
@@ -64,19 +64,18 @@ public function mis_clases()
 }
 
 
+public function reservar()
+{
+    $claseModel = new ClaseModel();
+    $clases = $claseModel->getDisponibles();
 
-
-    // =========================
-    // 🗓️ RESERVAR NUEVAS CLASES
-    // =========================
-    public function reservar()
-    {
-        $claseModel = new ClaseModel();
-        $clases = $claseModel->getDisponibles();
-
-        return view('usuarios/reservar', ['clases' => $clases]);
+    // Calcular fecha próxima para cada clase
+    foreach ($clases as &$clase) {
+        $clase['fecha_clase'] = $this->getNextDate($clase['dia_semana']);
     }
 
+    return view('usuarios/reservar', ['clases' => $clases]);
+}
 
     // =========================
     // 👤 PERFIL DEL USUARIO
@@ -108,67 +107,118 @@ public function hacer_reserva($id_clase)
     $claseModel   = new ClaseModel();
     $reservaModel = new ReservaModel();
 
-    $idUsuario = 1; // temporal
+    // ⚠️ Reemplaza temporal con session
+            $idUsuario = session()->get('id_usuario');
+        if (!$idUsuario) {
+            return redirect()->to('/login');
+        }
 
+
+    // 1️⃣ Obtener la clase
     $clase = $claseModel->getById($id_clase);
 
     if (!$clase) {
         throw new \CodeIgniter\Exceptions\PageNotFoundException('Clase no encontrada');
     }
 
-    // 🛑 1. Verificar si ya existe reserva
+    // 2️⃣ Verificar si ya existe reserva del usuario para esta clase
     if ($reservaModel->existeReserva($idUsuario, $id_clase)) {
-        // Ya existe: redirigimos con mensaje
         return redirect()
             ->to(base_url('usuarios/mis_clases'))
             ->with('mensaje', 'Ya tienes una reserva para esta clase.');
     }
 
-    // ✅ 2. Crear reserva
-    $reservaModel->crearReserva($idUsuario, $id_clase);
+    // 3️⃣ Calcular la próxima fecha de la clase
+    $fechaClase = $this->getNextDate($clase['dia_semana']);
 
-    // ✅ 3. Reducir cupo
+    // 4️⃣ Calcular los bloques de hora que ocupa la clase
+    $horaInicio = new \DateTime($clase['hora_inicio']);
+    $horaFin    = new \DateTime($clase['hora_fin']);
+
+    $horasOcupadas = [];
+    $tmp = clone $horaInicio;
+    while ($tmp < $horaFin) {
+        $horasOcupadas[] = $tmp->format('H:i:s');
+        $tmp->modify('+1 hour');
+    }
+
+    // 5️⃣ Validar cupos por bloque horario y por fecha
+    foreach ($horasOcupadas as $hora) {
+        $cupos = $reservaModel->countByHoraYFecha($hora, $fechaClase);
+        if ($cupos >= 8) {
+            return redirect()
+                ->to(base_url('usuarios/mis_clases'))
+                ->with(
+                    'mensaje',
+                    "La clase no se puede reservar porque el bloque de las $hora ya tiene los 8 cupos completos."
+                );
+        }
+    }
+
+    // 6️⃣ Registrar la reserva
+    $reservaModel->crearReserva([
+        'id_usuario'  => $idUsuario,
+        'id_clases'   => $id_clase,
+        'fecha_reserva' => $fechaClase
+    ]);
+
+    // 7️⃣ Reducir cupo disponible de la clase general (opcional, si manejas cupos generales)
     $claseModel->reducirCupo($id_clase);
 
-    // ✅ 4. Mostrar confirmación
+    // 8️⃣ Agregar fecha dinámica a la clase para la vista
+    $clase['fecha_clase'] = $fechaClase;
+
+    // 9️⃣ Mostrar confirmación
     return view('usuarios/reserva_detalle', [
         'clase'   => $clase,
         'usuario' => $idUsuario
     ]);
 }
 
+    // ========================
+    // Función privada para obtener próxima fecha del día de la semana
+    // ========================
+    private function getNextDate($dayName)
+    {
+        $days = ['domingo'=>0,'lunes'=>1,'martes'=>2,'miércoles'=>3,'jueves'=>4,'viernes'=>5,'sábado'=>6];
+
+        $today = date('Y-m-d');
+        $todayDayNum = date('w'); // 0=domingo, 1=lunes, ...
+        $targetDayNum = $days[strtolower($dayName)];
+
+        $daysToAdd = ($targetDayNum - $todayDayNum + 7) % 7;
+        if ($daysToAdd == 0) $daysToAdd = 7; // siguiente semana si es hoy
+
+        return date('Y-m-d', strtotime("+$daysToAdd days"));
+    }
+
+
 public function cancelar_reserva($idReserva)
 {
     $reservaModel = new ReservaModel();
-    $claseModel = new ClaseModel();
+    $claseModel   = new ClaseModel();
 
-    // Usuario temporal
-    $idUsuario = 1;
+    $idUsuario = session()->get('id_usuario');
 
-    // Buscar la reserva
+
     $reserva = $reservaModel->find($idReserva);
 
     if (!$reserva || $reserva['id_usuario'] != $idUsuario) {
-        return redirect()
-            ->to(base_url('usuarios/mis_clases'))
-            ->with('mensaje', 'Reserva no encontrada.');
+        return redirect()->to(base_url('usuarios/mis_clases'))
+                         ->with('mensaje', 'Reserva no encontrada.');
     }
 
-    // Traer la clase asociada
     $idClase = $reserva['id_clases'];
 
-    // 1. Eliminar reserva
+    // ✅ Solo eliminar la reserva, no la clase
     $reservaModel->delete($idReserva);
 
-    // 2. Incrementar cupo
+    // ✅ Incrementar cupo disponible
     $claseModel->incrementarCupo($idClase);
 
-    return redirect()
-        ->to(base_url('usuarios/mis_clases'))
-        ->with('mensaje', 'Reserva cancelada correctamente.');
+    return redirect()->to(base_url('usuarios/mis_clases'))
+                     ->with('mensaje', 'Reserva cancelada correctamente.');
 }
-
-
 
 
 }
