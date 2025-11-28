@@ -17,6 +17,7 @@ class ClaseModel extends Model
         'hora_fin',
         'cupo_maximo',
         'cupo_disponible',
+        'disponible',
         'id_rol',
         'id_planes'
     ];
@@ -39,21 +40,23 @@ class ClaseModel extends Model
     // =========================
     // Clases con cupos disponibles
     // =========================
-    public function getDisponibles()
-    {
-        $clases = $this->where('cupo_disponible >', 0)
-                       ->orderBy('dia_semana', 'ASC')
-                       ->orderBy('hora_inicio', 'ASC')
-                       ->findAll();
+   public function getDisponibles()
+{
+    $clases = $this->where('disponible', 1)                 // ✔️ Solo clases activas
+                   ->where('cupo_disponible >', 0)          // ✔️ Con cupos
+                   ->orderBy('dia_semana', 'ASC')
+                   ->orderBy('hora_inicio', 'ASC')
+                   ->findAll();
 
-        foreach ($clases as &$clase) {
-            $clase['dia'] = $clase['dia_semana'];
-            $clase['hora'] = $clase['hora_inicio'];
-            $clase['cupos'] = $clase['cupo_disponible'];
-        }
-
-        return $clases;
+    foreach ($clases as &$clase) {
+        $clase['dia'] = $clase['dia_semana'];
+        $clase['hora'] = $clase['hora_inicio'];
+        $clase['cupos'] = $clase['cupo_disponible'];
     }
+
+    return $clases;
+}
+
 
     // =========================
     // Reducir cupo global (opcional)

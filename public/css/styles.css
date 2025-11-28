@@ -446,3 +446,23 @@ body, .main-content, .card, .menu-usuario {
 }
 
 
+.btn-disponibilidad {
+    font-weight: bold;
+    display: inline-block;
+}
+
+
+.card-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.no-disponible {
+    background: #c0392b;
+    color: white;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
