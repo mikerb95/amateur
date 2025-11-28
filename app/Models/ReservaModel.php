@@ -79,4 +79,14 @@ class ReservaModel extends Model
                     ->where('reservas.fecha_reserva', $fecha)
                     ->countAllResults();
     }
+    public function getAllWithDetails()
+    {
+        $builder = $this->db->table('reservas r');
+        $builder->select('r.*, u.nombre, u.apellido, u.cedula, c.nombre_clase, c.horario, c.instructor');
+        $builder->join('datos_usuarios u', 'u.id_usuario = r.id_usuario', 'left');
+        $builder->join('clases c', 'c.id_clases = r.id_clase', 'left');
+        $builder->orderBy('r.fecha_reserva', 'DESC');
+        
+        return $builder->get()->getResultArray();
+    }
 }
