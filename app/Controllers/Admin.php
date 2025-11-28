@@ -17,32 +17,29 @@ class Admin extends BaseController
     // =========================
     public function dashboard_admin()
     {
-        
-    if(!session()->has('id_usuario') || session('id_rol') != 1){
-        return redirect()->to('/login');
+        if (!session()->has('id_usuario') || session('id_rol') != 1) {
+            return redirect()->to('/login');
+        }
+
+        // 📊 Cargar modelos
+        $usuarioModel = new DatosUsuarioModel();
+        $claseModel = new ClaseModel();
+        $reservaModel = new ReservaModel();
+
+        // 📈 Datos para el dashboard
+        $data = [
+            'usuarios' => $usuarioModel->countAll(),
+            'clases'   => $claseModel->countAll(),
+            'reservas' => $reservaModel->countAll(),
+        ];
+
+        return view('admin/dashboard_admin', $data);
     }
-
-    // 📊 Cargar modelos
-    $usuarioModel = new DatosUsuarioModel();
-    $claseModel = new ClaseModel();
-    $reservaModel = new ReservaModel();
-
-    // 📈 Datos para el dashboard
-    $data = [
-        'usuarios' => $usuarioModel->countAll(),
-        'clases'   => $claseModel->countAll(),
-        'reservas' => $reservaModel->countAll(),
-    ];
-
-    return view('admin/dashboard_admin', $data);
-
-    }
-
 
     // =========================
     // 👥 LISTA DE USUARIOS
     // =========================
-    public function usuarios()
+public function usuarios()
 {
     $usuarioModel = new DatosUsuarioModel();
     $perfilModel  = new PerfilModel();
@@ -52,18 +49,20 @@ class Admin extends BaseController
     $usuarios = $usuarioModel->findAll();
 
     foreach ($usuarios as &$u) {
-
         // obtener usuario en tabla perfil (rol, usuario, contraseña)
         $perfil = $perfilModel->where('id_usuario', $u['id_usuario'])->first();
         $u['rol'] = $perfil ? $perfil['id_rol'] : 'Sin perfil';
 
-        // obtener plan asignado
+        // obtener plan asignado (CORREGIR si es necesario)
         $plan = $planModel->where('id_planes', $u['id_usuario'])->first();
         $u['plan'] = $plan ? $plan['nombre'] : 'Sin plan asignado';
 
-        // estado del pago
+        // estado del pago - CORREGIDO
         $pago = $pagoModel->where('id_usuario', $u['id_usuario'])->first();
-        $u['estado_pago'] = $pago ? $pago['estado'] : 'pendiente';
+        $u['estado_pago'] = $pago ? $pago['estado'] : 'Pago Pendiente';
+        
+        // DEBUG: Verificar los datos
+        // echo "Usuario: {$u['nombre']} - Estado: {$u['estado_pago']}<br>";
     }
 
     return view('admin/usuarios', ['usuarios' => $usuarios]);
@@ -77,6 +76,7 @@ class Admin extends BaseController
         $usuarioModel = new DatosUsuarioModel();
         $perfilModel  = new PerfilModel();
         $planModel    = new PlanModel();
+        $pagoModel    = new PagoModel();
 
         $usuario = $usuarioModel->find($id);
 
@@ -86,58 +86,109 @@ class Admin extends BaseController
 
         $perfil = $perfilModel->where('id_usuario', $id)->first();
         $planes = $planModel->findAll();
+        $pago = $pagoModel->where('id_usuario', $id)->first();
 
         return view('admin/editar_usuario', [
             'usuario' => $usuario,
             'perfil'  => $perfil,
-            'planes'  => $planes
+            'planes'  => $planes,
+            'pago'    => $pago
         ]);
     }
 
-
-   // =========================
+    // =========================
     // 💾 ACTUALIZAR USUARIO
     // =========================
     public function actualizar_usuario($id = null)
-{
-    $usuarioModel = new DatosUsuarioModel();
+    {
+        $usuarioModel = new DatosUsuarioModel();
+        $pagoModel = new PagoModel();
 
-    // 1️⃣ Buscar usuario
-    $usuario = $usuarioModel->find($id);
-    if (!$usuario) {
-        throw new \CodeIgniter\Exceptions\PageNotFoundException("Usuario no encontrado");
+        // 1️⃣ Buscar usuario
+        $usuario = $usuarioModel->find($id);
+        if (!$usuario) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("Usuario no encontrado");
+        }
+
+        // 2️⃣ Datos personales del formulario
+        $nombre   = $this->request->getPost('nombre');
+        $apellido = $this->request->getPost('apellido');
+        $cedula   = $this->request->getPost('cedula');
+        $estado   = $this->request->getPost('estado');
+
+        // 3️⃣ Validaciones básicas
+        if (empty($nombre) || empty($apellido) || empty($cedula) || empty($estado)) {
+            return redirect()->back()->with('error', 'Todos los campos son obligatorios.');
+        }
+
+        // 4️⃣ Validar que la cédula no esté repetida
+        $usuarioExistente = $usuarioModel->where('cedula', $cedula)
+            ->where('id_usuario !=', $id)
+            ->first();
+        if ($usuarioExistente) {
+            return redirect()->back()->with('error', 'La cédula ya está registrada en otro usuario.');
+        }
+
+        // 5️⃣ Validar estado del pago
+        $estadosPermitidos = ['Pago Pendiente', 'Pago Cancelado'];
+        if (!in_array($estado, $estadosPermitidos)) {
+            return redirect()->back()->with('error', 'Estado de pago no válido.');
+        }
+
+        try {
+            // 6️⃣ Actualizar datos del usuario
+            $dataUsuario = [
+                'nombre'   => $nombre,
+                'apellido' => $apellido,
+                'cedula'   => $cedula
+            ];
+            $usuarioModel->update($id, $dataUsuario);
+
+            // 7️⃣ Actualizar o crear estado de pago
+            $pagoExistente = $pagoModel->where('id_usuario', $id)->first();
+
+            if ($pagoExistente) {
+                // Actualizar pago existente
+                $pagoModel->update($pagoExistente['id_pago'], ['estado' => $estado]);
+            } else {
+                // Crear nuevo registro de pago
+                $pagoModel->insert([
+                    'id_usuario' => $id,
+                    'estado' => $estado
+                ]);
+            }
+
+            // 8️⃣ Redirigir con mensaje de éxito
+            return redirect()->to(base_url('admin/usuarios'))
+                ->with('success', 'Usuario y estado de pago actualizados correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al actualizar: ' . $e->getMessage());
+        }
     }
 
-    // 2️⃣ Datos personales del formulario
-    $nombre   = $this->request->getPost('nombre');
-    $apellido = $this->request->getPost('apellido');
-    $cedula   = $this->request->getPost('cedula');
+    // =========================
+    // 🗑️ ELIMINAR USUARIO
+    // =========================
+    public function eliminar_usuario($id = null)
+    {
+        $usuarioModel = new DatosUsuarioModel();
+        $pagoModel = new PagoModel();
+        $perfilModel = new PerfilModel();
 
-    // 3️⃣ Validaciones básicas
-    if (empty($nombre) || empty($apellido) || empty($cedula)) {
-        return redirect()->back()->with('error', 'Todos los campos son obligatorios.');
+        try {
+            // Eliminar registros relacionados primero
+            $pagoModel->where('id_usuario', $id)->delete();
+            $perfilModel->where('id_usuario', $id)->delete();
+
+            // Eliminar usuario
+            $usuarioModel->delete($id);
+
+            return redirect()->to(base_url('admin/usuarios'))
+                ->with('success', 'Usuario eliminado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al eliminar usuario: ' . $e->getMessage());
+        }
     }
-
-    // 4️⃣ Opcional: validar que la cédula no esté repetida
-    $usuarioExistente = $usuarioModel->where('cedula', $cedula)
-                                     ->where('id_usuario !=', $id)
-                                     ->first();
-    if ($usuarioExistente) {
-        return redirect()->back()->with('error', 'La cédula ya está registrada en otro usuario.');
-    }
-
-    // 5️⃣ Preparar datos y actualizar
-    $dataUsuario = [
-        'nombre'   => $nombre,
-        'apellido' => $apellido,
-        'cedula'   => $cedula
-    ];
-    $usuarioModel->update($id, $dataUsuario);
-
-    // 6️⃣ Redirigir con mensaje de éxito
-    return redirect()->to(base_url('admin/usuarios'))
-                     ->with('mensaje', 'Usuario actualizado correctamente.');
-}
 
     // =========================
     // 📚 GESTIÓN DE CLASES
@@ -152,7 +203,6 @@ class Admin extends BaseController
 
     public function editar_clase($id_clases)
     {
-        // Lógica para editar una clase
         $claseModel = new ClaseModel();
         $clase = $claseModel->find($id_clases);
         if (!$clase) {
@@ -161,6 +211,31 @@ class Admin extends BaseController
         return view('admin/editar_clase', ['clase' => $clase]);
     }
 
+    public function actualizar_clase($id_clases)
+    {
+        $claseModel = new ClaseModel();
+
+        $data = [
+            'nombre_clase' => $this->request->getPost('nombre_clase'),
+            'descripcion'  => $this->request->getPost('descripcion'),
+            'horario'      => $this->request->getPost('horario'),
+            'instructor'   => $this->request->getPost('instructor')
+        ];
+
+        $claseModel->update($id_clases, $data);
+
+        return redirect()->to(base_url('admin/clases'))
+            ->with('success', 'Clase actualizada correctamente.');
+    }
+
+    public function eliminar_clase($id_clases)
+    {
+        $claseModel = new ClaseModel();
+        $claseModel->delete($id_clases);
+
+        return redirect()->to(base_url('admin/clases'))
+            ->with('success', 'Clase eliminada correctamente.');
+    }
 
     // =========================
     // 🗓️ GESTIÓN DE RESERVAS
@@ -168,8 +243,69 @@ class Admin extends BaseController
     public function reservas()
     {
         $reservaModel = new ReservaModel();
-        $reservas = $reservaModel->getAll();  // lo corregiremos cuando envíes el modelo
+        $reservas = $reservaModel->getAllWithDetails();
 
         return view('admin/reservas', ['reservas' => $reservas]);
+    }
+
+    public function editar_reserva($id_reserva)
+    {
+        $reservaModel = new ReservaModel();
+        $reserva = $reservaModel->find($id_reserva);
+
+        if (!$reserva) {
+            throw new PageNotFoundException("Reserva no encontrada");
+        }
+
+        return view('admin/editar_reserva', ['reserva' => $reserva]);
+    }
+
+    public function actualizar_reserva($id_reserva)
+    {
+        $reservaModel = new ReservaModel();
+
+        $data = [
+            'estado' => $this->request->getPost('estado'),
+            'fecha_reserva' => $this->request->getPost('fecha_reserva')
+        ];
+
+        $reservaModel->update($id_reserva, $data);
+
+        return redirect()->to(base_url('admin/reservas'))
+            ->with('success', 'Reserva actualizada correctamente.');
+    }
+
+    public function eliminar_reserva($id_reserva)
+    {
+        $reservaModel = new ReservaModel();
+        $reservaModel->delete($id_reserva);
+
+        return redirect()->to(base_url('admin/reservas'))
+            ->with('success', 'Reserva eliminada correctamente.');
+    }
+
+    // =========================
+    // ➕ CREAR NUEVA CLASE
+    // =========================
+    public function crear_clase()
+    {
+        if ($this->request->getMethod() === 'POST') {
+            $claseModel = new ClaseModel();
+
+            $data = [
+                'nombre_clase' => $this->request->getPost('nombre_clase'),
+                'descripcion'  => $this->request->getPost('descripcion'),
+                'horario'      => $this->request->getPost('horario'),
+                'instructor'   => $this->request->getPost('instructor'),
+                'cupos'        => $this->request->getPost('cupos')
+            ];
+
+            $claseModel->insert($data);
+
+            return redirect()->to(base_url('admin/clases'))
+                ->with('success', 'Clase creada correctamente.');
+        }
+
+        return view('admin/crear_clase');
     }
 }
