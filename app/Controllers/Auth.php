@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 use App\Models\PerfilModel;
 use App\Models\DatosUsuarioModel;
-
+use App\Models\PagoModel;
 class Auth extends BaseController
 {
     protected $helpers = ['url', 'form'];
@@ -111,13 +111,23 @@ class Auth extends BaseController
 }
 
 
-     public function editar($idUsuario)
-    {
-        $model = new DatosUsuarioModel();
-        $data['usuario'] = $model->find($idUsuario);
-        return view('adminCrud/editar', $data);
+public function editar($idUsuario)
+{
+    $model = new DatosUsuarioModel();
+    $data['usuario'] = $model->find($idUsuario);
+    
+    // Obtener el estado del pago del usuario
+    $pagoModel = new PagoModel();
+    $data['pago'] = $pagoModel->where('id_usuario', $idUsuario)->first();
+    
+    // Si no existe registro de pago, crear uno por defecto
+    if (!$data['pago']) {
+        $data['pago'] = ['estado' => 'Pago Pendiente'];
+    }
+    
+    return view('adminCrud/editar', $data);
 }
-   public function eliminar($idUsuario)
+    public function eliminar($idUsuario)
 {
     $perfilModel = new PerfilModel();
     $usuarioModel = new DatosUsuarioModel();
