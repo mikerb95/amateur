@@ -238,52 +238,53 @@ public function usuarios()
     }
 
     // =========================
-    // 🗓️ GESTIÓN DE RESERVAS
-    // =========================
-    public function reservas()
-    {
-        $reservaModel = new ReservaModel();
-        $reservas = $reservaModel->getAllWithDetails();
+// 🗓️ GESTIÓN DE RESERVAS
+// =========================
+public function reservas()
+{
+    $reservaModel = new ReservaModel();
+    
+    // Usar findAll() básico por ahora
+    $reservas = $reservaModel->findAll();
 
-        return view('admin/reservas', ['reservas' => $reservas]);
+    return view('admin/reservas', ['reservas' => $reservas]);
+}
+
+public function editar_reserva($id_reserva)
+{
+    $reservaModel = new ReservaModel();
+    $reserva = $reservaModel->find($id_reserva);
+
+    if (!$reserva) {
+        throw new PageNotFoundException("Reserva no encontrada");
     }
 
-    public function editar_reserva($id_reserva)
-    {
-        $reservaModel = new ReservaModel();
-        $reserva = $reservaModel->find($id_reserva);
+    return view('admin/editar_reserva', ['reserva' => $reserva]);
+}
 
-        if (!$reserva) {
-            throw new PageNotFoundException("Reserva no encontrada");
-        }
+public function actualizar_reserva($id_reserva)
+{
+    $reservaModel = new ReservaModel();
 
-        return view('admin/editar_reserva', ['reserva' => $reserva]);
-    }
+    $data = [
+        'estado' => $this->request->getPost('estado'),
+        'fecha_reserva' => $this->request->getPost('fecha_reserva')
+    ];
 
-    public function actualizar_reserva($id_reserva)
-    {
-        $reservaModel = new ReservaModel();
+    $reservaModel->update($id_reserva, $data);
 
-        $data = [
-            'estado' => $this->request->getPost('estado'),
-            'fecha_reserva' => $this->request->getPost('fecha_reserva')
-        ];
+    return redirect()->to(base_url('admin/reservas'))
+        ->with('success', 'Reserva actualizada correctamente.');
+}
 
-        $reservaModel->update($id_reserva, $data);
+public function eliminar_reserva($id_reserva)
+{
+    $reservaModel = new ReservaModel();
+    $reservaModel->delete($id_reserva);
 
-        return redirect()->to(base_url('admin/reservas'))
-            ->with('success', 'Reserva actualizada correctamente.');
-    }
-
-    public function eliminar_reserva($id_reserva)
-    {
-        $reservaModel = new ReservaModel();
-        $reservaModel->delete($id_reserva);
-
-        return redirect()->to(base_url('admin/reservas'))
-            ->with('success', 'Reserva eliminada correctamente.');
-    }
-
+    return redirect()->to(base_url('admin/reservas'))
+        ->with('success', 'Reserva eliminada correctamente.');
+}
     // =========================
     // ➕ CREAR NUEVA CLASE
     // =========================
