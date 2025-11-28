@@ -51,6 +51,10 @@ $routes->group('admin', ['namespace' => 'App\Controllers'], function($routes) {
     // --- Gestión de clases ---
     $routes->get('editar_clase/(:num)', 'Admin::editar_clase/$1');
     $routes->get('eliminar_clase/(:num)', 'Admin::eliminar_clase/$1');
+    $routes->get('toggle_disponibilidad/(:num)', 'Admin::toggle_disponibilidad/$1');
+
+
+
 
     // --- Gestión de reservas ---
     $routes->get('editar_reserva/(:num)', 'Admin::editar_reserva/$1');

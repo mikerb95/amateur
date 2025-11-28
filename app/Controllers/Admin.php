@@ -194,22 +194,41 @@ public function usuarios()
     // 📚 GESTIÓN DE CLASES
     // =========================
     public function clases()
-    {
-        $claseModel = new ClaseModel();
+{
+    $claseModel = new ClaseModel();
+
+    // Obtener día seleccionado desde GET
+    $dia = $this->request->getGet('dia');
+
+    if ($dia) {
+        $clases = $claseModel->where('dia_semana', $dia)->findAll();
+    } else {
         $clases = $claseModel->findAll();
-
-        return view('admin/clases', ['clases' => $clases]);
     }
 
-    public function editar_clase($id_clases)
-    {
-        $claseModel = new ClaseModel();
-        $clase = $claseModel->find($id_clases);
-        if (!$clase) {
-            throw new PageNotFoundException("Clase no encontrada");
-        }
-        return view('admin/editar_clase', ['clase' => $clase]);
+    return view('admin/clases', [
+        'clases' => $clases,
+        'diaSeleccionado' => $dia
+    ]);
+}
+
+public function toggle_disponibilidad($id = null)
+{
+    $claseModel = new \App\Models\ClaseModel();
+
+    $clase = $claseModel->find($id);
+    if (!$clase) {
+        return redirect()->to(base_url('admin/clases'))->with('error', 'Clase no encontrada.');
     }
+
+    $nuevoEstado = $clase['disponible'] ? 0 : 1;
+    $claseModel->update($id, ['disponible' => $nuevoEstado]);
+
+    return redirect()->to(base_url('admin/clases'))->with('success', 'Estado actualizado correctamente.');
+}
+
+
+
 
     public function actualizar_clase($id_clases)
     {

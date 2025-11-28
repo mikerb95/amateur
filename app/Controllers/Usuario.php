@@ -67,8 +67,7 @@ public function mis_clases()
 public function reservar()
 {
     $claseModel = new ClaseModel();
-    $clases = $claseModel->getDisponibles();
-
+    $clases = $claseModel->orderBy('dia_semana')->orderBy('hora_inicio')->findAll();
     // Calcular fecha próxima para cada clase
     foreach ($clases as &$clase) {
         $clase['fecha_clase'] = $this->getNextDate($clase['dia_semana']);
@@ -107,12 +106,10 @@ public function hacer_reserva($id_clase)
     $claseModel   = new ClaseModel();
     $reservaModel = new ReservaModel();
 
-    // ⚠️ Reemplaza temporal con session
-            $idUsuario = session()->get('id_usuario');
-        if (!$idUsuario) {
-            return redirect()->to('/login');
-        }
-
+    $idUsuario = session()->get('id_usuario');
+    if (!$idUsuario) {
+        return redirect()->to('/login');
+    }
 
     // 1️⃣ Obtener la clase
     $clase = $claseModel->getById($id_clase);
@@ -121,7 +118,14 @@ public function hacer_reserva($id_clase)
         throw new \CodeIgniter\Exceptions\PageNotFoundException('Clase no encontrada');
     }
 
-    // 2️⃣ Verificar si ya existe reserva del usuario para esta clase
+    // 🚫 1.1 Verificar si está disponible
+    if ($clase['disponible'] == 0) {
+        return redirect()
+            ->to(base_url('usuarios/reservar'))
+            ->with('mensaje', 'Esta clase no está disponible actualmente.');
+    }
+
+    // 2️⃣ Verificar si ya existe reserva del usuario
     if ($reservaModel->existeReserva($idUsuario, $id_clase)) {
         return redirect()
             ->to(base_url('usuarios/mis_clases'))
@@ -131,7 +135,7 @@ public function hacer_reserva($id_clase)
     // 3️⃣ Calcular la próxima fecha de la clase
     $fechaClase = $this->getNextDate($clase['dia_semana']);
 
-    // 4️⃣ Calcular los bloques de hora que ocupa la clase
+    // 4️⃣ Calcular horas de duración
     $horaInicio = new \DateTime($clase['hora_inicio']);
     $horaFin    = new \DateTime($clase['hora_fin']);
 
@@ -142,30 +146,28 @@ public function hacer_reserva($id_clase)
         $tmp->modify('+1 hour');
     }
 
-    // 5️⃣ Validar cupos por bloque horario y por fecha
+    // 5️⃣ Validar cupos por fecha y hora
     foreach ($horasOcupadas as $hora) {
         $cupos = $reservaModel->countByHoraYFecha($hora, $fechaClase);
+
         if ($cupos >= 8) {
             return redirect()
                 ->to(base_url('usuarios/mis_clases'))
-                ->with(
-                    'mensaje',
-                    "La clase no se puede reservar porque el bloque de las $hora ya tiene los 8 cupos completos."
-                );
+                ->with('mensaje', "La clase no se puede reservar porque el bloque de las $hora ya está lleno.");
         }
     }
 
-    // 6️⃣ Registrar la reserva
+    // 6️⃣ Registrar reserva
     $reservaModel->crearReserva([
-        'id_usuario'  => $idUsuario,
-        'id_clases'   => $id_clase,
-        'fecha_reserva' => $fechaClase
+        'id_usuario'     => $idUsuario,
+        'id_clases'      => $id_clase,
+        'fecha_reserva'  => $fechaClase
     ]);
 
-    // 7️⃣ Reducir cupo disponible de la clase general (opcional, si manejas cupos generales)
+    // 7️⃣ Reducir cupo disponible
     $claseModel->reducirCupo($id_clase);
 
-    // 8️⃣ Agregar fecha dinámica a la clase para la vista
+    // 8️⃣ Agregar fecha a la clase
     $clase['fecha_clase'] = $fechaClase;
 
     // 9️⃣ Mostrar confirmación
@@ -174,6 +176,7 @@ public function hacer_reserva($id_clase)
         'usuario' => $idUsuario
     ]);
 }
+
 
     // ========================
     // Función privada para obtener próxima fecha del día de la semana
