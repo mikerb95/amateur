@@ -263,8 +263,8 @@ public function reservas()
 {
     $reservaModel = new ReservaModel();
     
-    // Usar findAll() básico por ahora
-    $reservas = $reservaModel->findAll();
+    // Usar el método corregido que incluye los joins
+    $reservas = $reservaModel->getAllWithDetails();
 
     return view('admin/reservas', ['reservas' => $reservas]);
 }
