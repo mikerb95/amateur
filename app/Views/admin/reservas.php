@@ -17,14 +17,14 @@
                 </thead>
                 <tbody>
                     <?php foreach ($reservas as $reserva): ?>
-                        <tr>
-                            <td><?= esc($reserva['id']); ?></td>
-                            <td><?= esc($reserva['usuario_nombre']); ?></td>
-                            <td><?= esc($reserva['clase_nombre']); ?></td>
-                            <td><?= esc($reserva['fecha_reserva']); ?></td>
-                            <td><?= esc($reserva['estado']); ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+    <tr>
+        <td><?= esc($reserva['id']); ?></td>
+        <td><?= esc($reserva['usuario_nombre']); ?></td>
+        <td><?= esc($reserva['clase_nombre']); ?></td>
+        <td><?= esc($reserva['fecha_reserva']); ?></td>
+        <td><?= esc($reserva['estado']); ?></td>
+    </tr>
+<?php endforeach; ?>
                 </tbody>
             </table>
         </div>
