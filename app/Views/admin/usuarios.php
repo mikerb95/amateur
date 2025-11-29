@@ -6,7 +6,8 @@
     <?php if (!empty($usuarios) && is_array($usuarios)): ?>
         <div>
            <a href="<?= base_url('admin/Crear_usuario'); ?>" class="btn-crear">Crear usuario</a>
-           <a href="<?= base_url('pagos'); ?>" class="btn-pay">Pagos</a>
+           <a href="<?= base_url('pagos'); ?>" class="btn-crear">Pagos</a>
+            <a href="<?= base_url('exportar/excel-pagos'); ?>" class="btn-crear">Exportar Excel</a>
            <br><br>
         </div>
 
