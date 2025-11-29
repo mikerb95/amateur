@@ -93,3 +93,5 @@ $routes->get('pagos', 'Pagos::index');
 $routes->post('pagos/buscar', 'Pagos::buscar');
 $routes->post('pagos/actualizar', 'Pagos::actualizarEstadoPago');
 $routes->post('pagos/guardar', 'Pagos::guardar');
+
+$routes->get('exportar/excel-pagos', 'Exportar::excelPagos');
