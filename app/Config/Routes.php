@@ -23,6 +23,8 @@ $routes->group('usuarios', function($routes) {
     $routes->post('hacer_reserva/(:num)', 'Usuario::hacer_reserva/$1');
     $routes->post('cancelar_reserva/(:num)', 'Usuario::cancelar_reserva/$1');
     $routes->get('perfil', 'Usuario::perfil');
+    $routes->get('perfil/editar', 'Usuario::editarPerfil');
+    $routes->post('perfil/actualizar', 'Usuario::actualizarPerfil');
 });
 
 
