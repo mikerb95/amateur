@@ -54,7 +54,7 @@ public function usuarios()
         $u['rol'] = $perfil ? $perfil['id_rol'] : 'Sin perfil';
 
         // obtener plan asignado (CORREGIR si es necesario)
-        $plan = $planModel->where('id_planes', $u['id_usuario'])->first();
+        $plan = $planModel->first(); // Solo toma el primer plan disponible
         $u['plan'] = $plan ? $plan['nombre'] : 'Sin plan asignado';
 
         // estado del pago - CORREGIDO
@@ -308,24 +308,33 @@ public function eliminar_reserva($id_reserva)
     // ➕ CREAR NUEVA CLASE
     // =========================
     public function crear_clase()
-    {
-        if ($this->request->getMethod() === 'POST') {
-            $claseModel = new ClaseModel();
+{
+    if ($this->request->getMethod() === 'POST') {
+        $claseModel = new ClaseModel();
 
-            $data = [
-                'nombre_clase' => $this->request->getPost('nombre_clase'),
-                'descripcion'  => $this->request->getPost('descripcion'),
-                'horario'      => $this->request->getPost('horario'),
-                'instructor'   => $this->request->getPost('instructor'),
-                'cupos'        => $this->request->getPost('cupos')
-            ];
+        $data = [
+            'nombre' => $this->request->getPost('nombre'),
+            'descripcion' => $this->request->getPost('descripcion'),
+            'dia_semana' => $this->request->getPost('dia_semana'),
+            'hora_inicio' => $this->request->getPost('hora_inicio'),
+            'hora_fin' => $this->request->getPost('hora_fin'),
+            'cupo_maximo' => $this->request->getPost('cupo_maximo'),
+            'cupo_disponible' => $this->request->getPost('cupo_maximo'),
+            'disponible' => 1,
+            'id_rol' => 1,      // ← Probamos con 1 primero
+            'id_planes' => 1    // ← Probamos con 1 primero
+        ];
 
+        try {
             $claseModel->insert($data);
-
             return redirect()->to(base_url('admin/clases'))
                 ->with('success', 'Clase creada correctamente.');
+        } catch (\Exception $e) {
+            // Si falla, mostramos el error exacto
+            return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
         }
-
-        return view('admin/crear_clase');
     }
+
+    return view('admin/crear_clase');
+}
 }

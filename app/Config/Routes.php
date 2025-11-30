@@ -53,6 +53,11 @@ $routes->group('admin', ['namespace' => 'App\Controllers'], function($routes) {
     $routes->get('eliminar_clase/(:num)', 'Admin::eliminar_clase/$1');
     $routes->get('toggle_disponibilidad/(:num)', 'Admin::toggle_disponibilidad/$1');
 
+$routes->get('crear_clase', 'Admin::crear_clase');
+$routes->post('guardar_clase', 'Admin::crear_clase');
+$routes->get('editar_clase/(:num)', 'Admin::editar_clase/$1');
+$routes->post('actualizar_clase/(:num)', 'Admin::actualizar_clase/$1');
+
 
 
 
