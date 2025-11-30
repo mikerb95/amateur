@@ -12,7 +12,8 @@ class ReservaModel extends Model
     protected $allowedFields = [
         'id_usuario',
         'id_clases',
-        'fecha_reserva'
+        'fecha_reserva',
+        'estado'
     ];
 
     // =========================
