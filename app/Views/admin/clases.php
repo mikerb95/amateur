@@ -80,7 +80,7 @@
                         <th>Cupos</th>
                         <th>Ocupación</th>
                         <th>Estado</th>
-                        <th>Acciones</th>
+                      
                     </tr>
                 </thead>
                 <tbody>
@@ -135,20 +135,7 @@
                                     </a>
                                 </div>
                             </td>
-                            <td>
-                                <div class="action-buttons">
-                                    <a href="<?= base_url('admin/editar_clase/' . $clase['id_clases']) ?>" 
-                                       class="btn-action btn-edit" title="Editar clase">
-                                        ✏️ Editar
-                                    </a>
-                                    <a href="<?= base_url('admin/eliminar_clase/' . $clase['id_clases']) ?>" 
-                                       class="btn-action btn-delete" 
-                                       onclick="return confirm('¿Estás seguro de eliminar esta clase?')"
-                                       title="Eliminar clase">
-                                        🗑️ Eliminar
-                                    </a>
-                                </div>
-                            </td>
+                           
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
