@@ -9,6 +9,8 @@
 </head>
 
 <body>
+  <video autoplay muted id="video-fondo" preload="auto">
+          </video>
 
 <div class="container">
 
@@ -46,7 +48,37 @@
   </p>
 </footer>
 
-</div>
+<script src="olvidarcontrasena.js"></script>
+      <script>
+          document.addEventListener('DOMContentLoaded', () => {
+              const video = document.getElementById('video-fondo');
+              
+              const videoList = [
+                  '<?= base_url('videos/entrenando.mp4') ?>',
+                  '<?= base_url('videos/entrenando1.mp4') ?>',
+                  '<?= base_url('videos/entrenando2.mp4') ?>' 
+              ];
 
+              let currentVideo = 0;
+
+              function playNextVideo() {
+                  currentVideo = (currentVideo + 1) % videoList.length;
+                  
+                  video.src = videoList[currentVideo];
+                  
+                  video.load();
+                  video.play().catch(error => {
+                      console.warn("Autoplay falló (común en navegadores móviles), esperando interacción.", error);
+                  });
+              }
+
+              video.src = videoList[currentVideo];
+              video.load();
+              video.play().catch(error => {
+                  console.warn("Autoplay inicial falló.", error);
+              });
+
+              video.addEventListener('ended', playNextVideo);
+          });
+      </script>
 </body>
-</html>

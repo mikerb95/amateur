@@ -17,7 +17,7 @@
 <div class="slider-wrapper">
   <div class="slider-contenedor">
     <img src="<?= base_url('imagenes/referencia1.jpg'); ?>" alt="Referencia 1" class="slider-img activa">
-    <img src="<?= base_url('imagagenes/bjj.jpg'); ?>" alt="Referencia 2" class="slider-img">
+    <img src="<?= base_url('imagenes/bjj.jpg'); ?>" alt="Referencia 2" class="slider-img">
     <img src="<?= base_url('imagenes/referencia3.jpg'); ?>" alt="Referencia 3" class="slider-img">
   </div>
 </div>

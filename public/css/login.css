@@ -13,11 +13,11 @@ body {
     left: 0;
     min-width: 100%;
     min-height: 100%;
-    width: 100%;
+    width: auto;
     height: auto;
     z-index: -10; 
     background-size: cover; 
-    object-fit: contain; 
+    object-fit: cover; 
     filter: brightness(60%) contrast(110%);
 }
 
@@ -84,7 +84,7 @@ input[type="password"] {
 }
 
 .btn {
-  background-color: indigo;
+  background-color: #7c0bd9;
   color: white;
   font-weight: bold;
   padding: 12px 0;
@@ -152,7 +152,7 @@ a:hover {
 }
 
 .redes:hover {
-  color: #FF5005;
+  color: #EB00FF;
 }
 
 /* ✅ Responsividad para pantallas pequeñas */
