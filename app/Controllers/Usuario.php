@@ -11,6 +11,15 @@ class Usuario extends BaseController
     // =========================
     // 🏠 DASHBOARD USUARIO
     // =========================
+
+     public function __construct()
+    {
+        // Sólo usuarios con rol 3
+        if (!session('logueado') || session('id_rol') != 3) {
+            redirect()->to('/login')->send();
+            exit;
+        }
+    }
     public function dashboard_usuario()
     {
     if(!session()->has('id_usuario') || session('id_rol') != 3){
@@ -222,6 +231,60 @@ public function cancelar_reserva($idReserva)
     return redirect()->to(base_url('usuarios/mis_clases'))
                      ->with('mensaje', 'Reserva cancelada correctamente.');
 }
+
+public function editarPerfil()
+    {
+        $idUsuario = session()->get('id_usuario'); // lo que guardaste al hacer login
+
+        $usuarioModel = new DatosUsuarioModel();
+        $usuario = $usuarioModel->find($idUsuario);
+
+        if (!$usuario) {
+            // Por si acaso no encuentra nada
+            return redirect()->to('usuarios/perfil')
+                             ->with('error', 'No se encontró la información del usuario');
+        }
+
+        return view('usuarios/editar_perfil', ['usuario' => $usuario]);
+    }
+
+    public function actualizarPerfil()
+    {
+        $idUsuario = session()->get('id_usuario');
+        $usuarioModel = new DatosUsuarioModel();
+
+        // 1. Validar datos
+        $valid = $this->validate([
+            'nombre'   => 'required|min_length[2]|max_length[50]',
+            'apellido' => 'required|min_length[2]|max_length[50]',
+            'correo'   => 'required|valid_email|max_length[100]',
+            'telefono' => 'permit_empty|max_length[20]',
+            'genero'   => 'permit_empty|in_list[Masculino,Femenino,Otro]',
+        ]);
+
+        if (!$valid) {
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', $this->validator->getErrors());
+        }
+
+        // 2. Construir arreglo SOLO con los campos editables (SIN cédula)
+        $data = [
+            'nombre'   => $this->request->getPost('nombre'),
+            'apellido' => $this->request->getPost('apellido'),
+            'correo'   => $this->request->getPost('correo'),
+            'telefono' => $this->request->getPost('telefono'),
+            'genero'   => $this->request->getPost('genero'),
+        ];
+
+        // 3. Actualizar en BD
+        $usuarioModel->update($idUsuario, $data);
+
+        // 4. Volver a la vista de perfil
+        return redirect()->to('usuarios/perfil')
+            ->with('mensaje', 'Perfil actualizado correctamente.');
+    }
+
 
 
 }

@@ -33,6 +33,13 @@
             <td><?= esc($usuario['genero']) ?></td>
         </tr>
     </table>
+    <br>
+    <div class="contenedor-del-boton">
+    <a href="<?= base_url('usuarios/perfil/editar') ?>" class="btn-editar">
+    Editar perfil
+</a>
+</div>
+        
     </div>
 
     <?php else: ?>

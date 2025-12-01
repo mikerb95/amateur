@@ -15,6 +15,15 @@ class Admin extends BaseController
     // =========================
     // 🏠 DASHBOARD ADMIN
     // =========================
+    public function __construct()
+    {
+        // PROTECCIÓN GLOBAL PARA TODO EL CONTROLADOR ADMIN
+        if (!session('logueado') || !in_array(session('id_rol'), [1, 2])) {
+            // si no está logueado o el rol NO es 1 ó 2 -> fuera
+            redirect()->to('/login')->send();
+            exit;
+        }
+    }
     public function dashboard_admin()
     {
         if (!session()->has('id_usuario') || session('id_rol') != 1) {
