@@ -6,11 +6,26 @@
 }
 
 body {
-  background-color: black ;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+#video-fondo {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -10; 
+    background-size: cover; 
+    object-fit: cover; 
+    filter: brightness(60%) contrast(110%);
 }
 
 .container {
@@ -23,7 +38,7 @@ body {
   height: auto !important;
   top: 20px;
   width: 190px !important;
-  filter: drop-shadow(0 2px 8px indigo);
+  filter: drop-shadow(0 2px 8px #7c0bd9);
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
@@ -112,6 +127,7 @@ input, select {
   color: #fff;
   text-align: center;
   padding: 20px;
+  line-height: 1;
 }
 
 img {
@@ -121,10 +137,20 @@ img {
    
 }
 
+.reglasimg {
+  position: relative;
+  width: 20px;
+}
+
+.instagramimg {
+  position: relative;
+  width: 15px;
+}
+
 
 
 .btn-register {
-  background-color: indigo;
+  background-color: #7c0bd9;
   color: white;
   border: none;
   padding: 12px;

@@ -9,7 +9,7 @@
     <a href="<?= base_url('inicio/contacto') ?>">Contacto</a>
 
             <a class="login" href="<?= base_url('/login') ?>">
-              <i class="bi bi-box-arrow-in-right"><img class="login_iniciosesion" src="<?= base_url('imagenes/Login_user.svg') ?>" alt="login"></i> Iniciar sesión
+              <i class="bi bi-box-arrow-in-right"><img class="login_iniciosesion" src="<?= base_url('imagenes/Login_user1.svg') ?>" alt="login"></i> Iniciar sesión
             </a>
 
   </nav>

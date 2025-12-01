@@ -53,9 +53,9 @@
               const video = document.getElementById('video-fondo');
               
               const videoList = [
-                  'videos/entrenando.mp4',
-                  'videos/entrenando1.mp4',
-                  'videos/entrenando2.mp4' 
+                  '<?= base_url('videos/entrenando.mp4') ?>',
+                  '<?= base_url('videos/entrenando1.mp4') ?>',
+                  '<?= base_url('videos/entrenando2.mp4') ?>' 
               ];
 
               let currentVideo = 0;
