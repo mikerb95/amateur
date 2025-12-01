@@ -1,261 +1,222 @@
-/* ======== ESTILOS GENERALES ======== */
+/* =======================================
+   REFACTORIZACIÓN CLUB AMATEUR V2.2 (Diseño Limpio, Centrado y Header de Íconos)
+   ======================================= */
+
+/* 🎨 VARIABLES DE DISEÑO */
+:root {
+    --color-fondo-claro: #F7F7FA;
+    --color-fondo-blanco: #FFFFFF;
+    --color-texto-oscuro: #333333;
+    --color-acento-morado: #7a1fc5;
+    --color-morado-oscuro: #3b006a;
+    --sombra-sutil: 0 4px 10px rgba(0, 0, 0, 0.05);
+    --gradiente-btn: linear-gradient(135deg, var(--color-morado-oscuro), var(--color-acento-morado));
+}
+
+/* 💻 BASE Y TIPOGRAFÍA */
 body {
     margin: 0;
-    padding: 0  ;
+    padding: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: #000;
-    color: #fff;
+    background-color: var(--color-fondo-claro);
+    color: var(--color-texto-oscuro);
     overflow-x: hidden;
-
 }
 
+/* 🗑️ CLASES DE MENÚ ANTIGUAS ELIMINADAS (menu-admin, menu-usuario, menu-principal) */
 
 
-/* Animación global de entrada */
-body, .main-content, .card, .menu-usuario {
-    animation: fadeIn 0.6s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* ======== MENÚ SUPERIOR ADMIN ======== */
-.menu-admin {
-    background: linear-gradient(90deg, #000 0%, #1a001f 100%);
-    padding: 15px 30px;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    box-shadow: 0 3px 15px rgba(59, 0, 106, 0.3);
-    z-index: 1000;
-}
-
-.menu-admin ul {
-    display: flex;
-    gap: 25px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.menu-admin a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 10px 18px;
-    border-radius: 8px;
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-.menu-admin a::after {
-    content: '';
-    position: absolute;
-    bottom: 4px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background-color: #a64dff;
-    transition: width 0.3s ease;
-}
-
-.menu-admin a:hover::after {
-    width: 50%;
-}
-
-
-/* ======== MENÚ SUPERIOR USUARIO ======== */
-.menu-usuario {
-    background: linear-gradient(90deg, #000 0%, #1a001f 100%);
-    padding: 15px 30px;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    box-shadow: 0 3px 15px rgba(59, 0, 106, 0.3);
-    z-index: 1000;
-    
-    
-}
-
-.menu-usuario ul {
-    display: flex;
-    gap: 25px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.menu-usuario a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 10px 18px;
-    border-radius: 8px;
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-.menu-usuario a::after {
-    content: '';
-    position: absolute;
-    bottom: 4px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background-color: #a64dff;
-    transition: width 0.3s ease;
-}
-
-.menu-usuario a:hover::after {
-    width: 50%;
-}
-
-
-/* ======== BARRA LATERAL ======== */
-.menu-principal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 230px;
-    height: 100vh;   /* Toda la altura de la pantalla */
-    background: #000; /* O el color que tú quieras */
-    padding-top: 20px; /* Ajusta si quieres un pequeño espacio */
-}
-
-
-.menu-principal li a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: 600;
+/* =======================================
+   NUEVO HEADER CONDICIONAL (ICONOS)
+   ======================================= */
+.icon-menu {
+    background-color: var(--color-morado-oscuro); /* Fondo morado para el header */
     padding: 10px 20px;
-    display: block;             /* ✔ habilita transform */
-    transition: all 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
-.menu-principal li a:hover {
-    color: #7c0bd9;
-    transform: translateY(-3px); /* ✔ efecto de elevación */
+.icon-menu ul {
+    display: flex;
+    justify-content: center; /* Centrar los iconos */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 30px;
 }
 
-
-/* Para que el contenido no quede debajo */
-.contenido {
-    margin-left: 230px;
-    padding: 20px;
-} 
-
-
-
-/* ======== LOGO ======== */
-  .logo img {
-    width: 10%;
-    height: auto;
-    margin-bottom: 20px;
-    margin-left: 150px;
-}
-  
-
-
-/* ======== DASHBOARD ======== */
-.dashboard {
-    margin-top: 100px;
-    padding: 40px;
-    text-align: center;
-}
-
-.cards {
+.icon-menu .icon-link {
+    position: relative;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 25px;
-    margin-top: 30px;
+    align-items: center;
+    text-decoration: none;
+    padding: 8px;
+}
+
+.icon-menu img {
+    width: 24px; 
+    height: 24px;
+    /* Filtrar a blanco (asumiendo que los PNGs de íconos son oscuros) */
+    filter: brightness(0) invert(1) opacity(0.8);
+    transition: all 0.3s ease;
+}
+
+.icon-menu .icon-link:hover img {
+    filter: brightness(0) invert(1) opacity(1);
+    transform: scale(1.1);
+}
+
+/* Tooltip (Nombre al hacer hover) */
+.icon-menu .tooltip {
+    position: absolute;
+    bottom: -30px;
+    background-color: var(--color-morado-oscuro);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0; /* Escondido por defecto */
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.icon-menu .icon-link:hover .tooltip {
+    opacity: 1; /* Mostrar al hacer hover */
+}
+
+
+/* 🏠 DASHBOARD BASE */
+.dashboard {
+    margin-top: 50px; 
+    padding: 40px 20px;
+    text-align: center;
+}
+.dashboard h1 {
+    color: var(--color-morado-oscuro);
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+/* 🎴 TARJETAS Y GRID (4 COLUMNAS) */
+.cards {
+    display: grid;
+    /* Ajuste para 4 columnas, mínimo 240px */
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+    max-width: 1200px; 
+    margin: 30px auto 0;
+    gap: 35px;
+}
+
+/* ENLACE PARA HACER TODA LA TARJETA CLICABLE */
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block; /* Asegura que tome el ancho del grid */
 }
 
 .card {
-    background: linear-gradient(145deg, #111, #1a1a1a);
-    border: 1px solid #2d2d2d;
+    background-color: var(--color-fondo-blanco);
+    border: 1px solid #E0E0E0;
     padding: 25px;
-    border-radius: 15px;
-    width: 280px;
+    border-radius: 12px;
     transition: all 0.3s ease;
-    box-shadow: 0 0 12px rgba(59, 0, 106, 0.2);
+    box-shadow: var(--sombra-sutil);
+    height: 100%; /* Asegura que todas las tarjetas tengan la misma altura */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .card:hover {
-    transform: translateY(-8px) scale(1.02);
-    border-color: #a64dff;
-    box-shadow: 0 0 18px rgba(166, 77, 255, 0.5);
+    transform: translateY(-5px);
+    border-color: var(--color-acento-morado);
+    box-shadow: 0 8px 20px rgba(122, 31, 197, 0.1);
 }
 
-/* ======== BOTONES ======== */
+.card .icon {
+    width: 80px !important;
+    height: 80px !important;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    margin-top: 0;
+    color: var(--color-morado-oscuro);
+}
+
+/* ⚠️ TARJETA DE CERRAR SESIÓN (ADVERTENCIA) */
+.logout-card {
+    border-color: #b3003b33; 
+}
+.logout-card:hover {
+    border-color: #b3003b; 
+    box-shadow: 0 8px 20px rgba(179, 0, 59, 0.1); 
+}
+
+/* 🔘 BOTONES DE ACCIÓN (ELIMINADOS DE LAS TARJETAS) */
+/* Si mantienes botones en otras partes: */
 .btn {
     display: inline-block;
-    margin-top: 12px;
-    background: linear-gradient(135deg, #3b006a, #7a1fc5);
+    background: var(--gradiente-btn);
     color: #fff;
     padding: 10px 18px;
     border-radius: 8px;
     text-decoration: none;
     transition: all 0.3s ease;
-    box-shadow: 0 0 10px rgba(122, 31, 197, 0.3);
+    box-shadow: 0 4px 10px rgba(122, 31, 197, 0.3);
 }
 
 .btn:hover {
-    background: linear-gradient(135deg, #7a1fc5, #3b006a);
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(166, 77, 255, 0.6);
+    background: var(--gradiente-btn);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(122, 31, 197, 0.4);
 }
 
-/*Logo en el menú*/
-
-/* ======== TABLAS ======== */
+/* 📝 CONTENIDO PRINCIPAL (SUB-VISTAS: TABLAS Y FORMULARIOS) */
 .main-content {
-    margin-left: 260px;
+    margin-top: 70px; /* Ajuste para el nuevo header de íconos */
     padding: 30px;
-    background-color: #fff;
-    min-height: 100vh;
-    color: #111;
+    background-color: var(--color-fondo-claro);
+    min-height: calc(100vh - 80px);
+    color: var(--color-texto-oscuro);
     transition: all 0.3s ease;
 }
 
 .title {
     text-align: center;
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin-bottom: 30px;
-    color: #7a1fc5;
+    color: var(--color-morado-oscuro);
     font-weight: 700;
     letter-spacing: 1px;
 }
 
+/* 📊 TABLAS */
 .table-container {
     overflow-x: auto;
     border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
 
 .styled-table {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
-    background-color: #fff;
+    background-color: var(--color-fondo-blanco);
     font-size: 1rem;
+    table-layout: fixed;
 }
 
 .styled-table thead {
-    background: linear-gradient(90deg, #000, #3b006a);
+    background: linear-gradient(90deg, var(--color-morado-oscuro), var(--color-acento-morado));
     color: white;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -271,28 +232,19 @@ body, .main-content, .card, .menu-usuario {
 }
 
 .styled-table tbody tr:hover {
-    background-color: #f4ecff;
-    transform: scale(1.01);
+    background-color: #e8e8f2;
+    transform: none;
 }
 
-.no-data {
-    text-align: center;
-    margin-top: 40px;
-    color: #777;
-    font-style: italic;
-}
-
-/* ======== FOOTER ======== */
+/* 🦶 FOOTER (DEL ADMIN) */
 .footer {
     text-align: center;
     padding: 20px;
-    background-color: #111;
+    background-color: var(--color-morado-oscuro);
     border-top: 1px solid #222;
     margin-top: 50px;
-    color: #aaa;
+    color: #fff;
     letter-spacing: 0.5px;
-
- 
 }
 
 .footer:hover {
@@ -300,63 +252,61 @@ body, .main-content, .card, .menu-usuario {
     transition: color 0.3s ease;
 }
 
+/* 🟢 BOTONES DE ACCIÓN DE TABLA Y FORMULARIO */
 .action-buttons {
     display: flex;
     justify-content: center;
     gap: 10px;
 }
 
-.btn-edit, .btn-delete, .btn-crear {
+.btn-crear, .btn-edit, .btn-delete {
     border: none;
     padding: 8px 12px;
     border-radius: 8px;
     color: #fff;
     font-size: 0.9rem;
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.3s;
+    transition: transform 0.2s, box-shadow 0.3s;
+    text-decoration: none;
 }
 
 .btn-crear {
-    background-color:#3b006a ;
-    text-decoration: none;
+    background-color: var(--color-acento-morado);
     margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(122, 31, 197, 0.3);
 }
 .btn-crear:hover {
-    background-color: #3b006a;
-    transform: scale(1.05);
+    background-color: var(--color-morado-oscuro);
+    transform: translateY(-1px);
 }
-
 
 .btn-edit {
     background-color: #3b006a;
-    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(59, 0, 106, 0.2);
 }
 
 .btn-edit:hover {
     background-color: #5a00a3;
-    transform: scale(1.05);
+    transform: translateY(-1px);
 }
 
 .btn-delete {
     background-color: #b3003b;
-    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(179, 0, 59, 0.2);
 }
 
 .btn-delete:hover {
     background-color: #e6005c;
-    transform: scale(1.05);
+    transform: translateY(-1px);
 }
 
-
-/* ======== FORMULARIOS ======== */
-/* ======== FORMULARIO DE EDICIÓN ======== */
-
+/* 🗄️ FORMULARIOS */
 .form-container {
     max-width: 700px;
     margin: 0 auto;
-    padding: 25px;
-    background: #fff;
-    border-radius: 15px;
+    padding: 30px;
+    background: var(--color-fondo-blanco);
+    border-radius: 12px;
     box-shadow: 0 6px 15px rgba(0,0,0,0.12);
 }
 
@@ -368,22 +318,24 @@ body, .main-content, .card, .menu-usuario {
 
 .form-row label {
     font-weight: 600;
-    color: #3b006a;
+    color: var(--color-morado-oscuro);
     margin-bottom: 6px;
 }
 
-.form-row input {
+.form-row input, .form-group select {
     padding: 12px;
-    border: 2px solid #dcd2ff;
+    border: 1px solid #dcd2ff;
     border-radius: 8px;
     font-size: 1rem;
     outline: none;
     transition: all 0.3s ease;
+    color: var(--color-texto-oscuro);
+    background-color: var(--color-fondo-blanco);
 }
 
-.form-row input:focus {
-    border-color: #7a1fc5;
-    box-shadow: 0 0 6px rgba(122, 31, 197, 0.4);
+.form-row input:focus, .form-group select:focus {
+    border-color: var(--color-acento-morado);
+    box-shadow: 0 0 6px rgba(122, 31, 197, 0.2);
 }
 
 .form-buttons {
@@ -395,7 +347,7 @@ body, .main-content, .card, .menu-usuario {
 
 .btn-save {
     padding: 10px 20px;
-    background-color: #3b006a;
+    background-color: var(--color-acento-morado);
     color: white;
     border: none;
     border-radius: 8px;
@@ -405,8 +357,8 @@ body, .main-content, .card, .menu-usuario {
 }
 
 .btn-save:hover {
-    background-color: #5a00a3;
-    transform: scale(1.05);
+    background-color: var(--color-morado-oscuro);
+    transform: translateY(-1px);
 }
 
 .btn-cancel {
@@ -421,69 +373,23 @@ body, .main-content, .card, .menu-usuario {
 
 .btn-cancel:hover {
     background-color: #e6005c;
-    transform: scale(1.05);
+    transform: translateY(-1px);
 }
 
+/* 🟣 TABLA — AJUSTE DE COLUMNAS (SE MANTIENE) */
+.styled-table th:nth-child(1), .styled-table td:nth-child(1) { width: 55px; }
+.styled-table th:nth-child(2), .styled-table td:nth-child(2) { width: 160px; }
+.styled-table th:nth-child(3), .styled-table td:nth-child(3) { width: 160px; }
+.styled-table th:nth-child(4), .styled-table td:nth-child(4) { width: 170px; }
+.styled-table th:nth-child(5), .styled-table td:nth-child(5) { width: 170px; }
+.styled-table th:nth-child(6), .styled-table td:nth-child(6) { width: 200px; }
 
-.form-group select {
-    padding: 12px;
-    border: 2px solid #dcd2ff;
-    border-radius: 8px;
-    font-size: 1rem;
-    outline: none;
-    background-color: #fff;
-    transition: all 0.3s ease;
-}
-
-.form-group select:focus {
-    border-color: #7a1fc5;
-    box-shadow: 0 0 6px rgba(122, 31, 197, 0.4);
-}
-
-.icon {
-    width: 150px !important;
-    height: auto !important;
-}
-
-/* ============================
-   🟣 TABLA — AJUSTE DE COLUMNAS
-============================ */
-.styled-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: center;
-    table-layout: fixed; /* MUY IMPORTANTE */
-}
-
-/* Anchos por columna */
-.styled-table th:nth-child(1),
-.styled-table td:nth-child(1) { width: 55px; }
-
-.styled-table th:nth-child(2),
-.styled-table td:nth-child(2) { width: 160px; }
-
-.styled-table th:nth-child(3),
-.styled-table td:nth-child(3) { width: 160px; }
-
-.styled-table th:nth-child(4),
-.styled-table td:nth-child(4) { width: 170px; }
-
-.styled-table th:nth-child(5),
-.styled-table td:nth-child(5) { width: 170px; }
-
-.styled-table th:nth-child(6),
-.styled-table td:nth-child(6) { width: 200px; }
-
-/* ============================
-   🟣 RESPONSIVE
-============================ */
+/* 📱 RESPONSIVE */
 @media(max-width: 900px){
-    .styled-table th,
-    .styled-table td {
-        font-size: .78rem;
-        padding: 8px;
+    .styled-table th, .styled-table td {
+        font-size: .85rem;
+        padding: 10px;
     }
-
     .styled-table {
         table-layout: auto;
     }
@@ -492,27 +398,15 @@ body, .main-content, .card, .menu-usuario {
 @media(max-width: 620px){
     .styled-table th:nth-child(6),
     .styled-table td:nth-child(6){
-        display: none; /* oculta acciones si es necesario en pantallas pequeñas */
+        display: none;
     }
 }
 
-.btn-disponibilidad {
-    font-weight: bold;
-    display: inline-block;
-}
-
-
-.card-disabled {
-    opacity: 0.5;
-    pointer-events: none;
-}
-
+/* Estilos de disponibilidad (si se mantienen) */
+.btn-disponibilidad { font-weight: bold; display: inline-block; }
+.card-disabled { opacity: 0.5; pointer-events: none; }
 .no-disponible {
-    background: #c0392b;
-    color: white;
-    padding: 5px 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    font-weight: bold;
+    background: #c0392b; color: white; padding: 5px 10px;
+    margin-bottom: 10px; border-radius: 5px; font-weight: bold;
     text-align: center;
 }

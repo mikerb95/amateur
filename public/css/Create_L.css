@@ -34,7 +34,7 @@ body {
 
 .logo {
   display: block !important;
-  margin: 0 auto 5px !important;
+  margin: 0 auto !important;
   height: auto !important;
   top: 20px;
   width: 190px !important;
@@ -45,6 +45,11 @@ body {
 .logo :hover {
   transform: scale(1.05);
   filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.2));
+}
+
+.logo-encabezado{
+  width: 200px;
+  
 }
 
 .form-box {
@@ -129,12 +134,8 @@ input, select {
   padding: 20px;
   line-height: 1;
 }
-
-img {
-    width: 200px;
-    height: auto;
-    vertical-align: middle;
-   
+.footer p {
+    margin: 7px 0;
 }
 
 .reglasimg {
@@ -147,6 +148,27 @@ img {
   width: 15px;
 }
 
+#documento {
+  color: white;
+  display: inline-block;
+  margin: 10px auto;
+  text-decoration: none;
+}
+
+#documento:hover {
+  color: #EB00FF;
+}
+
+
+.redes {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.redes:hover {
+  color: #EB00FF;
+}
 
 
 .btn-register {
@@ -163,8 +185,8 @@ img {
 }
 
 .btn-register:hover {
-  background-color:  rgb(63, 0, 63);
-  box-shadow: -5PX -2PX 23PX #EB00FF,5PX 2px 23px #00f0FF;
+  background-color: #EB00FF;
+  box-shadow: -5PX -2PX 23PX #aee3ff;
 }
 
 .login-link {
@@ -214,24 +236,3 @@ img {
   color: #EB00FF;
 }
 
-.footer {
-  color: #fff;
-  text-align: center;
-  padding: 60px;
-}
-
-footer a { 
-  color: #026AC2; 
-  text-align: center; 
-  text-decoration: none;
-}
-
-.instagramimg {
-  position: relative;
-  width: 15px;
-}
-
-.reglasimg {
-  position: relative;
-  width: 20px;
-}
