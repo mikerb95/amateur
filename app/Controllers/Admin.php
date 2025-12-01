@@ -8,7 +8,6 @@ use App\Models\ClaseModel;
 use App\Models\PagoModel;
 use App\Models\ReservaModel;
 use App\Models\PlanModel;
-use App\Models\PagoModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Admin extends BaseController
