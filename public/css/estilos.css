@@ -87,13 +87,13 @@ header {
   left: 50px;
   right: 0;
   width: 135px;
-  filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.1));
+  filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.2));
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .logo-encabezado:hover {
   transform: scale(1.05);
-  filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.2));
+  filter: drop-shadow(0 2px 8px #7c0bd9);
 }
 
 /* ==================== NAVEGACIÓN MODERNA ==================== */
@@ -101,22 +101,21 @@ nav {
   justify-content: center;
   align-items: center;
   background: transparent;
-  padding: 15px 35vw;
+  padding: 20px 20vw;
   margin-top: 20px;
+  margin-left: 5vw;
+  margin-right: 5vw;
 }
 
 nav a {
   color: #fff;
-  margin: 0 24px;
+  margin: 0 15px;
   text-decoration: none;
-  font-weight: 500;
   font-size: 0.95em;
   position: relative;
-  padding: 8px 0;
   transition: color 0.3s ease;
   letter-spacing: 0.5px;
   font-weight: 700;
-  letter-spacing: 0.5px;
 }
 
 nav a::after {
@@ -141,8 +140,8 @@ nav a:hover::after {
 nav .login {
   display: flex;
   position: fixed;
-  top: 60px;
-  right: 35px;
+  top: 70px;
+  right: 60px;
   color: #ffffff;
   justify-content: center;
   z-index: 1001;  
@@ -152,7 +151,7 @@ nav .login_iniciosesion {
   display: flex;
   position: fixed;
   top: 65px;
-  right: 175px;
+  right: 195px;
   width: 30px;
   filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.1));
   transition: transform 0.3s ease, filter 0.3s ease;
@@ -176,8 +175,9 @@ nav .login_iniciosesion {
 }
 
 /* ==================== RESPONSIVE HEADER ==================== */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   header {
+    position: relative;
     padding: 25px 20px;
   }
 
@@ -186,12 +186,8 @@ nav .login_iniciosesion {
     gap: 16px;
   }
 
-  .encabezado-texto h1 {
-    font-size: 1.5em;
-  }
-
   .encabezado-texto p {
-    font-size: 0.85em;
+    font-size: 0.65em;
   }
 
   .logo-encabezado {
@@ -239,6 +235,38 @@ nav .login_iniciosesion {
   nav a::after {
     display: none;
   }
+
+  nav .login {
+  display: block;
+  position: absolute;
+  top: 55px;
+  right: 65px;
+  text-align: center;
+  margin: 12px auto;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 1002;  
+  }
+
+  nav .login_iniciosesion {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 115px;
+    width: 25px;
+    border-radius: 8px;
+  }
+
+  nav .login a {   
+  display: flex;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  transition: background 0.3s ease;
+  text-decoration: none;
+  color: #ffffff;
+  }
 }
 
 @media (max-width: 480px) {
@@ -279,18 +307,34 @@ footer {
   margin-bottom: 0;
 }
 
-.instagramimg {
-  position: relative;
-  width: 15px;
-}
-
 .reglasimg {
   position: relative;
   width: 20px;
 }
 
-footer a { 
-  color: #7c0bd9; 
-  text-align: center; 
+.instagramimg {
+  position: relative;
+  width: 15px;
+}
+
+#documento {
+  color: white;
+  display: inline-block;
+  margin: 10px auto;
   text-decoration: none;
+}
+
+#documento:hover {
+  color: #EB00FF;
+}
+
+
+.redes {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.redes:hover {
+  color: #EB00FF;
 }

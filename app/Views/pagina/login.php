@@ -28,10 +28,10 @@
 
       <button type="submit" class="btn">Iniciar Sesión</button>
 
-      <a href="<?= base_url('pagina/olvidarContr') ?>">¿Olvidaste tu contraseña?</a>
+      <a class="olv-cont" href="<?= base_url('pagina/olvidarContr') ?>">¿Olvidaste tu contraseña?</a>
       <p class="divider">_____________________________________</p>
 
-      <a href="<?= site_url('pagina/registrar') ?>" class="btn">Crear cuenta nueva</a>
+      <a class="btn" href="<?= site_url('pagina/registrar') ?>">Crear cuenta nueva</a>
     </form>
   </div>
 </div>

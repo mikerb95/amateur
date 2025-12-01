@@ -11,12 +11,9 @@ body {
     position: fixed; 
     top: 0;
     left: 0;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: -10; 
-    background-size: cover; 
+    width: 100vw;
+    height: 100vh;
+    z-index: -10;  
     object-fit: cover; 
     filter: brightness(60%) contrast(110%);
 }
@@ -40,6 +37,13 @@ body {
   height: auto;
   border-radius: 10px;
   margin-right: 100px;
+  filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.2));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+#logo:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 2px 8px #7c0bd9);
 }
 
 /* ✅ Caja del login */
@@ -91,6 +95,8 @@ input[type="password"] {
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  text-decoration: none;
+  text-align: center;
   font-size: 16px;
   width: 100%;
   margin-bottom: 20px;
@@ -101,8 +107,7 @@ input[type="password"] {
   background-color: #EB00FF;
   box-shadow: -5PX -2PX 23PX #aee3ff;
 }
-
-a {
+.olv-cont{
   text-decoration: none;
   color: black;
   font-weight: bold;
@@ -111,8 +116,8 @@ a {
   margin-bottom: 10px;
 }
 
-a:hover {
-  color: rgb(0, 0, 0);
+.olv-cont:hover {
+  color:black;
 }
 
 .divider {
@@ -128,6 +133,7 @@ a:hover {
 }
 .footer p {
     margin: 7px 0;
+    text-decoration: none;
 }
 
 .reglasimg {
@@ -144,11 +150,18 @@ a:hover {
   color: white;
   display: inline-block;
   margin: 10px auto;
+  text-decoration: none;
 }
+
+#documento:hover {
+  color: #EB00FF;
+}
+
 
 .redes {
   color: #fff;
   font-weight: bold;
+  text-decoration: none;
 }
 
 .redes:hover {
@@ -160,10 +173,22 @@ a:hover {
   .container {
     flex-direction: column;
     gap: 20px;
+    align-content: center;
   }
 
   #logo {
-    width: 50px;
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  margin-left: 70px;
+  border-radius: 10px;
+  filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.2));
+  transition: transform 0.3s ease, filter 0.3s ease;
+  }
+
+  #logo:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 2px 8px #7c0bd9);
   }
 
   .inicio {
@@ -174,34 +199,15 @@ a:hover {
   input[type="text"],
   input[type="password"] {
     font-size: 14px;
-  }
-
-  #Boton {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  #logo {
-    max-width: 80px;
+    padding: 10px;
   }
 
   #Sesion {
     font-size: 20px;
   }
 
-  .inicio {
-    padding: 15px;
-  }
-
-  input[type="text"],
-  input[type="password"] {
-    font-size: 13px;
-    padding: 10px;
-  }
-
   #Boton {
-    font-size: 13px;
+    font-size: 14px;
     padding: 10px;
   }
 }

@@ -9,15 +9,46 @@
 </head>
 <body>
 
-<div class="menu-principal_u">
-    <ul>
-        <li><a href="<?= base_url('usuarios') ?>">Inicio</a></li>
-        <li><a href="<?= base_url('usuarios/mis_clases') ?>">Mis Clases</a></li>
-        <li><a href="<?= base_url('usuarios/reservar') ?>">Reservar</a></li>
-        <li><a href="<?= base_url('usuarios/perfil') ?>">Perfil</a></li>
-        <li><a href="<?= base_url('logout') ?>" class="logout-btn">Cerrar sesión</a></li>
-    </ul>
-</div>
+<header class="icon-menu"> 
+    <nav>
+        <ul>
+            <li>
+                <a href="<?= base_url('admin') ?>" class="icon-link">
+                    <img src="<?= base_url('imagenes/inicio.svg') ?>" alt="Inicio">
+                    <span class="tooltip">Inicio</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="<?= base_url('admin/usuarios') ?>" class="icon-link">
+                    <img src="<?= base_url('imagenes/gimnasia.png') ?>" alt="Usuarios">
+                    <span class="tooltip">Usuarios</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="<?= base_url('admin/clases') ?>" class="icon-link">
+                    <img src="<?= base_url('imagenes/pesa.png') ?>" alt="Clases">
+                    <span class="tooltip">Clases</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="<?= base_url('admin/reservas') ?>" class="icon-link">
+                    <img src="<?= base_url('imagenes/reserva.png') ?>" alt="Reservas">
+                    <span class="tooltip">Reservas</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="<?= base_url('logout') ?>" class="icon-link logout-link">
+                    <img src="<?= base_url('imagenes/logout.svg') ?>" alt="Salir">
+                    <span class="tooltip">Cerrar sesión</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
 
 </body>
 </html>
