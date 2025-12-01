@@ -1,21 +1,10 @@
 <?php
-<<<<<<< HEAD
-=======
-
->>>>>>> ced6962d8cb9bb40c7590e20f325025340b661cb
 namespace App\Models;
 
 use CodeIgniter\Model;
 
 class PagoModel extends Model
 {
-<<<<<<< HEAD
-    protected $table = 'pagos';
-    protected $primaryKey = 'id_pago';
-
-    protected $allowedFields = ['id_usuario', 'estado'];
-}
-=======
     protected $table      = 'pagos';
     protected $primaryKey = 'id_pago';
 
@@ -47,4 +36,3 @@ class PagoModel extends Model
         }
     }
 }
->>>>>>> ced6962d8cb9bb40c7590e20f325025340b661cb

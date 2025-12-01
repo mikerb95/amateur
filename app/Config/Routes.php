@@ -90,13 +90,6 @@ $routes->get('logout', 'Auth::salir');               // cerrar sesión
 $routes->get('pagina/registrar', 'Auth::crear_usuario');
 $routes->post('pagina/registrar', 'Auth::registrar');
 
-<<<<<<< HEAD
-// Olvidar contraseña
-$routes->get('pagina/olvidarContr', 'OlvidarContra::index');
-
-// Cambiar contraseña
-$routes->post('perfil/cambiar_contrasena', 'PerfilController::cambiar_contrasena');
-=======
 // =========================
 // 📌 RUTAS DE PAGOS
 // =========================
@@ -106,4 +99,3 @@ $routes->post('pagos/actualizar', 'Pagos::actualizarEstadoPago');
 $routes->post('pagos/guardar', 'Pagos::guardar');
 
 $routes->get('exportar/excel-pagos', 'Exportar::excelPagos');
->>>>>>> ced6962d8cb9bb40c7590e20f325025340b661cb

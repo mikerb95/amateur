@@ -32,11 +32,7 @@ class Pagos extends BaseController
 
         return view('admin/pagos', [
             'usuario' => $usuario,
-<<<<<<< HEAD
-            'pago' => $pago
-=======
             'pago'    => $pago
->>>>>>> ced6962d8cb9bb40c7590e20f325025340b661cb
         ]);
     }
 
@@ -49,10 +45,7 @@ class Pagos extends BaseController
             'estado'     => $this->request->getPost('estado')
         ];
 
-<<<<<<< HEAD
-=======
         // Insertar o actualizar automáticamente
->>>>>>> ced6962d8cb9bb40c7590e20f325025340b661cb
         $pagoModel->save($data);
 
         return redirect()->to(base_url('admin/usuarios'));

@@ -1,45 +1,6 @@
 <?= $this->include('templates/menu_principal') ?>
 
 <div class="main-content">
-<<<<<<< HEAD
-
-    <h1 class="title">Estado de Pagos</h1>
-
-
-    <?php if (!isset($usuario) || $usuario == null): ?>
-
-        <form action="<?= base_url('admin/pagos/buscar'); ?>" method="POST">
-            <label>Buscar usuario por cédula:</label>
-            <input type="text" name="cedula" required>
-            <button type="submit">Buscar</button>
-        </form>
-
-    <?php else: ?>
-
-        <form action="<?= base_url('admin/pagos/guardar'); ?>" method="POST">
-
-            <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
-
-            <p><strong>Nombre:</strong> <?= $usuario['nombre'] ?> <?= $usuario['apellido'] ?></p>
-            <p><strong>Cédula:</strong> <?= $usuario['cedula'] ?></p>
-
-            <label>Estado de pago:</label>
-            <select name="estado">
-                <option value="Pago Pendiente">Pago Pendiente</option>
-                <option value="Pago Cancelado">Pago Cancelado</option>
-            </select>
-
-
-            <button type="submit">Guardar</button>
-
-        </form>
-
-    <?php endif; ?>
-
-</div>
-
-<?= $this->include('templates/footer') ?>
-=======
     <div class="page-header">
         <h1 class="title">Gestión de Pagos</h1>
         <a href="<?= base_url('admin/usuarios') ?>" class="btn-back">
@@ -246,4 +207,3 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <?= $this->include('templates/footer') ?>
->>>>>>> ced6962d8cb9bb40c7590e20f325025340b661cb

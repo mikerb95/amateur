@@ -138,19 +138,6 @@ public function usuarios()
             return redirect()->back()->with('error', 'La cédula ya está registrada en otro usuario.');
         }
 
-<<<<<<< HEAD
-        $dataUsuario = [
-            'nombre'   => $nombre,
-            'apellido' => $apellido,
-            'cedula'   => $cedula
-        ];
-        $usuarioModel->update($id, $dataUsuario);
-
-        return redirect()->to(base_url('admin/usuarios'))
-                         ->with('mensaje', 'Usuario actualizado correctamente.');
-    }
-
-=======
         // 5️⃣ Validar estado del pago
         $estadosPermitidos = ['Pago Pendiente', 'Pago Cancelado'];
         if (!in_array($estado, $estadosPermitidos)) {
@@ -212,7 +199,6 @@ public function usuarios()
         }
     }
 
->>>>>>> ced6962d8cb9bb40c7590e20f325025340b661cb
     // =========================
     // 📚 GESTIÓN DE CLASES
     // =========================
@@ -227,56 +213,6 @@ public function usuarios()
         $clases = $claseModel->where('dia_semana', $dia)->findAll();
     } else {
         $clases = $claseModel->findAll();
-<<<<<<< HEAD
-        return view('admin/clases', ['clases' => $clases]);
-    }
-
-    public function editar_clase($id_clases)
-    {
-        $claseModel = new ClaseModel();
-        $clase = $claseModel->find($id_clases);
-        if (!$clase) {
-            throw new PageNotFoundException("Clase no encontrada");
-        }
-        return view('admin/editar_clase', ['clase' => $clase]);
-    }
-
-    // =========================
-    // 🗓️ GESTIÓN DE RESERVAS
-    // =========================
-    public function reservas()
-    {
-        $reservaModel = new ReservaModel();
-        $reservas = $reservaModel->getAll(); // actualizar según tu modelo
-        return view('admin/reservas', ['reservas' => $reservas]);
-    }
-
-    // =========================
-    // 💰 GESTIÓN DE PAGOS
-    // =========================
-    public function pagos_usuarios()
-    {
-        $usuarioModel = new DatosUsuarioModel();
-        $perfilModel  = new PerfilModel();
-        $planModel    = new PlanModel();
-        $pagoModel    = new PagoModel();
-
-        $usuarios = $usuarioModel->findAll();
-
-        foreach ($usuarios as &$u) {
-            $perfil = $perfilModel->where('id_usuario', $u['id_usuario'])->first();
-            $u['rol'] = $perfil ? $perfil['id_rol'] : 'Sin perfil';
-
-            $plan = $planModel->where('id_planes', $u['id_usuario'])->first();
-            $u['plan'] = $plan ? $plan['nombre'] : 'Sin plan asignado';
-
-            $pago = $pagoModel->where('id_usuario', $u['id_usuario'])->first();
-            $u['estado_pago'] = $pago ? $pago['estado'] : 'No registrado';
-        }
-
-        return view('admin/usuarios', ['usuarios' => $usuarios]);
-    }
-=======
     }
 
     return view('admin/clases', [
@@ -410,5 +346,4 @@ public function eliminar_reserva($id_reserva)
 
     return view('admin/crear_clase');
 }
->>>>>>> ced6962d8cb9bb40c7590e20f325025340b661cb
 }
