@@ -12,44 +12,90 @@ class ReservaModel extends Model
     protected $allowedFields = [
         'id_usuario',
         'id_clases',
-        'fecha_reserva'
+        'fecha_reserva',
+        'estado'
     ];
 
+    // =========================
     // Crear una nueva reserva
-    public function crearReserva($idUsuario, $idClase)
+    // =========================
+    public function crearReserva($data)
     {
-        return $this->insert([
-            'id_usuario' => $idUsuario,
-            'id_clases'  => $idClase
-        ]);
+        return $this->insert($data);
     }
 
+    // =========================
     // Obtener reservas por usuario
+    // =========================
     public function getByUsuario($idUsuario)
     {
         return $this->where('id_usuario', $idUsuario)->findAll();
     }
 
+    // =========================
+    // Validar si ya existe reserva del usuario para esa clase
+    // =========================
     public function existeReserva($idUsuario, $idClase)
     {
         return $this->where('id_usuario', $idUsuario)
-                ->where('id_clases', $idClase)
-                ->countAllResults() > 0;
+                    ->where('id_clases', $idClase)
+                    ->countAllResults() > 0;
     }
 
+    // =========================
+    // Obtener todas las reservas con info de usuario y clase
+    // =========================
     public function getAll()
+    {
+        return $this->select('
+                reservas.id_reservas      AS id,
+                datos_usuarios.nombre     AS usuario_nombre,
+                clases.nombre             AS clase_nombre,
+                reservas.fecha_reserva    AS fecha_reserva,
+                "Activa"                  AS estado
+            ')
+            ->join('datos_usuarios', 'datos_usuarios.id_usuario = reservas.id_usuario')
+            ->join('clases', 'clases.id_clases = reservas.id_clases')
+            ->findAll();
+    }
+
+    // =========================
+    // Contar reservas por hora (opcional, sin fecha)
+    // =========================
+    public function countByHora($horaInicio)
+    {
+        return $this->join('clases', 'clases.id_clases = reservas.id_clases')
+                    ->where('clases.hora_inicio', $horaInicio)
+                    ->countAllResults();
+    }
+
+    // =========================
+    // Contar reservas por hora y por fecha
+    // =========================
+    public function countByHoraYFecha($hora, $fecha)
+    {
+        return $this->join('clases', 'clases.id_clases = reservas.id_clases')
+                    ->where('clases.hora_inicio <=', $hora)
+                    ->where('clases.hora_fin >', $hora)
+                    ->where('reservas.fecha_reserva', $fecha)
+                    ->countAllResults();
+    }
+public function getAllWithDetails()
 {
-    return $this->select('
-            reservas.id_reservas      AS id,
-            datos_usuarios.nombre     AS usuario_nombre,
-            clases.nombre             AS clase_nombre,
-            reservas.fecha_reserva    AS fecha_reserva,
-            "Activa"                  AS estado
-        ')
-        ->join('datos_usuarios', 'datos_usuarios.id_usuario = reservas.id_usuario')
-        ->join('clases', 'clases.id_clases = reservas.id_clases')
-        ->findAll();
+    $builder = $this->db->table('reservas r');
+    $builder->select('
+        r.id_reservas AS id,
+        u.nombre AS usuario_nombre,
+        u.apellido AS usuario_apellido, 
+        u.cedula,
+        c.nombre AS clase_nombre,
+        r.fecha_reserva,
+        r.estado
+    ');
+    $builder->join('datos_usuarios u', 'u.id_usuario = r.id_usuario', 'left');
+    $builder->join('clases c', 'c.id_clases = r.id_clases', 'left'); // ← CORREGIDO: id_clases
+    $builder->orderBy('r.fecha_reserva', 'DESC');
+    
+    return $builder->get()->getResultArray();
 }
-
-
 }

@@ -8,8 +8,8 @@
     <a href="<?= base_url('inicio/planes') ?>">Planes</a>
     <a href="<?= base_url('inicio/contacto') ?>">Contacto</a>
 
-            <a class="btn btn-outline-success ms-2" href="<?= base_url('login') ?>">
-              <i class="bi bi-box-arrow-in-right"></i> Iniciar sesión
+            <a class="login" href="<?= base_url('/login') ?>">
+              <i class="bi bi-box-arrow-in-right"><img class="login_iniciosesion" src="<?= base_url('imagenes/Login_user.svg') ?>" alt="login"></i> Iniciar sesión
             </a>
 
   </nav>

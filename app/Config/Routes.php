@@ -22,6 +22,8 @@ $routes->group('usuarios', function($routes) {
     $routes->post('hacer_reserva/(:num)', 'Usuario::hacer_reserva/$1');
     $routes->post('cancelar_reserva/(:num)', 'Usuario::cancelar_reserva/$1');
     $routes->get('perfil', 'Usuario::perfil');
+    $routes->get('perfil/editar', 'Usuario::editarPerfil');
+    $routes->post('perfil/actualizar', 'Usuario::actualizarPerfil');
 });
 
 // =========================
@@ -48,6 +50,15 @@ $routes->group('admin', ['namespace' => 'App\Controllers'], function($routes) {
     // --- Gestión de clases ---
     $routes->get('editar_clase/(:num)', 'Admin::editar_clase/$1');
     $routes->get('eliminar_clase/(:num)', 'Admin::eliminar_clase/$1');
+    $routes->get('toggle_disponibilidad/(:num)', 'Admin::toggle_disponibilidad/$1');
+
+$routes->get('crear_clase', 'Admin::crear_clase');
+$routes->post('guardar_clase', 'Admin::crear_clase');
+$routes->get('editar_clase/(:num)', 'Admin::editar_clase/$1');
+$routes->post('actualizar_clase/(:num)', 'Admin::actualizar_clase/$1');
+
+
+
 
     // --- Gestión de reservas ---
     $routes->get('editar_reserva/(:num)', 'Admin::editar_reserva/$1');
@@ -79,8 +90,20 @@ $routes->get('logout', 'Auth::salir');               // cerrar sesión
 $routes->get('pagina/registrar', 'Auth::crear_usuario');
 $routes->post('pagina/registrar', 'Auth::registrar');
 
+<<<<<<< HEAD
 // Olvidar contraseña
 $routes->get('pagina/olvidarContr', 'OlvidarContra::index');
 
 // Cambiar contraseña
 $routes->post('perfil/cambiar_contrasena', 'PerfilController::cambiar_contrasena');
+=======
+// =========================
+// 📌 RUTAS DE PAGOS
+// =========================
+$routes->get('pagos', 'Pagos::index'); 
+$routes->post('pagos/buscar', 'Pagos::buscar');
+$routes->post('pagos/actualizar', 'Pagos::actualizarEstadoPago');
+$routes->post('pagos/guardar', 'Pagos::guardar');
+
+$routes->get('exportar/excel-pagos', 'Exportar::excelPagos');
+>>>>>>> ced6962d8cb9bb40c7590e20f325025340b661cb

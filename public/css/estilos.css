@@ -13,6 +13,7 @@ body {
   color: #000;
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
 }
 
 body::before {
@@ -22,7 +23,7 @@ body::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: url("../imagenes/logo-academia.png") no-repeat center center;
+  background: url("../imagenes/Logo blanco_Trans.png") no-repeat center center;
   background-size: 400px auto;
   opacity: 0.12;
   z-index: -1;
@@ -36,17 +37,18 @@ img {
 
 /* ==================== HEADER MODERNO ==================== */
 header {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: linear-gradient(135deg, #0c0c0c 0%, #2d2d2d 100%);
   color: #fff;
-  padding: 20px 40px;
+  padding: 30px 0px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   position: sticky;
   top: 0;
+  left: 0;
   z-index: 1000;
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   margin: 0;
   width: 100%;
+  justify-content: center;
 }
 
 .encabezado-contenido {
@@ -60,32 +62,33 @@ header {
 }
 
 .encabezado-texto {
-  flex: 1;
-  min-width: 250px;
-}
-
-.encabezado-texto h1 {
-  font-size: 2.2em;
-  font-weight: 700;
-  margin: 0 0 8px 0;
-  background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  display: flex;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #7c0bd9;
+  color: white;
+  justify-content: center;
+  z-index: 1001;
 }
 
 .encabezado-texto p {
   font-size: 1em;
-  color: #b8b8b8;
+  color: #000000;
   margin: 0;
-  font-weight: 300;
+  font-weight: 700;
   letter-spacing: 0.5px;
 }
 
 .logo-encabezado {
-  max-height: 80px;
-  width: auto;
-  border-radius: 20px;
+  display: flex;
+  position: fixed;
+  top: 20px;
+  left: 50px;
+  right: 0;
+  width: 135px;
   filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.1));
   transition: transform 0.3s ease, filter 0.3s ease;
 }
@@ -97,11 +100,11 @@ header {
 
 /* ==================== NAVEGACIÓN MODERNA ==================== */
 nav {
+  justify-content: center;
+  align-items: center;
   background: transparent;
-  padding: 0;
+  padding: 20px 520px;
   margin-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 20px;
 }
 
 nav a {
@@ -135,6 +138,26 @@ nav a:hover::after {
   width: 100%;
 }
 
+nav .login {
+  display: flex;
+  position: fixed;
+  top: 60px;
+  right: 35px;
+  color: #ffffff;
+  justify-content: center;
+  z-index: 1001;  
+}
+
+nav .login_iniciosesion {
+  display: flex;
+  position: fixed;
+  top: 65px;
+  right: 175px;
+  width: 30px;
+  filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.1));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
 /* Botón menú hamburguesa (oculto por defecto) */
 .menu-toggle {
   display: none;
@@ -155,7 +178,7 @@ nav a:hover::after {
 /* ==================== RESPONSIVE HEADER ==================== */
 @media (max-width: 768px) {
   header {
-    padding: 16px 20px;
+    padding: 25px 20px;
   }
 
   .encabezado-contenido {
@@ -172,7 +195,7 @@ nav a:hover::after {
   }
 
   .logo-encabezado {
-    max-height: 60px;
+    width: 100px;
   }
 
   /* Menú hamburguesa activado */
@@ -181,6 +204,7 @@ nav a:hover::after {
   }
 
   nav {
+    display: none;
     width: 100%;
     order: 4;
     border-top: none;
@@ -192,6 +216,7 @@ nav a:hover::after {
   }
 
   nav.active {
+    display: block;
     max-height: 500px;
     padding-top: 16px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -222,7 +247,7 @@ nav a:hover::after {
   }
 
   .logo-encabezado {
-    max-height: 50px;
+    width: 100px;
   }
 }
 
@@ -234,7 +259,7 @@ main {
 
 /* Si tienes secciones, mantén este estilo */
 section {
-  max-width: 900px;
+  max-width: 210vh;
   margin: 40px auto;
   background: #f9f9f9;
   padding: 30px;
@@ -244,4 +269,28 @@ section {
 
 h1, h2 {
   margin-top: 0;
+}
+
+footer {
+  background-color: #111; 
+  color: #fff; 
+  text-align: center; 
+  padding: 20px;
+  margin-bottom: 0;
+}
+
+.instagramimg {
+  position: relative;
+  width: 15px;
+}
+
+.reglasimg {
+  position: relative;
+  width: 20px;
+}
+
+footer a { 
+  color: #026AC2; 
+  text-align: center; 
+  text-decoration: none;
 }

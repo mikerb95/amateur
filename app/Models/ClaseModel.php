@@ -17,13 +17,16 @@ class ClaseModel extends Model
         'hora_fin',
         'cupo_maximo',
         'cupo_disponible',
+        'disponible',
         'id_rol',
         'id_planes'
     ];
 
     protected $useTimestamps = false;
 
-    // Obtener todas
+    // =========================
+    // Obtener todas las clases
+    // =========================
     public function getAll()
     {
         return $this->findAll();
@@ -35,27 +38,28 @@ class ClaseModel extends Model
     }
 
     // =========================
-    // 🟢 NUEVO: Obtener clases con cupos disponibles
+    // Clases con cupos disponibles
     // =========================
-    public function getDisponibles()
-    {
-        $clases = $this->where('cupo_disponible >', 0)
-                       ->orderBy('dia_semana', 'ASC')
-                        ->orderBy('hora_inicio', 'ASC') // ordenar por hora
-                       ->findAll();
+   public function getDisponibles()
+{
+    $clases = $this->where('disponible', 1)                 // ✔️ Solo clases activas
+                   ->where('cupo_disponible >', 0)          // ✔️ Con cupos
+                   ->orderBy('dia_semana', 'ASC')
+                   ->orderBy('hora_inicio', 'ASC')
+                   ->findAll();
 
-        // Transformar para la vista
-        foreach ($clases as &$clase) {
-            $clase['dia'] = $clase['dia_semana'];
-            $clase['hora'] = $clase['hora_inicio'];
-            $clase['cupos'] = $clase['cupo_disponible'];
-        }
-
-        return $clases;
+    foreach ($clases as &$clase) {
+        $clase['dia'] = $clase['dia_semana'];
+        $clase['hora'] = $clase['hora_inicio'];
+        $clase['cupos'] = $clase['cupo_disponible'];
     }
 
+    return $clases;
+}
+
+
     // =========================
-    // Cupos
+    // Reducir cupo global (opcional)
     // =========================
     public function reducirCupo($id)
     {
@@ -67,6 +71,9 @@ class ClaseModel extends Model
         return false;
     }
 
+    // =========================
+    // Incrementar cupo global (opcional)
+    // =========================
     public function incrementarCupo($id)
     {
         $clase = $this->find($id);
@@ -75,5 +82,21 @@ class ClaseModel extends Model
             return $this->update($id, $clase);
         }
         return false;
+    }
+
+    // =========================
+    // Nueva función: validar cupos por fecha
+    // =========================
+    public function tieneCupo($idClase, $fecha, $reservaModel)
+    {
+        $clase = $this->find($idClase);
+        if (!$clase) return false;
+
+        // Contar reservas para la fecha
+        $reservasEnFecha = $reservaModel->where('id_clases', $idClase)
+                                        ->where('fecha_reserva', $fecha)
+                                        ->countAllResults();
+
+        return $reservasEnFecha < $clase['cupo_maximo'];
     }
 }

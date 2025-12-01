@@ -1,0 +1,238 @@
+-- =============================================
+-- CREAR BASE DE DATOS Y USARLA
+-- =============================================
+CREATE DATABASE AMATEUR;
+USE AMATEUR;
+
+-- =============================================
+-- TABLA: roles
+-- =============================================
+CREATE TABLE roles (
+  id_rol INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL
+);
+
+-- =============================================
+-- TABLA: datos_usuarios (información personal)
+-- =============================================
+CREATE TABLE datos_usuarios (
+  id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+  cedula INT UNIQUE NOT NULL,
+  nombre VARCHAR(100) NOT NULL,
+  apellido VARCHAR(100) NOT NULL,
+  correo VARCHAR(120) NOT NULL,
+  direccion VARCHAR(150),
+  telefono VARCHAR(20),
+  genero VARCHAR (15)
+);
+
+-- Se añadió después, la dejo como en tu código
+ALTER TABLE datos_usuarios
+ADD fecha_nacimiento DATE;
+
+-- =============================================
+-- TABLA: perfil (credenciales de acceso)
+-- =============================================
+CREATE TABLE perfil (
+  id_perfil INT AUTO_INCREMENT PRIMARY KEY,
+  nombre_usuario VARCHAR(100) NOT NULL,
+  contraseña VARCHAR(255) NOT NULL,  -- se recomienda usar hash (bcrypt)
+  id_rol INT NOT NULL DEFAULT 3,
+  id_usuario INT UNIQUE NOT NULL,
+  FOREIGN KEY (id_rol) REFERENCES roles(id_rol),
+  FOREIGN KEY (id_usuario) REFERENCES datos_usuarios(id_usuario)
+);
+
+-- =============================================
+-- TABLA: planes
+-- =============================================
+CREATE TABLE planes (
+  id_planes INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  descripcion TEXT,
+  precio DECIMAL(10,2) NOT NULL,
+  total_clases INT NOT NULL
+);
+
+-- =============================================
+-- TABLA: clases
+-- =============================================
+DROP TABLE IF EXISTS clases;
+
+CREATE TABLE clases (
+  id_clases INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  descripcion TEXT,
+  fecha DATE NULL, 
+  dia_semana ENUM('Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo') NOT NULL,
+  hora_inicio TIME NOT NULL,
+  hora_fin TIME NOT NULL,
+  cupo_maximo INT DEFAULT 8,
+  cupo_disponible INT DEFAULT 8,
+  id_rol INT NOT NULL,
+  id_planes INT NOT NULL,
+  FOREIGN KEY (id_rol) REFERENCES roles(id_rol),
+  FOREIGN KEY (id_planes) REFERENCES planes(id_planes)
+);
+
+-- =============================================
+-- TABLA: reservas
+-- =============================================
+CREATE TABLE reservas (
+  id_reservas INT AUTO_INCREMENT PRIMARY KEY,
+  id_usuario INT NOT NULL,
+  id_clases INT NOT NULL,
+  fecha_reserva DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_usuario) REFERENCES datos_usuarios(id_usuario),
+  FOREIGN KEY (id_clases) REFERENCES clases(id_clases)
+);
+
+-- =============================================
+-- TABLA: pagos
+-- =============================================
+CREATE TABLE pagos (
+    id_pago INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    estado ENUM('Pago Cancelado','Pago Pendiente') DEFAULT 'Pago Pendiente',
+    fecha_pago DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario) REFERENCES datos_usuarios(id_usuario)
+);
+
+-- =============================================
+-- INSERTS: roles
+-- =============================================
+INSERT INTO roles (id_rol, nombre) VALUES
+(1, 'Administrador'),
+(2, 'Instructor'),
+(3, 'Usuario');
+
+-- =============================================
+-- INSERTS: planes
+-- =============================================
+INSERT INTO planes (nombre, descripcion, precio, total_clases)
+VALUES ('Plan Mensual', 'Acceso general al gimnasio', 120000, 999);
+
+-- =============================================
+-- INSERTS: datos_usuarios
+-- =============================================
+INSERT INTO datos_usuarios (
+    cedula, nombre, apellido, correo, direccion, telefono, genero, fecha_nacimiento
+)
+VALUES (
+  1001094766,
+  'Juan',
+  'Cardenas',
+  'jecpecp2002@gmail.com',
+  '',
+  '3124990624',
+  'Masculino',
+  '2002-01-01'
+);
+
+INSERT INTO datos_usuarios (
+  cedula, nombre, apellido, correo, direccion, telefono, genero, fecha_nacimiento
+) VALUES (
+  1001094666,
+  'Juan',
+  'Cardenas',
+  'jecpecp2002@gmail.com',
+  NULL,
+  '3124990624',
+  'Masculino',
+  '2002-01-01'
+);
+
+INSERT INTO datos_usuarios (
+  cedula, nombre, apellido, correo, direccion, telefono, genero, fecha_nacimiento
+) VALUES (
+  1010101010,
+  'Sebastian',
+  'Luque',
+  'pesas.pesas@gmail.com',
+  NULL,
+  '3124991111',
+  'Masculino',
+  '2002-01-01'
+);
+
+-- =============================================
+-- INSERTS: perfil
+-- (OJO: suponen que los id_usuario serán 1, 2, 3)
+-- =============================================
+INSERT INTO perfil (nombre_usuario, contraseña, id_rol, id_usuario) 
+VALUES ('juanjuan','123',1,1);
+
+INSERT INTO perfil (
+  nombre_usuario,
+  contraseña,
+  id_rol,
+  id_usuario
+) VALUES (
+  'pruebausuario',
+  'pruebausuario',
+  3,
+  3
+);
+
+INSERT INTO clases (nombre, descripcion, fecha, dia_semana, hora_inicio, hora_fin, cupo_maximo, cupo_disponible, id_rol, id_planes) VALUES
+('Clase 05:00 Lunes', 'Clase de 1 hora', NULL, 'Lunes', '05:00:00', '06:00:00', 8, 8, 1, 1),
+('Clase 06:00 Lunes', 'Clase de 1 hora', NULL, 'Lunes', '06:00:00', '07:00:00', 8, 8, 1, 1),
+('Clase 07:00 Lunes', 'Clase de 1 hora', NULL, 'Lunes', '07:00:00', '08:00:00', 8, 8, 1, 1),
+('Clase 08:00 Lunes', 'Clase de 1 hora', NULL, 'Lunes', '08:00:00', '09:00:00', 8, 8, 1, 1),
+('Clase 09:00 Lunes', 'Clase de 1 hora', NULL, 'Lunes', '09:00:00', '10:00:00', 8, 8, 1, 1),
+
+('Clase MMA Lunes 16-18', 'Clase MMA de 2 horas', NULL, 'Lunes', '16:00:00', '18:00:00', 8, 8, 1, 1),
+('Clase 18:00 Lunes', 'Clase de 1 hora', NULL, 'Lunes', '18:00:00', '19:00:00', 8, 8, 1, 1),
+('Clase 19:00 Lunes', 'Clase de 1 hora', NULL, 'Lunes', '19:00:00', '20:00:00', 8, 8, 1, 1);
+
+INSERT INTO clases (nombre, descripcion, fecha, dia_semana, hora_inicio, hora_fin, cupo_maximo, cupo_disponible, id_rol, id_planes) VALUES
+('Clase 05:00 Martes', 'Clase de 1 hora', NULL, 'Martes', '05:00:00', '06:00:00', 8, 8, 1, 1),
+('Clase 06:00 Martes', 'Clase de 1 hora', NULL, 'Martes', '06:00:00', '07:00:00', 8, 8, 1, 1),
+('Clase 07:00 Martes', 'Clase de 1 hora', NULL, 'Martes', '07:00:00', '08:00:00', 8, 8, 1, 1),
+('Clase 08:00 Martes', 'Clase de 1 hora', NULL, 'Martes', '08:00:00', '09:00:00', 8, 8, 1, 1),
+('Clase 09:00 Martes', 'Clase de 1 hora', NULL, 'Martes', '09:00:00', '10:00:00', 8, 8, 1, 1),
+
+('Clase MMA Martes 16-18', 'Clase MMA de 2 horas', NULL, 'Martes', '16:00:00', '18:00:00', 8, 8, 1, 1),
+('Clase 18:00 Martes', 'Clase de 1 hora', NULL, 'Martes', '18:00:00', '19:00:00', 8, 8, 1, 1),
+('Clase 19:00 Martes', 'Clase de 1 hora', NULL, 'Martes', '19:00:00', '20:00:00', 8, 8, 1, 1);
+
+INSERT INTO clases (nombre, descripcion, fecha, dia_semana, hora_inicio, hora_fin, cupo_maximo, cupo_disponible, id_rol, id_planes) VALUES
+('Clase 05:00 Miércoles', 'Clase de 1 hora', NULL, 'Miércoles', '05:00:00', '06:00:00', 8, 8, 1, 1),
+('Clase 06:00 Miércoles', 'Clase de 1 hora', NULL, 'Miércoles', '06:00:00', '07:00:00', 8, 8, 1, 1),
+('Clase 07:00 Miércoles', 'Clase de 1 hora', NULL, 'Miércoles', '07:00:00', '08:00:00', 8, 8, 1, 1),
+('Clase 08:00 Miércoles', 'Clase de 1 hora', NULL, 'Miércoles', '08:00:00', '09:00:00', 8, 8, 1, 1),
+('Clase 09:00 Miércoles', 'Clase de 1 hora', NULL, 'Miércoles', '09:00:00', '10:00:00', 8, 8, 1, 1),
+
+('Clase MMA Miércoles 16-18', 'Clase MMA de 2 horas', NULL, 'Miércoles', '16:00:00', '18:00:00', 8, 8, 1, 1),
+('Clase 18:00 Miércoles', 'Clase de 1 hora', NULL, 'Miércoles', '18:00:00', '19:00:00', 8, 8, 1, 1),
+('Clase 19:00 Miércoles', 'Clase de 1 hora', NULL, 'Miércoles', '19:00:00', '20:00:00', 8, 8, 1, 1);
+
+INSERT INTO clases (nombre, descripcion, fecha, dia_semana, hora_inicio, hora_fin, cupo_maximo, cupo_disponible, id_rol, id_planes) VALUES
+('Clase 05:00 Jueves', 'Clase de 1 hora', NULL, 'Jueves', '05:00:00', '06:00:00', 8, 8, 1, 1),
+('Clase 06:00 Jueves', 'Clase de 1 hora', NULL, 'Jueves', '06:00:00', '07:00:00', 8, 8, 1, 1),
+('Clase 07:00 Jueves', 'Clase de 1 hora', NULL, 'Jueves', '07:00:00', '08:00:00', 8, 8, 1, 1),
+('Clase 08:00 Jueves', 'Clase de 1 hora', NULL, 'Jueves', '08:00:00', '09:00:00', 8, 8, 1, 1),
+('Clase 09:00 Jueves', 'Clase de 1 hora', NULL, 'Jueves', '09:00:00', '10:00:00', 8, 8, 1, 1),
+
+('Clase MMA Jueves 16-18', 'Clase MMA de 2 horas', NULL, 'Jueves', '16:00:00', '18:00:00', 8, 8, 1, 1),
+('Clase 18:00 Jueves', 'Clase de 1 hora', NULL, 'Jueves', '18:00:00', '19:00:00', 8, 8, 1, 1),
+('Clase 19:00 Jueves', 'Clase de 1 hora', NULL, 'Jueves', '19:00:00', '20:00:00', 8, 8, 1, 1);
+
+
+INSERT INTO clases (nombre, descripcion, fecha, dia_semana, hora_inicio, hora_fin, cupo_maximo, cupo_disponible, id_rol, id_planes) VALUES
+('Clase 05:00 Viernes', 'Clase de 1 hora', NULL, 'Viernes', '05:00:00', '06:00:00', 8, 8, 1, 1),
+('Clase 06:00 Viernes', 'Clase de 1 hora', NULL, 'Viernes', '06:00:00', '07:00:00', 8, 8, 1, 1),
+('Clase 07:00 Viernes', 'Clase de 1 hora', NULL, 'Viernes', '07:00:00', '08:00:00', 8, 8, 1, 1),
+('Clase 08:00 Viernes', 'Clase de 1 hora', NULL, 'Viernes', '08:00:00', '09:00:00', 8, 8, 1, 1),
+('Clase 09:00 Viernes', 'Clase de 1 hora', NULL, 'Viernes', '09:00:00', '10:00:00', 8, 8, 1, 1),
+
+('Clase MMA Viernes 16-18', 'Clase MMA de 2 horas', NULL, 'Viernes', '16:00:00', '18:00:00', 8, 8, 1, 1),
+('Clase 18:00 Viernes', 'Clase de 1 hora', NULL, 'Viernes', '18:00:00', '19:00:00', 8, 8, 1, 1),
+('Clase 19:00 Viernes', 'Clase de 1 hora', NULL, 'Viernes', '19:00:00', '20:00:00', 8, 8, 1, 1);
+
+INSERT INTO clases (nombre, descripcion, fecha, dia_semana, hora_inicio, hora_fin, cupo_maximo, cupo_disponible, id_rol, id_planes) VALUES
+('Clase 07:00 Sábado', 'Clase de 1 hora', NULL, 'Sábado', '07:00:00', '08:00:00', 8, 8, 1, 1),
+('Clase 08:00 Sábado', 'Clase de 1 hora', NULL, 'Sábado', '08:00:00', '09:00:00', 8, 8, 1, 1),
+('Clase 09:00 Sábado', 'Clase de 1 hora', NULL, 'Sábado', '09:00:00', '10:00:00', 8, 8, 1, 1),
+('Clase 10:00 Sábado', 'Clase de 1 hora', NULL, 'Sábado', '10:00:00', '11:00:00', 8, 8, 1, 1),
+('Clase 11:00 Sábado', 'Clase de 1 hora', NULL, 'Sábado', '11:00:00', '12:00:00', 8, 8, 1, 1);

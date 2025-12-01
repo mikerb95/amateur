@@ -445,8 +445,6 @@ body, .main-content, .card, .menu-usuario {
     height: auto !important;
 }
 
-
-<<<<<<< HEAD
 /* ============================
    🟣 TABLA — AJUSTE DE COLUMNAS
 ============================ */
@@ -497,5 +495,24 @@ body, .main-content, .card, .menu-usuario {
         display: none; /* oculta acciones si es necesario en pantallas pequeñas */
     }
 }
-=======
->>>>>>> a7c1e799351753b12fd724bfb3f5dfa116854a64
+
+.btn-disponibilidad {
+    font-weight: bold;
+    display: inline-block;
+}
+
+
+.card-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.no-disponible {
+    background: #c0392b;
+    color: white;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
