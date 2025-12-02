@@ -1,53 +1,17 @@
-.menu-principal_u {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 230px;
-    height: 100vh;   /* Toda la altura de la pantalla */
-    background: #000; /* O el color que tú quieras */
-    padding-top: 20px; /* Ajusta si quieres un pequeño espacio */
-}
-
-
-.menu-principal_u li a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: 600;
-    padding: 10px 20px;
-    display: block;             /* ✔ habilita transform */
-    transition: all 0.3s ease;
-}
-
-.menu-principal_u li a:hover {
-    color: #7c0bd9;
-    transform: translateY(-3px); /* ✔ efecto de elevación */
-}
-
-/* Para que el contenido no quede debajo */
-.contenido {
-    margin-left: 230px; /* mismo ancho del menú */
-    padding: 20px;
-    min-height: calc(100vh - 80px);
-} 
-
 .main-content {
-    margin-left: 230px;      /* menú lateral */
-    min-height: 100vh;
     background-color: #f8f8f8;
-    /* quitamos el flex centrado */
-    display: block;
-    padding: 40px 40px 40px 40px;
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .profile-info {
     background: #fff;
-    padding: 25px;
-    width: 100%;          /* ocupa todo el ancho disponible */
-    max-width: 1100px;    /* límite tipo Bodytech */
-    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 0 auto;       /* centrado dentro del área grande */
+    margin: 0 auto; 
 }
 
 .title {
@@ -101,14 +65,14 @@ td {
 
 .day:hover {
     background: #e0d7f5;
-    border-color: #9b59b6;
+    border-color: #7c0bd9;
     transform: translateY(-3px);
 }
 
 .day.active {
-    background: #7b2cbf;
+    background:#7c0bd9;
     color: white;
-    border-color: #7b2cbf;
+    border-color:#7c0bd9;
 }
 
 /* LISTA DE CLASES: columna, full width */
@@ -140,7 +104,7 @@ td {
 .class-card h3 {
     font-size: 16px;
     font-weight: 700;
-    color: #7b2cbf;
+    color: #7c0bd9;
     margin: 0 0 4px 0;
 }
 
@@ -160,7 +124,7 @@ td {
     padding: 6px 14px;
     border: none;
     border-radius: 999px;
-    background: #7b2cbf;
+    background: #7c0bd9;
     color: #fff;
     font-size: 13px;
     cursor: pointer;
@@ -168,8 +132,8 @@ td {
 }
 
 .btn-reservar:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    background-color: #EB00FF;
+    box-shadow: -5PX -2PX 23PX #aee3ff;
 }
 
 

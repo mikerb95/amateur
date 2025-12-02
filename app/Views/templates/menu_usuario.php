@@ -9,15 +9,5 @@
 </head>
 <body>
 
-<div class="menu-usuario">
-        <ul>
-            <li><a href="<?= base_url('usuarios') ?>">Inicio</a></li>
-            <li><a href="<?= base_url('usuarios/mis_clases') ?>">Mis Clases</a></li>
-            <li><a href="<?= base_url('usuarios/reservar') ?>">Reservar</a></li>
-            <li><a href="<?= base_url('usuarios/perfil') ?>">Perfil</a></li>
-            <li><a href="<?= base_url('logout') ?>" class="logout-btn">Cerrar sesión</a></li>
-        </ul>
-</div>
-
 </body>
 </html>
