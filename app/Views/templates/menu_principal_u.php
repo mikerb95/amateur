@@ -13,30 +13,30 @@
     <nav>
         <ul>
             <li>
-                <a href="<?= base_url('admin') ?>" class="icon-link">
+                <a href="<?= base_url('usuarios/') ?>" class="icon-link">
                     <img src="<?= base_url('imagenes/inicio.svg') ?>" alt="Inicio">
                     <span class="tooltip">Inicio</span>
                 </a>
             </li>
             
             <li>
-                <a href="<?= base_url('admin/usuarios') ?>" class="icon-link">
-                    <img src="<?= base_url('imagenes/gimnasia.png') ?>" alt="Usuarios">
-                    <span class="tooltip">Usuarios</span>
+                <a href="<?= base_url('usuarios/mis_clases') ?>" class="icon-link">
+                    <img src="<?= base_url('imagenes/boxeo.png') ?>" alt="Clases">
+                    <span class="tooltip">MisClases</span>
                 </a>
             </li>
             
             <li>
-                <a href="<?= base_url('admin/clases') ?>" class="icon-link">
-                    <img src="<?= base_url('imagenes/pesa.png') ?>" alt="Clases">
-                    <span class="tooltip">Clases</span>
+                <a href="<?= base_url('usuarios/reservar') ?>" class="icon-link">
+                    <img src="<?= base_url('imagenes/reserva.png') ?>" alt="Reservar">
+                    <span class="tooltip">Reservar</span>
                 </a>
             </li>
-            
+
             <li>
-                <a href="<?= base_url('admin/reservas') ?>" class="icon-link">
-                    <img src="<?= base_url('imagenes/reserva.png') ?>" alt="Reservas">
-                    <span class="tooltip">Reservas</span>
+                <a href="<?= base_url('usuarios/perfil') ?>" class="icon-link">
+                    <img src="<?= base_url('imagenes/perfil.png') ?>" alt="perfil">
+                    <span class="tooltip">Perfil</span>
                 </a>
             </li>
             

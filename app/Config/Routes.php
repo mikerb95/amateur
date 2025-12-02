@@ -89,6 +89,7 @@ $routes->get('logout', 'Auth::salir');               // cerrar sesión
 // Formulario de registro
 $routes->get('pagina/registrar', 'Auth::crear_usuario');
 $routes->post('pagina/registrar', 'Auth::registrar');
+$routes->get('pagina/olvidarContr', 'OlvidarContra::index');
 
 // =========================
 // 📌 RUTAS DE PAGOS

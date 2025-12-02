@@ -29,7 +29,7 @@
             <td><?= esc($usuario['telefono'])?></td>
         </tr>
         <tr>
-            <td clas="label">Genero</td>
+            <td class="label">Genero</td>
             <td><?= esc($usuario['genero']) ?></td>
         </tr>
     </table>
