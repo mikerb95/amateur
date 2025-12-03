@@ -5,7 +5,7 @@
         <h1 class="title">Gestión de Reservas</h1>
         <div class="header-actions">
             <a href="<?= base_url('admin/clases') ?>" class="btn-crear">
-                ← Volver a Clases
+                <img src="<?= base_url('imagenes/back.svg') ?>" alt="G_reservas" class="back"> Volver a Clases
             </a>
         </div>
     </div>
@@ -13,28 +13,28 @@
     <!-- ======== ESTADÍSTICAS DE RESERVAS ======== -->
     <div class="stats-cards">
         <div class="stat-card">
-            <div class="stat-icon">📋</div>
+            <div class="stat-icon"><img src="<?= base_url('imagenes/planuser.svg') ?>" alt="G_clases" class="iconos"></div>
             <div class="stat-info">
                 <h3><?= count($reservas) ?></h3>
                 <p>Total Reservas</p>
             </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon">✅</div>
+            <div class="stat-icon"><img src="<?= base_url('imagenes/si.svg') ?>" alt="G_reservas" class="iconos"></div>
             <div class="stat-info">
                 <h3><?= count(array_filter($reservas, function($r) { return $r['estado'] == 'Confirmada'; })) ?></h3>
                 <p>Confirmadas</p>
             </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon">⏳</div>
+            <div class="stat-icon"><img src="<?= base_url('imagenes/time.svg') ?>" alt="G_reservas" class="iconos"></div>
             <div class="stat-info">
                 <h3><?= count(array_filter($reservas, function($r) { return $r['estado'] == 'Pendiente'; })) ?></h3>
                 <p>Pendientes</p>
             </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon">❌</div>
+            <div class="stat-icon"><img src="<?= base_url('imagenes/no.svg') ?>" alt="G_reservas" class="iconos"></div>
             <div class="stat-info">
                 <h3><?= count(array_filter($reservas, function($r) { return $r['estado'] == 'Cancelada'; })) ?></h3>
                 <p>Canceladas</p>
@@ -47,7 +47,7 @@
             <table class="styled-table improved-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th><img src="<?= base_url('imagenes/number.svg') ?>" alt="G_reservas" class="iconnn"></th>
                         <th>Usuario</th>
                         <th>Clase</th>
                         <th>Fecha Reserva</th>
@@ -91,13 +91,13 @@
                                 <div class="action-buttons">
                                     <a href="<?= base_url('admin/editar_reserva/' . $reserva['id']) ?>" 
                                        class="btn-action btn-edit" title="Editar reserva">
-                                        ✏️
+                                        <img src="<?= base_url('imagenes/editarlogo.svg') ?>" alt="G_reservas" class="detallesuser">
                                     </a>
                                     <a href="<?= base_url('admin/eliminar_reserva/' . $reserva['id']) ?>" 
                                        class="btn-action btn-delete" 
                                        onclick="return confirm('¿Eliminar esta reserva?')"
                                        title="Eliminar reserva">
-                                        🗑️
+                                        <img src="<?= base_url('imagenes/delete.svg') ?>" alt="G_reservas" class="detallesuser">
                                     </a>
                                 </div>
                             </td>

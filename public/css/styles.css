@@ -30,7 +30,7 @@ body {
    NUEVO HEADER CONDICIONAL (ICONOS)
    ======================================= */
 .icon-menu {
-    background-color: var(--color-morado-oscuro); /* Fondo morado para el header */
+    background-color: #7c0bd9; /* Fondo morado para el header */
     padding: 10px 20px;
     position: fixed;
     top: 0;
@@ -75,7 +75,7 @@ body {
 .icon-menu .tooltip {
     position: absolute;
     bottom: -30px;
-    background-color: var(--color-morado-oscuro);
+    background-color: #7c0bd9;
     color: white;
     padding: 4px 8px;
     border-radius: 4px;
@@ -215,6 +215,16 @@ body {
     table-layout: fixed;
 }
 
+.botonañadir{
+    max-width: 35px;
+    z-index: 1012;
+}
+
+.botonback{
+    max-width: 35px;
+    z-index: 1012;
+}
+
 .styled-table thead {
     background: linear-gradient(90deg, var(--color-morado-oscuro), var(--color-acento-morado));
     color: white;
@@ -315,7 +325,6 @@ body {
     flex-direction: column;
     margin-bottom: 18px;
 }
-
 .form-row label {
     font-weight: 600;
     color: var(--color-morado-oscuro);
@@ -336,6 +345,78 @@ body {
 .form-row input:focus, .form-group select:focus {
     border-color: var(--color-acento-morado);
     box-shadow: 0 0 6px rgba(122, 31, 197, 0.2);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--color-morado-oscuro);
+    margin-bottom: 6px;
+}
+
+.form-group input, .form-group select {
+    padding: 12px;
+    border: 1px solid #dcd2ff;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    color: var(--color-texto-oscuro);
+    background-color: var(--color-fondo-blanco);
+}
+
+.form-group input:focus, .form-group select:focus {
+    border-color: var(--color-acento-morado);
+    box-shadow: 0 0 6px rgba(122, 31, 197, 0.2);
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.btn-primary {
+    display: flex;    
+    align-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    gap: 5px;
+}
+
+.btn-primary:hover {
+    background-color: rgb(33, 187, 33);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    display: flex;    
+    align-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    color: black;
+    border-radius: 8px;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: 0.3s;
+    gap: 5px;
+}
+
+.btn-secondary:hover {
+    background-color: gray;
+    transform: translateY(-1px);
 }
 
 .form-buttons {

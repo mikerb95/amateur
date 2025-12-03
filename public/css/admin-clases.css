@@ -10,9 +10,30 @@
     gap: 15px;
 }
 
+.iconos{
+    max-width: 50px;
+    z-index: 1012;
+}
+
+.iconheader{
+    max-width: 25px;
+    z-index: 1012;
+}
+
+.iconnn{
+    margin-left: 0.8vw;
+    max-width: 30px;
+    z-index: 1012;
+}
+
+.detallesuser{
+    max-width: 20px;
+    z-index: 1012;
+}
+
 /* Panel de filtros */
 .filters-panel {
-    background: linear-gradient(145deg, #1a1a1a, #111);
+    background:gray;
     border: 1px solid #2d2d2d;
     border-radius: 12px;
     padding: 20px;
@@ -39,7 +60,7 @@
 
 .filter-group label {
     font-weight: 600;
-    color: #a64dff;
+    color: white;
     font-size: 0.9rem;
 }
 
@@ -47,8 +68,8 @@
     padding: 10px 12px;
     border: 2px solid #3b006a;
     border-radius: 8px;
-    background: #000;
-    color: #fff;
+    background: #ffffff;
+    color: black;
     font-size: 0.95rem;
     transition: all 0.3s ease;
 }
@@ -84,10 +105,10 @@
 }
 
 .stat-card {
-    background: linear-gradient(145deg, #111, #1a1a1a);
+    background:rgb(173, 173, 173);
     border: 1px solid #2d2d2d;
     border-radius: 12px;
-    padding: 20px;
+    padding: 10px;
     display: flex;
     align-items: center;
     gap: 15px;
@@ -108,13 +129,13 @@
 .stat-info h3 {
     margin: 0;
     font-size: 1.8rem;
-    color: #7a1fc5;
+    color: black;
     font-weight: 700;
 }
 
 .stat-info p {
     margin: 5px 0 0 0;
-    color: #aaa;
+    color: black;
     font-size: 0.9rem;
 }
 
@@ -132,11 +153,12 @@
 }
 
 .improved-table th {
-    background: linear-gradient(90deg, #000, #3b006a);
+    background: #7a1fc5;
     color: white;
     padding: 15px 12px;
     font-weight: 600;
-    text-align: left;
+    text-align: center;
+    z-index: 1000;
 }
 
 .improved-table td {
@@ -339,14 +361,17 @@
 
 /* Mejora para el botón crear */
 .btn-crear {
-    display: inline-block;
+    display: flex;
     background: #3b006a;
     color: white;
     padding: 10px 20px;
+    align-content: center;
+    align-items: center;
     border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
+    gap: 10px;
 }
 
 .btn-crear:hover {
