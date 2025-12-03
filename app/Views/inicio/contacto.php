@@ -57,10 +57,9 @@
                     <select id="plan" name="plan">
                         <option value="" disabled selected>Selecciona un plan o asunto...</option>
                         <option value="consulta">Consulta General</option>
-                        <option value="basico">PLAN BÁSICO (12 Clases)</option>
-                        <option value="intermedio">PLAN INTERMEDIO (16 Clases)</option>
-                        <option value="avanzado">PLAN AVANZADO (20 Clases)</option>
-                        <option value="clase_prueba">Clase de Prueba GRATIS</option>
+                        <option value="basico">PLAN INDIVIDUAL</option>
+                        <option value="intermedio">PLAN PAREJA</option>
+                        <option value="avanzado">PLAN 4 PERSONAS</option>
                     </select>
 
                     <label for="mensaje">Tu Mensaje</label>
