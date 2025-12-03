@@ -26,8 +26,7 @@
                         Sala: <?= esc($clase['id_planes']) ?>
                     </p>
                     <form action="<?= base_url('usuarios/cancelar_reserva/' . $clase['id_reservas']) ?>" method="post">
-                        <button class="btn-reservar" 
-                            style="background:#b30000; margin-top:10px;">
+                        <button class="btn-cancelarreserva">
                             Cancelar Reserva
                         </button>
                     </form>

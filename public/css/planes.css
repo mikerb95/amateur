@@ -1,0 +1,195 @@
+:root {
+    --color-fondo-claro: #F7F7FA;
+    --color-fondo-blanco: #FFFFFF;
+    --color-texto-oscuro: #333333;
+    --color-acento-morado: #7a1fc5; 
+    --color-morado-oscuro: #3b006a;
+    --sombra-sutil: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.planes-main {
+    padding-top: 50px;
+    background-color: var(--color-fondo-claro);
+    color: var(--color-texto-oscuro);
+    min-height: 80vh;
+}
+
+.planes-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.page-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--color-morado-oscuro);
+    padding-top: 40px;
+    margin-bottom: 10px;
+}
+
+.intro {
+    font-size: 1.15rem;
+    margin-bottom: 60px;
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 80px;
+}
+
+.plan-card {
+    background: var(--color-fondo-blanco);
+    border-radius: 12px;
+    box-shadow: var(--sombra-sutil);
+    padding: 0;
+    text-align: center;
+    overflow: hidden;
+    transition: all 0.3s ease; 
+    position: relative; 
+    z-index: 1; 
+    border: 2px solid transparent;
+}
+
+.plan-card:hover {
+    transform: translateY(-5px) scale(1.02); 
+    box-shadow: 0 10px 25px rgba(122, 31, 197, 0.3);
+    border-color: var(--color-acento-morado); 
+    z-index: 10;
+}
+
+.plan-header {
+    background-color: var(--color-morado-oscuro);
+    color: var(--color-fondo-blanco);
+    padding: 20px 0;
+}
+
+.plan-title {
+    font-size: 1.8rem;
+    margin: 0 0 5px 0;
+    font-weight: 700;
+}
+
+.plan-price {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin: 0 0 5px 0;
+}
+
+.plan-focus {
+    font-size: 0.9rem;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.plan-features {
+    padding: 30px 20px;
+    text-align: left;
+}
+
+.plan-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.plan-features ul li {
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.feature-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    filter: sepia(100%) saturate(300%) hue-rotate(240deg) brightness(80%) contrast(150%); 
+}
+
+.btn-plan-select {
+    display: block;
+    padding: 15px 0;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    background-color: var(--color-acento-morado);
+    color: var(--color-fondo-blanco);
+    transition: background-color 0.3s ease;
+    border-radius: 0 0 12px 12px;
+}
+
+.btn-plan-select:hover {
+    background-color: var(--color-morado-oscuro);
+}
+
+.horarios-section {
+    padding: 40px 20px;
+}
+
+.section-subtitle {
+    font-size: 2rem;
+    color: var(--color-morado-oscuro);
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.horarios-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.imagen-zoom-container {
+    box-shadow: var(--sombra-sutil);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: zoom-in;
+}
+
+.imagen-zoomable {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.horarios-note {
+    margin-top: 15px;
+    font-style: italic;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.overlay {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    text-align: center;
+}
+
+.overlay img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 50px;
+    border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+    .plan-card {
+        margin: 15px 0;
+        transform: none;
+    }
+}

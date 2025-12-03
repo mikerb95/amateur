@@ -22,10 +22,10 @@
 }
 
 .stat-card {
-    background: linear-gradient(145deg, #111, #1a1a1a);
+    background: rgb(173, 173, 173);
     border: 1px solid #2d2d2d;
     border-radius: 12px;
-    padding: 20px;
+    padding: 10px;
     display: flex;
     align-items: center;
     gap: 15px;
@@ -43,16 +43,37 @@
     font-size: 2rem;
 }
 
+.iconos{
+    max-width: 50px;
+    z-index: 1012;
+}
+
+.iconheader{
+    max-width: 25px;
+    z-index: 1012;
+}
+
+.iconnn{
+    margin-left: 1.6vw;
+    max-width: 30px;
+    z-index: 1012;
+}
+
+.detallesuser{
+    max-width: 20px;
+    z-index: 1012;
+}
+
 .stat-info h3 {
     margin: 0;
     font-size: 1.8rem;
-    color: #7a1fc5;
+    color: black;
     font-weight: 700;
 }
 
 .stat-info p {
     margin: 5px 0 0 0;
-    color: #aaa;
+    color: black;
     font-size: 0.9rem;
 }
 
@@ -68,13 +89,17 @@
     width: 100%;
     border-collapse: collapse;
 }
+thead{
+    background:#7a1fc5 ;
+}
 
 .improved-table th {
-    background: linear-gradient(90deg, #000, #3b006a);
+    background: #7a1fc5;
     color: white;
     padding: 15px 12px;
     font-weight: 600;
-    text-align: left;
+    text-align: center;
+    z-index: 1000;
 }
 
 .improved-table td {
@@ -214,6 +239,7 @@
 }
 
 .btn-delete {
+    align-items: center;
     background: #e9ecef;
     color: #495057;
     border: 1px solid #ced4da;
@@ -251,14 +277,17 @@
 
 /* Botones */
 .btn-crear {
-    display: inline-block;
+    display: flex;
     background: #3b006a;
     color: white;
     padding: 10px 20px;
+    align-content: center;
+    align-items: center;
     border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
+    gap: 10px;
 }
 
 .btn-crear:hover {

@@ -1,6 +1,6 @@
 <?= $this->include('templates/menu_principal') ?>
 
-<div class="main-content fade-in">
+<div class="main-content">
     <h1 class="title">Crear Usuario</h1>
 
     <div class="form-container">
@@ -53,10 +53,10 @@
             </div>
             <br>
 
-            <div class="button-group">
-                <button type="submit" class="btn-primary">➕ Registrar Usuario</button>
+            <div class="form-buttons">
+                <button type="submit" class="btn-primary"><img src="<?= base_url('imagenes/adduser.svg') ?>" alt="C_usuarios" class="botonañadir"> Registrar Usuario</button>
                 <br>
-                <a href="<?= base_url('admin/usuarios') ?>" class="btn-secondary">⬅ Volver</a>
+                <a href="<?= base_url('admin/usuarios') ?>" class="btn-secondary"><img src="<?= base_url('imagenes/back.svg') ?>" alt="C_usuarios" class="botonback"> Volver</a>
             </div>
 
 

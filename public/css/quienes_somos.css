@@ -1,0 +1,163 @@
+:root {
+    --color-fondo-claro: #F7F7FA;
+    --color-fondo-blanco: #FFFFFF;
+    --color-texto-oscuro: #333333;
+    --color-acento-morado: #7a1fc5; 
+    --color-morado-oscuro: #3b006a;
+    --sombra-sutil: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.quienes-main {
+    padding-top: 50px;
+    background-color: var(--color-fondo-claro);
+    color: var(--color-texto-oscuro);
+}
+
+.page-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--color-morado-oscuro);
+    text-align: center;
+    padding-top: 40px;
+    margin-bottom: 20px;
+}
+
+.intro-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.intro-box {
+    text-align: center;
+    font-size: 1.15rem;
+    margin-bottom: 40px;
+    padding: 0 20px;
+}
+
+.impact-text {
+    font-weight: 600;
+    color: var(--color-morado-oscuro);
+}
+
+.mision-vision {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+}
+
+.quienes-bloque {
+    background: var(--color-fondo-blanco);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--sombra-sutil);
+    max-width: 450px;
+    border-left: 5px solid var(--color-acento-morado);
+}
+
+.quienes-bloque h3 {
+    color: var(--color-acento-morado);
+    font-size: 1.8rem;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+}
+
+.bloque-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    filter: sepia(100%) saturate(300%) hue-rotate(240deg) brightness(80%) contrast(150%);
+}
+
+.team-section {
+    background-color: var(--color-fondo-blanco);
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.team-section h2 {
+    font-size: 2.2rem;
+    color: var(--color-morado-oscuro);
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.team-card {
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+}
+
+.team-img {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+.team-card h4 {
+    color: var(--color-acento-morado);
+    margin-bottom: 5px;
+}
+
+.slider-section {
+    padding: 60px 0;
+    text-align: center;
+    background-color: var(--color-fondo-claro);
+}
+
+.slider-section h2 {
+    font-size: 2rem;
+    color: var(--color-morado-oscuro);
+    margin-bottom: 30px;
+}
+
+.slider-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden; 
+    border-radius: 12px;
+    box-shadow: var(--sombra-sutil);
+}
+
+.slider-contenedor {
+    display: flex;
+    width: 300%; 
+    transition: transform 0.5s ease;
+}
+
+.slider-img {
+    width: calc(100% / 3);
+    display: none;
+    object-fit: cover;
+}
+
+.slider-img.activa {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2.5rem;
+    }
+    .mision-vision {
+        flex-direction: column;
+        align-items: center;
+    }
+    .quienes-bloque {
+        max-width: 90%;
+    }
+}

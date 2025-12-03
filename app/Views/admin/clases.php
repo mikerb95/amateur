@@ -4,7 +4,7 @@
     <div class="page-header">
         <h1 class="title">Gestión de Clases</h1>
         <a href="<?= base_url('admin/crear_clase'); ?>" class="btn-crear">
-            ＋ Crear Nueva Clase
+            <img src="<?= base_url('imagenes/adduser.svg') ?>" alt="G_usuarios" class="iconheader"> Crear Nueva Clase
         </a>
     </div>
 
@@ -38,28 +38,28 @@
     <!-- ======== ESTADÍSTICAS RÁPIDAS CORREGIDAS ======== -->
     <div class="stats-cards">
         <div class="stat-card">
-            <div class="stat-icon">📚</div>
+            <div class="stat-icon"><img src="<?= base_url('imagenes/planuser.svg') ?>" alt="G_clases" class="iconos"></div>
             <div class="stat-info">
                 <h3><?= count($clases) ?></h3>
                 <p>Total Clases</p>
             </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon">✅</div>
+            <div class="stat-icon"><img src="<?= base_url('imagenes/si.svg') ?>" alt="G_clases" class="iconos"></div>
             <div class="stat-info">
                 <h3><?= count(array_filter($clases, function($c) { return $c['disponible'] == 1; })) ?></h3>
                 <p>Activas</p>
             </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon">❌</div>
+            <div class="stat-icon"><img src="<?= base_url('imagenes/no.svg') ?>" alt="G_clases" class="iconos"></div>
             <div class="stat-info">
                 <h3><?= count(array_filter($clases, function($c) { return $c['disponible'] == 0; })) ?></h3>
                 <p>Inactivas</p>
             </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon">👥</div>
+            <div class="stat-icon"><img src="<?= base_url('imagenes/usuarios.svg') ?>" alt="G_clases" class="iconos"></div>
             <div class="stat-info">
                 <h3><?= count(array_filter($clases, function($c) { return $c['cupo_disponible'] < $c['cupo_maximo']; })) ?></h3>
                 <p>Con Reservas</p>
@@ -73,7 +73,7 @@
             <table class="styled-table improved-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th><img src="<?= base_url('imagenes/number.svg') ?>" alt="G_usuarios" class="iconnn"></th>
                         <th>Nombre</th>
                         <th>Día</th>
                         <th>Horario</th>
@@ -143,11 +143,11 @@
         </div>
     <?php else: ?>
         <div class="no-data-improved">
-            <div class="no-data-icon">📚</div>
+            <div class="no-data-icon"><img src="<?= base_url('imagenes/clasess.svg') ?>" alt="G_clases" class="detallesuser"></div>
             <h3>No hay clases registradas</h3>
             <p>Comienza creando tu primera clase</p>
             <a href="<?= base_url('admin/crear_clase'); ?>" class="btn-crear">
-                ＋ Crear Primera Clase
+               <img src="<?= base_url('imagenes/adduser.svg') ?>" alt="G_clases" class="detallesuser"> Crear Primera Clase
             </a>
         </div>
     <?php endif; ?>

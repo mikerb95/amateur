@@ -121,15 +121,26 @@ td {
 .btn-cancelar {
     display: block;
     text-align: center;
-    margin-top: 15px;
-    padding: 10px;
-    color: #555;
     text-decoration: none;
     font-weight: bold;
+    width: 95%;
+    padding: 12px;
+    margin-top: 20px;
+    background: gray;
+    border: none;
+    border-radius: 8px;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+
 }
 
 .btn-cancelar:hover {
-    text-decoration: underline;
+    color: white;
+    background-color: red;
+    box-shadow: -5PX -2PX 23PX #aee3ff;
+    text-decoration: none;
 }
 
 /* Alertas */

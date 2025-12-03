@@ -4,35 +4,35 @@
     <div class="page-header">
         <h1 class="title">Gestión de Pagos</h1>
         <a href="<?= base_url('admin/usuarios') ?>" class="btn-back">
-            ← Volver a Usuarios
+            <img src="<?= base_url('imagenes/back.svg') ?>" alt="G_pagos" class="back"> Volver a Usuarios
         </a>
     </div>
 
     <!-- ======== ESTADÍSTICAS RÁPIDAS ======== -->
     <div class="stats-cards">
         <div class="stat-card">
-            <div class="stat-icon">💰</div>
+            <div class="stat-icon"><img src="<?= base_url('imagenes/usuarios.svg') ?>" alt="G_usuarios" class="iconos"></div>
             <div class="stat-info">
                 <h3 id="total-usuarios">-</h3>
                 <p>Total Usuarios</p>
             </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon">✅</div>
+            <div class="stat-icon"><img src="<?= base_url('imagenes/si.svg') ?>" alt="G_clases" class="iconos"></div>
             <div class="stat-info">
                 <h3 id="pagos-cancelados">-</h3>
                 <p>Al Día en Pagos</p>
             </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon">❌</div>
+            <div class="stat-icon"><img src="<?= base_url('imagenes/no.svg') ?>" alt="G_clases" class="iconos"></div>
             <div class="stat-info">
                 <h3 id="pagos-pendientes">-</h3>
                 <p>Pendientes de Pago</p>
             </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon">📊</div>
+            <div class="stat-icon"><img src="<?= base_url('imagenes/estadistica.svg') ?>" alt="G_clases" class="iconos"></div>
             <div class="stat-info">
                 <h3 id="porcentaje-pagos">-</h3>
                 <p>% de Cumplimiento</p>

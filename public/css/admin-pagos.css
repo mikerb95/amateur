@@ -35,7 +35,7 @@
 }
 
 .card-header h3 {
-    color: #3b006a;
+    color: black;
     font-size: 1.3rem;
     margin-bottom: 8px;
     display: flex;
@@ -44,7 +44,7 @@
 }
 
 .card-header p {
-    color: #666;
+    color: black;
     margin: 0;
     font-size: 0.95rem;
 }
@@ -194,6 +194,43 @@
     color: #2d3748;
 }
 
+.iconos{
+    max-width: 50px;
+    z-index: 1012;
+}
+
+.iconheader{
+    max-width: 25px;
+    z-index: 1012;
+}
+
+.iconnn{
+    margin-left: 1.6vw;
+    max-width: 30px;
+    z-index: 1012;
+}
+
+.detallesuser{
+    max-width: 20px;
+    z-index: 1012;
+}
+
+.back{
+    max-width: 25px;
+    z-index: 1012;
+}
+
+.btn-back{
+    display: flex;
+    color: #3b006a;
+    align-content: center;
+    align-items: center;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    gap: 5px;
+}
 /* Formulario de pago */
 .payment-form {
     display: flex;
@@ -215,16 +252,19 @@
 /* Estadísticas */
 .stats-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 10px));
     gap: 20px;
     margin-bottom: 30px;
+    max-width: 1200px;
+    margin: 30px auto;
 }
 
 .stat-card {
-    background: linear-gradient(145deg, #111, #1a1a1a);
+    background: rgb(173, 173, 173);
     border: 1px solid #2d2d2d;
     border-radius: 12px;
-    padding: 20px;
+    padding: 10px;
+    width: 270px;
     display: flex;
     align-items: center;
     gap: 15px;
@@ -245,13 +285,13 @@
 .stat-info h3 {
     margin: 0;
     font-size: 1.8rem;
-    color: #7a1fc5;
+    color: black;
     font-weight: 700;
 }
 
 .stat-info p {
     margin: 5px 0 0 0;
-    color: #aaa;
+    color: black;
     font-size: 0.9rem;
 }
 

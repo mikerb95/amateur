@@ -30,8 +30,7 @@
                 Reservar otra clase
             </button>
 
-            <button class="btn-reservar"
-                    style="margin-left:10px; background:#555;"
+            <button class="btn-verreservas"
                     onclick="window.location='<?= base_url('usuarios/mis_clases') ?>'">
                 Ver mis clases
             </button>
