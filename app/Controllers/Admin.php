@@ -108,71 +108,60 @@ public function usuarios()
     // 💾 ACTUALIZAR USUARIO
     // =========================
     public function actualizar_usuario($id = null)
-    {
-        $usuarioModel = new DatosUsuarioModel();
-        $pagoModel = new PagoModel();
+{
+    $usuarioModel = new DatosUsuarioModel();
+    $pagoModel    = new PagoModel();
 
-        // 1️⃣ Buscar usuario
-        $usuario = $usuarioModel->find($id);
-        if (!$usuario) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("Usuario no encontrado");
-        }
-
-        // 2️⃣ Datos personales del formulario
-        $nombre   = $this->request->getPost('nombre');
-        $apellido = $this->request->getPost('apellido');
-        $cedula   = $this->request->getPost('cedula');
-        $estado   = $this->request->getPost('estado');
-
-        // 3️⃣ Validaciones básicas
-        if (empty($nombre) || empty($apellido) || empty($cedula) || empty($estado)) {
-            return redirect()->back()->with('error', 'Todos los campos son obligatorios.');
-        }
-
-        // 4️⃣ Validar que la cédula no esté repetida
-        $usuarioExistente = $usuarioModel->where('cedula', $cedula)
-            ->where('id_usuario !=', $id)
-            ->first();
-        if ($usuarioExistente) {
-            return redirect()->back()->with('error', 'La cédula ya está registrada en otro usuario.');
-        }
-
-        // 5️⃣ Validar estado del pago
-        $estadosPermitidos = ['Pago Pendiente', 'Pago Cancelado'];
-        if (!in_array($estado, $estadosPermitidos)) {
-            return redirect()->back()->with('error', 'Estado de pago no válido.');
-        }
-
-        try {
-            // 6️⃣ Actualizar datos del usuario
-            $dataUsuario = [
-                'nombre'   => $nombre,
-                'apellido' => $apellido,
-                'cedula'   => $cedula
-            ];
-            $usuarioModel->update($id, $dataUsuario);
-
-            // 7️⃣ Actualizar o crear estado de pago
-            $pagoExistente = $pagoModel->where('id_usuario', $id)->first();
-
-            if ($pagoExistente) {
-                // Actualizar pago existente
-                $pagoModel->update($pagoExistente['id_pago'], ['estado' => $estado]);
-            } else {
-                // Crear nuevo registro de pago
-                $pagoModel->insert([
-                    'id_usuario' => $id,
-                    'estado' => $estado
-                ]);
-            }
-
-            // 8️⃣ Redirigir con mensaje de éxito
-            return redirect()->to(base_url('admin/usuarios'))
-                ->with('success', 'Usuario y estado de pago actualizados correctamente.');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error al actualizar: ' . $e->getMessage());
-        }
+    // 1️⃣ Buscar usuario
+    $usuario = $usuarioModel->find($id);
+    if (!$usuario) {
+        throw new \CodeIgniter\Exceptions\PageNotFoundException("Usuario no encontrado");
     }
+
+    // 2️⃣ Datos personales del formulario
+    $nombre   = $this->request->getPost('nombre');
+    $apellido = $this->request->getPost('apellido');
+    $estado   = $this->request->getPost('estado');
+
+    // 3️⃣ Validaciones básicas (ya NO se valida cédula)
+    if (empty($nombre) || empty($apellido) || empty($estado)) {
+        return redirect()->back()->with('error', 'Nombre, apellido y estado son obligatorios.');
+    }
+
+    // 4️⃣ Validar estado del pago
+    $estadosPermitidos = ['Pago Pendiente', 'Pago Cancelado'];
+    if (!in_array($estado, $estadosPermitidos)) {
+        return redirect()->back()->with('error', 'Estado de pago no válido.');
+    }
+
+    try {
+        // 5️⃣ Actualizar datos del usuario (NO tocamos la cédula)
+        $dataUsuario = [
+            'nombre'   => $nombre,
+            'apellido' => $apellido,
+            // 'cedula' => $usuario['cedula']  // ← NI LA LEEMOS NI LA PONEMOS
+        ];
+        $usuarioModel->update($id, $dataUsuario);
+
+        // 6️⃣ Actualizar o crear estado de pago
+        $pagoExistente = $pagoModel->where('id_usuario', $id)->first();
+
+        if ($pagoExistente) {
+            $pagoModel->update($pagoExistente['id_pago'], ['estado' => $estado]);
+        } else {
+            $pagoModel->insert([
+                'id_usuario' => $id,
+                'estado'     => $estado
+            ]);
+        }
+
+        // 7️⃣ Redirigir con mensaje de éxito
+        return redirect()->to(base_url('admin/usuarios'))
+            ->with('success', 'Usuario y estado de pago actualizados correctamente.');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Error al actualizar: ' . $e->getMessage());
+    }
+}
 
     // =========================
     // 🗑️ ELIMINAR USUARIO

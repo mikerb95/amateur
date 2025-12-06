@@ -491,3 +491,18 @@ body {
     margin-bottom: 10px; border-radius: 5px; font-weight: bold;
     text-align: center;
 }
+
+/* Campo de cédula: solo visual, no editable ni seleccionable */
+#cedula {
+    pointer-events: none;   /* No permite clic ni escribir */
+    user-select: none;      /* No permite seleccionar el texto */
+    background-color: #f5f5f5;
+    cursor: default;
+}
+
+/* Por si acaso entra el foco con Tab o algo raro */
+#cedula:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #dcd2ff;
+}
