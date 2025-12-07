@@ -259,12 +259,18 @@ public function toggle_disponibilidad($id = null)
 public function reservas()
 {
     $reservaModel = new ReservaModel();
-    
-    // Usar el método corregido que incluye los joins
     $reservas = $reservaModel->getAllWithDetails();
+
+    // Convertir reservas a canceladas si el usuario YA PAGÓ
+    foreach ($reservas as &$r) {
+        if ($r['estado_pago'] == 'Pago Cancelado') {
+            $r['estado'] = 'Cancelada'; // FORZAR CANCELADA
+        }
+    }
 
     return view('admin/reservas', ['reservas' => $reservas]);
 }
+
 
 public function editar_reserva($id_reserva)
 {
