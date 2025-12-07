@@ -82,20 +82,15 @@ class ReservaModel extends Model
     }
 public function getAllWithDetails()
 {
-    $builder = $this->db->table('reservas r');
-    $builder->select('
-        r.id_reservas AS id,
-        u.nombre AS usuario_nombre,
-        u.apellido AS usuario_apellido, 
-        u.cedula,
-        c.nombre AS clase_nombre,
-        r.fecha_reserva,
-        r.estado
-    ');
-    $builder->join('datos_usuarios u', 'u.id_usuario = r.id_usuario', 'left');
-    $builder->join('clases c', 'c.id_clases = r.id_clases', 'left'); // ← CORREGIDO: id_clases
-    $builder->orderBy('r.fecha_reserva', 'DESC');
-    
-    return $builder->get()->getResultArray();
+    return $this->select('reservas.*, datos_usuarios.nombre AS usuario_nombre,
+                          datos_usuarios.apellido AS usuario_apellido,
+                          datos_usuarios.cedula,
+                          clases.nombre AS clase_nombre,
+                          pagos.estado AS estado_pago')
+        ->join('datos_usuarios', 'datos_usuarios.id_usuario = reservas.id_usuario')
+        ->join('clases', 'clases.id_clases = reservas.id_clases')
+        ->join('pagos', 'pagos.id_usuario = reservas.id_usuario', 'left')
+        ->findAll();
 }
+
 }
