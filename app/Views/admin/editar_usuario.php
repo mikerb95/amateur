@@ -18,9 +18,8 @@
 
             <div class="form-group">
                 <label for="cedula">Cédula:</label>
-                <input type="text" name="cedula" id="cedula" value="<?= esc($usuario['cedula']) ?>" required>
+                <input type="text" id="cedula" value="<?= esc($usuario['cedula']) ?>">
             </div>
-            
 
             <div class="button-group">
                 <button type="submit" class="btn-primary">💾 Guardar Cambios</button>

@@ -1,5 +1,28 @@
 <?= $this->include('templates/menu_principal') ?>
 
+<?php
+// ===============================================
+//  EVITAR ERROR: $usuarios puede venir NULL
+// ===============================================
+$usuarios = $usuarios ?? [];
+
+// ===== CÁLCULOS DINÁMICOS =====
+$totalUsuarios = count($usuarios);
+
+$pagosCancelados = count(array_filter($usuarios, function($u) {
+    return ($u['estado_pago'] ?? 'Pago Pendiente') == 'Pago Cancelado';
+}));
+
+$pagosPendientes = count(array_filter($usuarios, function($u) {
+    return ($u['estado_pago'] ?? 'Pago Pendiente') == 'Pago Pendiente';
+}));
+
+$porcentaje = $totalUsuarios > 0 ? round(($pagosCancelados / $totalUsuarios) * 100) : 0;
+?>
+
+<!-- 🔓 Habilitar edición de cédula SOLO en Gestión de Pagos -->
+<div class="cedula-editable">
+
 <div class="main-content">
     <div class="page-header">
         <h1 class="title">Gestión de Pagos</h1>
@@ -11,36 +34,25 @@
     <!-- ======== ESTADÍSTICAS RÁPIDAS ======== -->
     <div class="stats-cards">
         <div class="stat-card">
-            <div class="stat-icon"><img src="<?= base_url('imagenes/usuarios.svg') ?>" alt="G_usuarios" class="iconos"></div>
-            <div class="stat-info">
-                <h3 id="total-usuarios">-</h3>
-                <p>Total Usuarios</p>
-            </div>
+            <div class="stat-icon"><img src="<?= base_url('imagenes/usuarios.svg') ?>" class="iconos"></div>
+            <div class="stat-info"><h3><?= $totalUsuarios ?></h3><p>Total Usuarios</p></div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon"><img src="<?= base_url('imagenes/si.svg') ?>" alt="G_clases" class="iconos"></div>
-            <div class="stat-info">
-                <h3 id="pagos-cancelados">-</h3>
-                <p>Al Día en Pagos</p>
-            </div>
+            <div class="stat-icon"><img src="<?= base_url('imagenes/si.svg') ?>" class="iconos"></div>
+            <div class="stat-info"><h3><?= $pagosCancelados ?></h3><p>Al Día en Pagos</p></div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon"><img src="<?= base_url('imagenes/no.svg') ?>" alt="G_clases" class="iconos"></div>
-            <div class="stat-info">
-                <h3 id="pagos-pendientes">-</h3>
-                <p>Pendientes de Pago</p>
-            </div>
+            <div class="stat-icon"><img src="<?= base_url('imagenes/no.svg') ?>" class="iconos"></div>
+            <div class="stat-info"><h3><?= $pagosPendientes ?></h3><p>Pendientes de Pago</p></div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon"><img src="<?= base_url('imagenes/estadistica.svg') ?>" alt="G_clases" class="iconos"></div>
-            <div class="stat-info">
-                <h3 id="porcentaje-pagos">-</h3>
-                <p>% de Cumplimiento</p>
-            </div>
+            <div class="stat-icon"><img src="<?= base_url('imagenes/estadistica.svg') ?>" class="iconos"></div>
+            <div class="stat-info"><h3><?= $porcentaje ?>%</h3><p>% de Cumplimiento</p></div>
         </div>
     </div>
 
     <div class="content-grid">
+
         <!-- ======== BÚSQUEDA DE USUARIO ======== -->
         <div class="card-section">
             <div class="card-header">
@@ -48,7 +60,7 @@
                 <p>Busca un usuario por cédula para gestionar su estado de pago</p>
             </div>
 
-            <?php if (!isset($usuario) || $usuario == null): ?>
+            <?php if (!isset($usuario)): ?>
                 <form action="<?= base_url('pagos/buscar'); ?>" method="POST" class="search-form">
                     <div class="form-group">
                         <label for="cedula" class="form-label">
@@ -60,15 +72,14 @@
                         <div class="form-hint">Ingresa el número de cédula del usuario</div>
                     </div>
                     <button type="submit" class="btn-submit">
-                        <span class="btn-icon">🔍</span>
-                        Buscar Usuario
+                        <span class="btn-icon">🔍</span> Buscar Usuario
                     </button>
                 </form>
             <?php endif; ?>
         </div>
 
         <!-- ======== GESTIÓN DE PAGOS ======== -->
-        <?php if (isset($usuario) && $usuario != null): ?>
+        <?php if (isset($usuario)): ?>
             <div class="card-section">
                 <div class="card-header">
                     <h3>💰 Gestión de Pago</h3>
@@ -86,18 +97,12 @@
                         <div class="user-details">
                             <h4><?= esc($usuario['nombre'] . ' ' . $usuario['apellido']) ?></h4>
                             <div class="user-meta">
-                                <span class="meta-item">
-                                    <strong>🆔 Cédula:</strong> <?= esc($usuario['cedula']) ?>
-                                </span>
+                                <span class="meta-item"><strong>🆔 Cédula:</strong> <?= esc($usuario['cedula']) ?></span>
                                 <?php if (isset($usuario['correo'])): ?>
-                                    <span class="meta-item">
-                                        <strong>📧 Email:</strong> <?= esc($usuario['correo']) ?>
-                                    </span>
+                                    <span class="meta-item"><strong>📧 Email:</strong> <?= esc($usuario['correo']) ?></span>
                                 <?php endif; ?>
                                 <?php if (isset($usuario['telefono'])): ?>
-                                    <span class="meta-item">
-                                        <strong>📞 Teléfono:</strong> <?= esc($usuario['telefono']) ?>
-                                    </span>
+                                    <span class="meta-item"><strong>📞 Teléfono:</strong> <?= esc($usuario['telefono']) ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -105,33 +110,27 @@
 
                     <!-- Estado de Pago -->
                     <div class="form-group">
-                        <label for="estado" class="form-label">
-                            <span class="label-icon">💳</span>
-                            Estado de Pago *
-                        </label>
+                        <label for="estado" class="form-label"><span class="label-icon">💳</span> Estado de Pago *</label>
                         <select name="estado" id="estado" class="form-select" required>
-                            <option value="Pago Pendiente" <?= isset($pago) && $pago['estado'] == 'Pago Pendiente' ? 'selected' : '' ?>>
-                                ❌ Pago Pendiente
-                            </option>
-                            <option value="Pago Cancelado" <?= isset($pago) && $pago['estado'] == 'Pago Cancelado' ? 'selected' : '' ?>>
-                                ✅ Pago Cancelado
-                            </option>
+                            <option value="Pago Pendiente" <?= (isset($pago) && $pago['estado']=='Pago Pendiente')?'selected':'' ?>>❌ Pago Pendiente</option>
+                            <option value="Pago Cancelado" <?= (isset($pago) && $pago['estado']=='Pago Cancelado')?'selected':'' ?>>✅ Pago Cancelado</option>
                         </select>
-                        <div class="form-hint">Selecciona el estado actual del pago del usuario</div>
+                        <div class="form-hint">Selecciona el estado actual del pago</div>
                     </div>
 
-                    <!-- Resumen del Estado -->
+                    <!-- Resumen -->
                     <div class="payment-summary">
-                        <div class="summary-item <?= (isset($pago) && $pago['estado'] == 'Pago Cancelado') ? 'paid' : 'pending' ?>">
+                        <div class="summary-item <?= (isset($pago) && $pago['estado']=='Pago Cancelado')?'paid':'pending' ?>">
                             <div class="summary-icon">
-                                <?= (isset($pago) && $pago['estado'] == 'Pago Cancelado') ? '✅' : '❌' ?>
+                                <?= (isset($pago) && $pago['estado']=='Pago Cancelado') ? '✅' : '❌' ?>
                             </div>
                             <div class="summary-content">
                                 <strong>Estado Actual:</strong>
-                                <span><?= isset($pago) ? $pago['estado'] : 'Pago Pendiente' ?></span>
+                                <span><?= $pago['estado'] ?? 'Pago Pendiente' ?></span>
                             </div>
                         </div>
-                        <?php if (isset($pago) && isset($pago['fecha_pago'])): ?>
+
+                        <?php if (isset($pago['fecha_pago'])): ?>
                             <div class="summary-item">
                                 <div class="summary-icon">📅</div>
                                 <div class="summary-content">
@@ -142,22 +141,16 @@
                         <?php endif; ?>
                     </div>
 
-                    <!-- Botones de Acción -->
+                    <!-- Botones -->
                     <div class="form-actions">
-                        <button type="submit" class="btn-submit">
-                            <span class="btn-icon">💾</span>
-                            Guardar Estado de Pago
-                        </button>
-                        <a href="<?= base_url('pagos') ?>" class="btn-cancel">
-                            <span class="btn-icon">↶</span>
-                            Buscar Otro Usuario
-                        </a>
+                        <button type="submit" class="btn-submit"><span class="btn-icon">💾</span> Guardar Estado de Pago</button>
+                        <a href="<?= base_url('pagos') ?>" class="btn-cancel"><span class="btn-icon">↶</span> Buscar Otro Usuario</a>
                     </div>
                 </form>
             </div>
         <?php endif; ?>
 
-        <!-- ======== INFORMACIÓN ADICIONAL ======== -->
+        <!-- ======== INFO EXTRA ======== -->
         <div class="card-section">
             <div class="card-header">
                 <h3>📋 Información de Pagos</h3>
@@ -170,8 +163,8 @@
                     <div class="info-content">
                         <h4>Estados de Pago</h4>
                         <ul>
-                            <li><strong>Pago Cancelado:</strong> Usuario al día con sus pagos</li>
-                            <li><strong>Pago Pendiente:</strong> Usuario con pagos pendientes</li>
+                            <li><strong>Pago Cancelado:</strong> Usuario al día</li>
+                            <li><strong>Pago Pendiente:</strong> Usuario con deudas</li>
                         </ul>
                     </div>
                 </div>
@@ -189,21 +182,12 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
-<!-- Incluir el CSS específico para pagos -->
 <link rel="stylesheet" href="<?= base_url('css/admin-pagos.css') ?>">
 
-<script>
-// Estadísticas simples (puedes reemplazar con datos reales del servidor)
-document.addEventListener('DOMContentLoaded', function() {
-    // Estos son datos de ejemplo - deberías obtenerlos de tu backend
-    document.getElementById('total-usuarios').textContent = '47';
-    document.getElementById('pagos-cancelados').textContent = '35';
-    document.getElementById('pagos-pendientes').textContent = '12';
-    document.getElementById('porcentaje-pagos').textContent = '75%';
-});
-</script>
+</div> <!-- cierre .cedula-editable -->
 
 <?= $this->include('templates/footer') ?>

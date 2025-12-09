@@ -1,121 +1,78 @@
-<?= $this->include('templates/menu_principal'); ?>
+<?= $this->include('templates/menu_principal') ?>
 
 <div class="main-content">
-    <div class="page-header">
-        <h1 class="title">Gestión de Reservas</h1>
-        <div class="header-actions">
-            <a href="<?= base_url('admin/clases') ?>" class="btn-crear">
-                <img src="<?= base_url('imagenes/back.svg') ?>" alt="G_reservas" class="back"> Volver a Clases
-            </a>
-        </div>
-    </div>
+    <h1 class="title">Reservas</h1>
 
-    <!-- ======== ESTADÍSTICAS DE RESERVAS ======== -->
-    <div class="stats-cards">
-        <div class="stat-card">
-            <div class="stat-icon"><img src="<?= base_url('imagenes/planuser.svg') ?>" alt="G_clases" class="iconos"></div>
-            <div class="stat-info">
-                <h3><?= count($reservas) ?></h3>
-                <p>Total Reservas</p>
-            </div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-icon"><img src="<?= base_url('imagenes/si.svg') ?>" alt="G_reservas" class="iconos"></div>
-            <div class="stat-info">
-                <h3><?= count(array_filter($reservas, function($r) { return $r['estado'] == 'Confirmada'; })) ?></h3>
-                <p>Confirmadas</p>
-            </div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-icon"><img src="<?= base_url('imagenes/time.svg') ?>" alt="G_reservas" class="iconos"></div>
-            <div class="stat-info">
-                <h3><?= count(array_filter($reservas, function($r) { return $r['estado'] == 'Pendiente'; })) ?></h3>
-                <p>Pendientes</p>
-            </div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-icon"><img src="<?= base_url('imagenes/no.svg') ?>" alt="G_reservas" class="iconos"></div>
-            <div class="stat-info">
-                <h3><?= count(array_filter($reservas, function($r) { return $r['estado'] == 'Cancelada'; })) ?></h3>
-                <p>Canceladas</p>
-            </div>
-        </div>
-    </div>
+    <div class="table-container">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Cédula</th>
+                    <th>Clase</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
 
-    <?php if (!empty($reservas)): ?>
-        <div class="table-improved-container">
-            <table class="styled-table improved-table">
-                <thead>
-                    <tr>
-                        <th><img src="<?= base_url('imagenes/number.svg') ?>" alt="G_reservas" class="iconnn"></th>
-                        <th>Usuario</th>
-                        <th>Clase</th>
-                        <th>Fecha Reserva</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($reservas as $reserva): ?>
-                        <tr>
-                            <td class="text-center"><?= esc($reserva['id']) ?></td>
-                            <td>
-                                <div class="user-info">
-                                    <strong><?= esc($reserva['usuario_nombre']) ?></strong>
-                                    <?php if (isset($reserva['usuario_apellido'])): ?>
-                                        <br><small><?= esc($reserva['usuario_apellido']) ?></small>
-                                    <?php endif; ?>
-                                    <?php if (isset($reserva['cedula'])): ?>
-                                        <br><small class="text-muted">Cédula: <?= esc($reserva['cedula']) ?></small>
-                                    <?php endif; ?>
-                                </div>
-                            </td>
-                            <td>
-                                <strong><?= esc($reserva['clase_nombre']) ?></strong>
-                            </td>
-                            <td>
-                                <div class="fecha-info">
-                                    <?= date('d/m/Y', strtotime($reserva['fecha_reserva'])) ?>
-                                    <br>
-                                    <small class="text-muted">
-                                        <?= date('H:i', strtotime($reserva['fecha_reserva'])) ?>
-                                    </small>
-                                </div>
-                            </td>
-                            <td>
-                                <span class="estado-reserva <?= strtolower($reserva['estado']) ?>">
-                                    <?= esc($reserva['estado']) ?>
+            <tbody>
+                <?php foreach ($reservas as $reserva): ?>
+
+                    <?php
+                        // Si el pago está cancelado cambiar estado
+                        if (isset($reserva['estado_pago']) && $reserva['estado_pago'] === 'Pago Cancelado') {
+                            $reserva['estado'] = 'Cancelada';
+                        }
+
+                        // Formatear fecha
+                        $fecha = isset($reserva['fecha_reserva'])
+                            ? date("Y-m-d", strtotime($reserva['fecha_reserva']))
+                            : '—';
+
+                        // Clase visual para filas canceladas
+                        $row_class = ($reserva['estado'] === 'Cancelada') ? 'row-cancelada' : '';
+                    ?>
+
+                    <tr class="<?= $row_class ?>">
+                        <td><?= $reserva['id_reservas'] ?></td>
+
+                        <td><?= $reserva['usuario_nombre'] . ' ' . $reserva['usuario_apellido'] ?></td>
+
+                        <td><?= $reserva['cedula'] ?></td>
+
+                        <td><?= $reserva['clase_nombre'] ?></td>
+
+                        <td><?= $fecha ?></td>
+
+                        <td>
+                            <?php if ($reserva['estado'] === 'Cancelada'): ?>
+                                <!-- CANCELADA (VERDE) -->
+                                <span class="badge cancelado">
+                                    <svg viewBox="0 0 24 24" class="icon">
+                                        <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                                    </svg>
+                                    CANCELADA
                                 </span>
-                            </td>
-                            <td>
-                                <div class="action-buttons">
-                                    <a href="<?= base_url('admin/editar_reserva/' . $reserva['id']) ?>" 
-                                       class="btn-action btn-edit" title="Editar reserva">
-                                        <img src="<?= base_url('imagenes/editarlogo.svg') ?>" alt="G_reservas" class="detallesuser">
-                                    </a>
-                                    <a href="<?= base_url('admin/eliminar_reserva/' . $reserva['id']) ?>" 
-                                       class="btn-action btn-delete" 
-                                       onclick="return confirm('¿Eliminar esta reserva?')"
-                                       title="Eliminar reserva">
-                                        <img src="<?= base_url('imagenes/delete.svg') ?>" alt="G_reservas" class="detallesuser">
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    <?php else: ?>
-        <div class="no-data-improved">
-            <div class="no-data-icon">📋</div>
-            <h3>No hay reservas registradas</h3>
-            <p>Todavía no se han realizado reservas en el sistema</p>
-        </div>
-    <?php endif; ?>
+
+                            <?php elseif ($reserva['estado'] === 'Pendiente'): ?>
+                                <!-- PENDIENTE (ROJO) -->
+                                <span class="badge pendiente">
+                                    <svg viewBox="0 0 24 24" class="icon">
+                                        <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 
+                                        6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 
+                                        17.59 19 19 17.59 13.41 12z"/>
+                                    </svg>
+                                    PENDIENTE
+                                </span>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<!-- Incluir el CSS de reservas -->
-<link rel="stylesheet" href="<?= base_url('css/admin-reservas.css') ?>">
-
-<?= $this->include('templates/footer'); ?>
+<?= $this->include('templates/footer') ?>

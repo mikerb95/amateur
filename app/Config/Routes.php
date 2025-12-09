@@ -90,6 +90,7 @@ $routes->get('logout', 'Auth::salir');               // cerrar sesión
 $routes->get('pagina/registrar', 'Auth::crear_usuario');
 $routes->post('pagina/registrar', 'Auth::registrar');
 $routes->get('pagina/olvidarContr', 'OlvidarContra::index');
+$routes->post('perfil/cambiar_contrasena', 'PerfilController::cambiar_contrasena');
 
 // =========================
 // 📌 RUTAS DE PAGOS

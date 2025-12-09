@@ -45,7 +45,7 @@
 
             <div class="contacto-form-container">
                 <h2>Envíanos un Mensaje</h2>
-                <form action="#" method="POST" class="contact-form">
+                <form id="contactForm" class="contact-form">
                     
                     <label for="nombre">Nombre Completo</label>
                     <input type="text" id="nombre" name="nombre" required>
@@ -71,6 +71,7 @@
 
         </div>
     </section>
+    <script src="<?= base_url('js/contacto.js') ?>"></script>
 </main>
 
 <?php echo $this->endSection();?>
