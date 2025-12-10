@@ -74,6 +74,9 @@ CREATE TABLE clases (
   FOREIGN KEY (id_rol) REFERENCES roles(id_rol),
   FOREIGN KEY (id_planes) REFERENCES planes(id_planes)
 );
+ALTER TABLE clases ADD COLUMN disponible TINYINT(1) NOT NULL DEFAULT 1;
+select * from clases ;
+
 
 -- =============================================
 -- TABLA: reservas
@@ -97,6 +100,36 @@ CREATE TABLE pagos (
     fecha_pago DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES datos_usuarios(id_usuario)
 );
+
+ALTER TABLE pagos 
+DROP FOREIGN KEY pagos_ibfk_1;
+
+ALTER TABLE pagos 
+ADD CONSTRAINT pagos_ibfk_1 
+FOREIGN KEY (id_usuario) REFERENCES datos_usuarios(id_usuario)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE reservas 
+DROP FOREIGN KEY reservas_ibfk_1;
+
+ALTER TABLE reservas 
+ADD CONSTRAINT reservas_ibfk_1 
+FOREIGN KEY (id_usuario) REFERENCES datos_usuarios(id_usuario)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE perfil 
+DROP FOREIGN KEY perfil_ibfk_2;
+
+ALTER TABLE perfil 
+ADD CONSTRAINT perfil_ibfk_2
+FOREIGN KEY (id_usuario) REFERENCES datos_usuarios(id_usuario)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+
+
 
 -- =============================================
 -- INSERTS: roles
@@ -236,3 +269,6 @@ INSERT INTO clases (nombre, descripcion, fecha, dia_semana, hora_inicio, hora_fi
 ('Clase 09:00 Sábado', 'Clase de 1 hora', NULL, 'Sábado', '09:00:00', '10:00:00', 8, 8, 1, 1),
 ('Clase 10:00 Sábado', 'Clase de 1 hora', NULL, 'Sábado', '10:00:00', '11:00:00', 8, 8, 1, 1),
 ('Clase 11:00 Sábado', 'Clase de 1 hora', NULL, 'Sábado', '11:00:00', '12:00:00', 8, 8, 1, 1);
+
+ALTER TABLE reservas ADD COLUMN estado ENUM('Pendiente','Confirmada','Cancelada','Completada') DEFAULT 'Pendiente';
+select * from datos_usuarios;

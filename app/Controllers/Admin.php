@@ -51,6 +51,12 @@ class Admin extends BaseController
     return view('admin/usuarios', ['usuarios' => $usuarios]);
 }
 
+public function dashboard_admin()
+{
+    return view('admin/dashboard_admin');
+}
+
+
     // =========================
     // ✏️ FORMULARIO EDITAR USUARIO
     // =========================
@@ -140,39 +146,16 @@ class Admin extends BaseController
     // =========================
     // 🗑️ ELIMINAR USUARIO
     // =========================
-    public function eliminar_usuario($id = null)
-    {
-        $usuarioModel  = new DatosUsuarioModel();
-        $pagoModel     = new PagoModel();
-        $perfilModel   = new PerfilModel();
-        $reservaModel  = new ReservaModel(); // 👈 también tiene FK a datos_usuarios
+   public function eliminar_Usuario($idUsuario)
+{
+    // 1. Borrar pagos del usuario
+    $this->db->table('pagos')->where('id_usuario', $idUsuario)->delete();
 
-        $db = \Config\Database::connect();
+    // 2. Borrar reservas si existen
+    $this->db->table('reservas')->where('id_usuario', $idUsuario)->delete();
 
-        try {
-            $db->transStart();
-
-            // 1️⃣ Borrar primero todo lo que depende del usuario
-            $pagoModel->where('id_usuario', $id)->delete();      // pagos
-            $reservaModel->where('id_usuario', $id)->delete();   // reservas
-            $perfilModel->where('id_usuario', $id)->delete();    // perfil / credenciales
-
-            // 2️⃣ Ahora sí, borrar el usuario
-            $usuarioModel->delete($id);
-
-            $db->transComplete();
-
-            if ($db->transStatus() === false) {
-                throw new \Exception('Error en la transacción al eliminar usuario.');
-            }
-
-            return redirect()->to(base_url('admin/usuarios'))
-                ->with('success', 'Usuario eliminado correctamente.');
-        } catch (\Exception $e) {
-            // Si algo falla, la transacción hace rollback
-            return redirect()->back()
-                ->with('error', 'Error al eliminar usuario: ' . $e->getMessage());
-        }
+    // 3. Borrar usuario
+    return $this->db->table('datos_usuarios')->where('id_usuario', $idUsuario)->delete();
 }
 
     // =========================
