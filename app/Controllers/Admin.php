@@ -24,31 +24,7 @@ class Admin extends BaseController
             exit;
         }
     }
-    public function dashboard_admin()
-    {
-        if (!session()->has('id_usuario') || session('id_rol') != 1) {
-            return redirect()->to('/login');
-        }
-
-        // 📊 Cargar modelos
-        $usuarioModel = new DatosUsuarioModel();
-        $claseModel = new ClaseModel();
-        $reservaModel = new ReservaModel();
-
-        // 📈 Datos para el dashboard
-        $data = [
-            'usuarios' => $usuarioModel->countAll(),
-            'clases'   => $claseModel->countAll(),
-            'reservas' => $reservaModel->countAll(),
-        ];
-
-        return view('admin/dashboard_admin', $data);
-    }
-
-    // =========================
-    // 👥 LISTA DE USUARIOS
-    // =========================
-public function usuarios()
+    public function usuarios()
 {
     $usuarioModel = new DatosUsuarioModel();
     $perfilModel  = new PerfilModel();
@@ -58,20 +34,18 @@ public function usuarios()
     $usuarios = $usuarioModel->findAll();
 
     foreach ($usuarios as &$u) {
-        // obtener usuario en tabla perfil (rol, usuario, contraseña)
+        // Perfil / rol
         $perfil = $perfilModel->where('id_usuario', $u['id_usuario'])->first();
         $u['rol'] = $perfil ? $perfil['id_rol'] : 'Sin perfil';
 
-        // obtener plan asignado (CORREGIR si es necesario)
-        $plan = $planModel->first(); // Solo toma el primer plan disponible
+        // Plan asignado (por ahora tomas el primero)
+        $plan = $planModel->first();
         $u['plan'] = $plan ? $plan['nombre'] : 'Sin plan asignado';
 
-        // estado del pago - CORREGIDO
-        $pago = $pagoModel->where('id_usuario', $u['id_usuario'])->first();
+        // ✅ Estado del pago: usar SIEMPRE el ÚLTIMO pago del usuario
+        $pago = $pagoModel->getPagoByUsuario($u['id_usuario']); // <-- usa el método del modelo
+
         $u['estado_pago'] = $pago ? $pago['estado'] : 'Pago Pendiente';
-        
-        // DEBUG: Verificar los datos
-        // echo "Usuario: {$u['nombre']} - Estado: {$u['estado_pago']}<br>";
     }
 
     return view('admin/usuarios', ['usuarios' => $usuarios]);
@@ -168,24 +142,38 @@ public function usuarios()
     // =========================
     public function eliminar_usuario($id = null)
     {
-        $usuarioModel = new DatosUsuarioModel();
-        $pagoModel = new PagoModel();
-        $perfilModel = new PerfilModel();
+        $usuarioModel  = new DatosUsuarioModel();
+        $pagoModel     = new PagoModel();
+        $perfilModel   = new PerfilModel();
+        $reservaModel  = new ReservaModel(); // 👈 también tiene FK a datos_usuarios
+
+        $db = \Config\Database::connect();
 
         try {
-            // Eliminar registros relacionados primero
-            $pagoModel->where('id_usuario', $id)->delete();
-            $perfilModel->where('id_usuario', $id)->delete();
+            $db->transStart();
 
-            // Eliminar usuario
+            // 1️⃣ Borrar primero todo lo que depende del usuario
+            $pagoModel->where('id_usuario', $id)->delete();      // pagos
+            $reservaModel->where('id_usuario', $id)->delete();   // reservas
+            $perfilModel->where('id_usuario', $id)->delete();    // perfil / credenciales
+
+            // 2️⃣ Ahora sí, borrar el usuario
             $usuarioModel->delete($id);
+
+            $db->transComplete();
+
+            if ($db->transStatus() === false) {
+                throw new \Exception('Error en la transacción al eliminar usuario.');
+            }
 
             return redirect()->to(base_url('admin/usuarios'))
                 ->with('success', 'Usuario eliminado correctamente.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error al eliminar usuario: ' . $e->getMessage());
+            // Si algo falla, la transacción hace rollback
+            return redirect()->back()
+                ->with('error', 'Error al eliminar usuario: ' . $e->getMessage());
         }
-    }
+}
 
     // =========================
     // 📚 GESTIÓN DE CLASES
