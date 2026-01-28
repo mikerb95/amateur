@@ -1,146 +1,198 @@
 :root {
-    --color-fondo-claro: #F7F7FA;
-    --color-fondo-blanco: #FFFFFF;
-    --color-texto-oscuro: #333333;
-    --color-acento-morado: #7a1fc5; 
-    --color-morado-oscuro: #3b006a;
-    --sombra-sutil: 0 4px 15px rgba(0, 0, 0, 0.08);
+  --color-fondo-claro: #F7F7FA;
+  --color-fondo-blanco: #FFFFFF;
+  --color-texto-oscuro: #333333;
+  --color-acento-morado: #7a1fc5;
+  --color-morado-oscuro: #3b006a;
+  --sombra-sutil: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 .programas-section {
-    padding-top: 50px;
-    background-color: var(--color-fondo-claro);
-    color: var(--color-texto-oscuro);
+  padding-top: 50px;
+  background-color: var(--color-fondo-claro);
+  color: var(--color-texto-oscuro);
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .programas-section h2 {
-    font-size: 3rem;
-    font-weight: 800;
-    color: var(--color-morado-oscuro);
-    text-align: center;
-    padding-top: 40px;
-    margin-bottom: 10px;
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--color-morado-oscuro);
+  text-align: center;
+  padding-top: 40px;
+  margin-bottom: 10px;
 }
 
 .programas-section .intro {
-    text-align: center;
-    font-size: 1.2rem;
-    margin-bottom: 60px;
-    max-width: 800px;
-    margin: 0 auto 60px auto;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 60px;
+  max-width: 800px;
+  margin: 0 auto 60px auto;
 }
 
+/* Bloques */
 .programa-bloque {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    margin-bottom: 80px;
-    background-color: var(--color-fondo-blanco);
-    border-radius: 12px;
-    box-shadow: var(--sombra-sutil);
-    overflow: hidden; 
-    border: 1px solid #e5e5e5;
-}
-
-.programa-img {
-    flex: 1 1 50%; 
-    max-height: 100%;
-    overflow: hidden;
-    padding: 20px;
-}
-
-.programa-img img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: fill; 
-    border-radius: 5%;
-    transition: transform 0.5s ease;
-}
-
-.programa-bloque:hover .programa-img img {
-    transform: scale(1.05);
-}
-
-.programa-info {
-    flex: 1 1 50%;
-    padding: 30px;
-}
-
-.programa-info h3 {
-    font-size: 2rem;
-    color: var(--color-acento-morado);
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-weight: 700;
-}
-
-.programa-info p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 15px;
-}
-
-.programa-info ul {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0 0 0;
-}
-
-.programa-info ul li {
-    padding-left: 30px;
-    position: relative;
-    margin-bottom: 10px;
-    font-size: 1rem;
-}
-
-.programa-info ul li::before {
-    content: '✅'; 
-    position: absolute;
-    left: 0;
-    color: var(--color-acento-morado);
-    font-weight: bold;
-    font-size: 1.2rem;
+  display: flex;
+  align-items: stretch; /* ✅ mejora consistencia visual */
+  gap: 40px;
+  margin-bottom: 80px;
+  background-color: var(--color-fondo-blanco);
+  border-radius: 12px;
+  box-shadow: var(--sombra-sutil);
+  overflow: hidden;
+  border: 1px solid #e5e5e5;
 }
 
 .programa-bloque.reverse {
-    flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 
+/* Imagen */
+.programa-img {
+  flex: 1 1 50%;
+  max-height: 100%;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.programa-img img {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;      /* ✅ evita que quede muy bajita en desktop */
+  display: block;
+  object-fit: cover;      /* ✅ NO deforma (antes: fill) */
+  border-radius: 12px;    /* ✅ consistente (antes: 5%) */
+  transition: transform 0.5s ease;
+}
+
+.programa-bloque:hover .programa-img img {
+  transform: scale(1.05);
+}
+
+/* Info */
+.programa-info {
+  flex: 1 1 50%;
+  padding: 30px;
+}
+
+.programa-info h3 {
+  font-size: 2rem;
+  color: var(--color-acento-morado);
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.programa-info p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.programa-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0 0;
+}
+
+.programa-info ul li {
+  padding-left: 30px;
+  position: relative;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.programa-info ul li::before {
+  content: '✅';
+  position: absolute;
+  left: 0;
+  color: var(--color-acento-morado);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* ===========================
+   ✅ Responsive: Tablet / Móvil
+   =========================== */
 @media (max-width: 992px) {
-    .programa-bloque {
-        flex-direction: column;
-        gap: 0;
-    }
-    
-    .programa-bloque.reverse {
-        flex-direction: column;
-    }
+  .container {
+    padding: 14px;
+  }
 
-    .programa-img, .programa-info {
-        flex: 1 1 100%; 
-    }
+  .programas-section h2 {
+    font-size: 2.2rem;
+    padding-top: 25px;
+  }
 
-    .programa-img {
-        max-height: 300px;
-    }
+  .programas-section .intro {
+    font-size: 1.05rem;
+    margin-bottom: 30px;
+    padding: 0 6px;
+  }
 
-    .programa-info {
-        padding: 30px 20px;
-    }
-    
-    .programa-info h3 {
-        text-align: center;
-        font-size: 1.7rem;
-    }
+  .programa-bloque,
+  .programa-bloque.reverse {
+    flex-direction: column;
+    gap: 14px;              /* ✅ antes 0, ahora da aire */
+    margin-bottom: 30px;    /* ✅ menos scroll */
+    border-radius: 16px;
+  }
 
-    .programas-section h2 {
-        font-size: 2.5rem;
-    }
+  .programa-img {
+    padding: 12px;
+    max-height: none;       /* ✅ no corta */
+  }
+
+  .programa-img img {
+    height: 200px;          /* ✅ altura bonita en móvil */
+    min-height: unset;      /* ✅ para que respete el height */
+    border-radius: 14px;
+    object-fit: cover;
+  }
+
+  .programa-info {
+    padding: 10px 16px 18px 16px;
+  }
+
+  .programa-info h3 {
+    text-align: left;       /* ✅ más natural en móvil */
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  .programa-info p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .programa-info ul {
+    margin-top: 10px;
+  }
+
+  .programa-info ul li {
+    padding-left: 26px;
+    margin-bottom: 8px;
+    font-size: 0.98rem;
+  }
+
+  .programa-info ul li::before {
+    font-size: 1.05rem;
+  }
+}
+
+/* ✅ Extra: celulares pequeños */
+@media (max-width: 420px) {
+  .programas-section h2 {
+    font-size: 2rem;
+  }
+
+  .programa-img img {
+    height: 170px;
+  }
 }

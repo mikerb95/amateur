@@ -1,6 +1,6 @@
 <header>
   <div class="encabezado-contenido">
-    <a href="<?= base_url('/inicio') ?>"><img class="logo-encabezado" src="<?= base_url('imagenes/Logo blanco_Trans.png') ?>" alt="Logo Club Amateur"></a>    
+    <a href="<?= base_url('/inicio') ?>"><img class="logo-encabezado" src="<?= base_url('imagenes/logo amateur.png') ?>" alt="Logo Club Amateur"></a>    
     <?php echo $this->include('plantilla/menu') ?>
     
     <div class="encabezado-texto">

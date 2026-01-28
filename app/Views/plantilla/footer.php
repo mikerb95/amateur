@@ -1,7 +1,7 @@
 <footer>
   <p>&copy; <?= date('Y') ?> Club Amateur. Todos los derechos reservados.</p>
   <p>
-        <a href="<?= base_url('documentos/contrato.pdf') ?>" target="_blank" id="documento">
+        <a href="<?= base_url('documentos/CONTRATO CLUB 2026.pdf') ?>" target="_blank" id="documento">
       <img class="reglasimg" src="<?= base_url('imagenes/Reglas.svg') ?>" alt="rules"> Reglas del Club
     </a>
   </p>

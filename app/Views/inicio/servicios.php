@@ -1,68 +1,85 @@
 <?php echo $this->extend('plantilla/layout');?>
+
+<?php echo $this->section('css'); ?>
+<link rel="stylesheet" href="<?= base_url('css/programas.css?v=99') ?>">
+<?php echo $this->endSection(); ?>
+
 <?php echo $this->section('contenido');?>
-<link rel="stylesheet" href="<?= base_url('css/programas.css') ?>">
 
 <section id="servicios" class="programas-section">
     <div class="container">
-        <h2>Nuestros Programas</h2>
-        <p class="intro">Manejamos entrenamientos dirigidos teniendo en cuenta las 
-            necesidades de nuestros usuarios, ¡entre estos encontrarás!</p>
+        <h2>Nuestros Servicios</h2>
+        <p class="intro">
+            Entrenamientos guiados según tus objetivos: mejorar tu condición, ganar fuerza o aprender combate.
+            Aquí encontrarás nuestras 3 líneas principales:
+        </p>
 
+        <!-- 1) Entrenamiento físico integral -->
         <div class="programa-bloque">
             <div class="programa-img">
-                <img src="<?= base_url('imagenes/grupo3.jpg') ?>" alt="Fuerza y pesas">
+                <img src="<?= base_url('imagenes/IMG5.jpeg') ?>" alt="Entrenamiento físico integral">
             </div>
             <div class="programa-info">
-                <h3>Trabajo de fuerza y pesas</h3>
-                <p>Entrenamiento integral que combina ejercicios de fuerza, 
-                    resistencia y movilidad para mejorar el rendimiento físico general.</p>
+                <h3>Entrenamiento físico integral</h3>
+                <p>
+                    Combina <b>acondicionamiento físico</b> y <b>entrenamiento funcional</b> para mejorar tu rendimiento general,
+                    capacidad cardiovascular, movilidad y coordinación.
+                </p>
+                <p>Ideal si buscas:</p>
+                <ul>
+                    <li>Mejorar tu resistencia y energía diaria</li>
+                    <li>Ganar movilidad, equilibrio y coordinación</li>
+                    <li>Aumentar tu capacidad física con ejercicios dinámicos</li>
+                    <li>Prevenir lesiones con movimientos naturales</li>
+                    <li>Un entrenamiento adaptable a tu nivel</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 2) Fuerza y composición corporal -->
+        <div class="programa-bloque reverse">
+            <div class="programa-img">
+                <img src="<?= base_url('imagenes/fuerza.jpeg') ?>" alt="Fuerza y composición corporal">
+            </div>
+            <div class="programa-info"> 
+                <h3>Fuerza y composición corporal</h3>
+                <p>
+                    Enfocado en <b>fuerza resistencia</b> y <b>tonicidad muscular</b>.
+                    Trabajamos con rutinas estructuradas para fortalecer, definir y mejorar tu rendimiento muscular.
+                </p>
                 <p>Los beneficios incluyen:</p>
                 <ul>
-                    <li>Mejora de la fuerza y resistencia muscular</li>
-                    <li>Incremento de la masa muscular</li>
-                    <li>Mejora de la salud ósea y articular</li>
-                    <li>Mejora del metabolismo y quema de grasa</li>
+                    <li>Mejora de fuerza y resistencia muscular</li>
+                    <li>Mayor tonicidad y definición</li>
+                    <li>Mejor postura y estabilidad articular</li>
+                    <li>Impulso del metabolismo y quema de grasa</li>
                     <li>Reducción del riesgo de lesiones</li>
                 </ul>
             </div>
         </div>
 
-        <div class="programa-bloque reverse">
+        <!-- 3) Combate y alto rendimiento -->
+        <div class="programa-bloque">
             <div class="programa-img">
-                <img src="<?= base_url('imagenes/IMG1.png') ?>" alt="MMA">
+                <img src="<?= base_url('imagenes/IMG4.jpeg') ?>" alt="Combate y alto rendimiento">
             </div>
             <div class="programa-info">
-                <h3>MMA</h3>
-                <p>Aunque muchas personas asocian el MMA con competencias de alto nivel como la UFC, el entrenamiento es accesible para
-                    personas de diferentes edades y niveles, y no necesariamente implica participar en peleas profesionales.</p>
-                <p>Los beneficios del entrenamiento de MMA incluyen:</p>
+                <h3>Combate y alto rendimiento (MMA)</h3>
+                <p>
+                    Entrenamiento de <b>MMA</b> accesible para diferentes edades y niveles.
+                    No necesitas competir: puedes entrenar para mejorar condición, técnica y autodefensa.
+                </p>
+                <p>Los beneficios del entrenamiento incluyen:</p>
                 <ul>
-                    <li>Mejora tu condición física</li>
+                    <li>Mejora tu condición física y cardio</li>
                     <li>Desarrolla habilidades de autodefensa</li>
-                    <li>Fomenta la disciplina y el autocontrol</li>
+                    <li>Fomenta disciplina y autocontrol</li>
                     <li>Mejora coordinación, equilibrio y reflejos</li>
-                    <li>Reducción de estrés y mejora emocional</li>
-                </ul> 		
+                    <li>Reduce estrés y mejora el enfoque</li>
+                </ul>
             </div>
         </div>
 
-        <div class="programa-bloque">
-            <div class="programa-img">
-                <img src="<?= base_url('imagenes/acondicionamiento_fisico.jpg') ?>" alt="Trabajo funcional">
-            </div>
-            <div class="programa-info">
-                <h3>Trabajo funcional</h3>
-                <p>Entrenamiento que mejora la fuerza, equilibrio y flexibilidad a través de movimientos naturales.</p>
-                <p>Los beneficios incluyen:</p>
-                <ul>
-                    <li>Mejora de rendimiento deportivo</li>
-                    <li>Adaptable a todos los niveles</li>
-                    <li>Mejora de la movilidad y flexibilidad</li>
-                    <li>Reducción del riesgo de lesiones</li>
-                    <li>Mejora del equilibrio y coordinación</li>
-                </ul> 		
-            </div>
-        </div>
     </div>
 </section>
 

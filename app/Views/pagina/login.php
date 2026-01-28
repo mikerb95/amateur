@@ -6,7 +6,7 @@
 
 <div class="container">
   <div class="logo">
-    <a href="<?= base_url('/inicio') ?>"><img class="logo-encabezado" src="<?= base_url('imagenes/Logo blanco_Trans.png') ?>" alt="Logo Club Amateur"  id="logo"></a>
+    <a href="<?= base_url('/inicio') ?>"><img class="logo-encabezado" src="<?= base_url('imagenes/logo amateur.png') ?>" alt="Logo Club Amateur"  id="logo"></a>
   </div>
 
   <div class="inicio">
