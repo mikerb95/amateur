@@ -8,7 +8,9 @@ use App\Models\ClaseModel;
 use App\Models\PagoModel;
 use App\Models\ReservaModel;
 use App\Models\PlanModel;
+// use App\Models\PaqueteCatalogoModel; // SOLO si lo vas a usar aquí
 use CodeIgniter\Exceptions\PageNotFoundException;
+
 
 class Admin extends BaseController
 {
@@ -148,14 +150,16 @@ public function dashboard_admin()
     // =========================
    public function eliminar_Usuario($idUsuario)
 {
-    // 1. Borrar pagos del usuario
-    $this->db->table('pagos')->where('id_usuario', $idUsuario)->delete();
+    $pagoModel    = new \App\Models\PagoModel();
+    $reservaModel = new \App\Models\ReservaModel();
+    $usuarioModel = new \App\Models\DatosUsuarioModel();
 
-    // 2. Borrar reservas si existen
-    $this->db->table('reservas')->where('id_usuario', $idUsuario)->delete();
+    $pagoModel->where('id_usuario', $idUsuario)->delete();
+    $reservaModel->where('id_usuario', $idUsuario)->delete();
+    $usuarioModel->delete($idUsuario);
 
-    // 3. Borrar usuario
-    return $this->db->table('datos_usuarios')->where('id_usuario', $idUsuario)->delete();
+    return redirect()->to(base_url('admin/usuarios'))
+        ->with('success', 'Usuario eliminado correctamente.');
 }
 
     // =========================
@@ -311,4 +315,10 @@ public function eliminar_reserva($id_reserva)
 
     return view('admin/crear_clase');
 }
+
+public function planes()
+{
+    return view('admin/planes');
+}
+
 }

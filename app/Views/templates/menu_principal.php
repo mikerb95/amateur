@@ -49,6 +49,14 @@
                 </a>
             </li>
 
+             <li>
+                <a href="<?= base_url('admin/asignar_plan') ?>" 
+                   class="icon-link <?= ($segment == 'asignar_plan' ? 'active' : '') ?>">
+                    <img src="<?= base_url('imagenes/paquetes 2.png') ?>" alt="Paquetes">
+                    <span class="tooltip">Paquetes</span>
+                </a>
+            </li>
+
             <li>
                 <a href="<?= base_url('logout') ?>" class="icon-link logout-link">
                     <img src="<?= base_url('imagenes/logout.svg') ?>" alt="Salir">

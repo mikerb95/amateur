@@ -141,9 +141,9 @@ body {
 }
 
 .card .icon {
-    width: 80px !important;
-    height: 80px !important;
-    margin-bottom: 15px;
+    width: 72px !important;
+    height: 72px !important;
+    object-fit: contain;
 }
 
 .card h3 {
@@ -515,50 +515,67 @@ body {
     border-color: #dcd2ff;
 }
 
-/* ====== ESTADO ACTIVO DEL MENÚ MEJORADO ====== */
+/* ====== ESTADO ACTIVO DEL MENÚ (FIX) ====== */
+
+/* Tamaño estándar iconos del header */
+.icon-menu .icon-link img,
+.icon-link img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    filter: brightness(0) invert(1) opacity(0.9);
+    transition: transform .2s ease, filter .2s ease;
+}
+
+/* Hover icono */
+.icon-menu .icon-link:hover img {
+    transform: scale(1.12);
+    filter: brightness(0) invert(1) opacity(1);
+}
+
+/* Tooltip */
+.icon-menu .tooltip,
+.icon-link .tooltip {
+    margin-top: 6px;
+    font-size: 0.78rem;
+    color: #fff;
+    opacity: 0.95;
+}
+
+/* ✅ Activo: halo + blur */
+.icon-menu .icon-link.active,
 .icon-link.active {
-    background-color: radial-gradient(ciercle, rgba(255, 255, 255, 0.75) 0%, transparent 20%) ;
     border-radius: 14px;
     padding: 10px;
+    margin-bottom: 5px;
+    background: radial-gradient(circle, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.00) 70%);
     backdrop-filter: blur(4px);
     transition: all 0.3s ease;
 }
 
-/* ====== ESTADO ACTIVO (MOSTRAR COLOR REAL DEL ICONO) ====== */
-.icon-link.active {
-    background-color:radial-gradient(ciercle, transparent 70%, rgba(255, 255, 255, 0.75) 0%) ; /* fondo blanco suave */
-    border-radius: 14px;
-    padding: 10px;
-    transition: 0.3s ease;
-    margin-bottom: 5px;
-}
-
-/* Icono activo SIN filtros: muestra su color original */
+/* Icono activo */
+.icon-menu .icon-link.active img,
 .icon-link.active img {
-    opacity: 1 !important;
-    transform: scale(1.3);
+    opacity: 1;
+    transform: scale(1.18);
     animation: pop 0.25s ease;
-    z-index: 1800;
-    filter: brightness(0) invert(1) drop-shadow(0 0 5px #ff5fcc);
+    filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255, 92, 204, 0.75));
 }
 
-.icon-link.active {
-    .tooltip {
-        margin-top: 5px;
-        z-index: 1900;
-    }
+/* Tooltip en activo (CSS válido) */
+.icon-menu .icon-link.active .tooltip,
+.icon-link.active .tooltip {
+    margin-top: 6px;
+    z-index: 1900;
+    font-weight: 600;
+    opacity: 1;
 }
 
 /* Animación */
 @keyframes pop {
     0% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-    100% { transform: scale(1.2); }
-}
-
-.icon-link img {
-    width: 50px; 
-    height: auto;
+    50% { transform: scale(1.22); }
+    100% { transform: scale(1.18); }
 }
 
 .badge {
@@ -597,4 +614,44 @@ body {
 .badge:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ====== LOGOUT MINIMAL (FIJO ARRIBA A LA DERECHA) ====== */
+.top-right-button{
+    position: fixed !important;
+    top: 85px !important;     /* ajusta si lo quieres más arriba/abajo */
+    right: 22px !important;
+    z-index: 9999 !important;
+}
+
+/* botón circular */
+.logout-mini{
+    width: 44px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    background: #7a1fc5 !important;
+    border-radius: 999px !important;
+
+    text-decoration: none !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18) !important;
+
+    transition: transform .2s ease, background .2s ease !important;
+}
+
+/* icono pequeño (no hereda .icon) */
+.logout-mini-icon{
+    width: 18px !important;
+    height: 18px !important;
+    display: block !important;
+
+    filter: brightness(0) invert(1) !important;
+}
+
+/* hover */
+.logout-mini:hover{
+    transform: translateY(-2px) !important;
+    background: #5a0ea3 !important;
 }

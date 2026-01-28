@@ -87,16 +87,17 @@ class ClaseModel extends Model
     // =========================
     // Nueva función: validar cupos por fecha
     // =========================
-    public function tieneCupo($idClase, $fecha, $reservaModel)
-    {
-        $clase = $this->find($idClase);
-        if (!$clase) return false;
+   public function tieneCupo($idClase, $fechaClase, $reservaModel)
+{
+    $clase = $this->find($idClase);
+    if (!$clase) return false;
 
-        // Contar reservas para la fecha
-        $reservasEnFecha = $reservaModel->where('id_clases', $idClase)
-                                        ->where('fecha_reserva', $fecha)
-                                        ->countAllResults();
+    $reservasEnFecha = $reservaModel->where('id_clases', $idClase)
+                                    ->where('fecha_clase', $fechaClase)
+                                    ->whereIn('estado', ['Pendiente','Confirmada','Completada'])
+                                    ->countAllResults();
 
-        return $reservasEnFecha < $clase['cupo_maximo'];
-    }
+    return $reservasEnFecha < $clase['cupo_maximo'];
+}
+
 }
